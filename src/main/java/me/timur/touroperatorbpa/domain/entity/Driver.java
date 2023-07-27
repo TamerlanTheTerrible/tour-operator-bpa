@@ -20,17 +20,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "guide")
-public class Guide extends BaseEntity {
+@Table(name = "driver")
+public class Driver extends BaseEntity {
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @Column(name = "first_name")
     private String lastName;
-
-    @Column(name = "languages", nullable = false)
-    List<Language> languages;
 
     @Column(name = "phone", nullable = false)
     private String phone;

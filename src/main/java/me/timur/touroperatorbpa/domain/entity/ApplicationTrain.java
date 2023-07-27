@@ -37,7 +37,7 @@ public class ApplicationTrain extends BaseEntity {
     private String to;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "class")
+    @Column(name = "ticket_class")
     private TrainClass ticketClass;
 
     @Column(name = "time")

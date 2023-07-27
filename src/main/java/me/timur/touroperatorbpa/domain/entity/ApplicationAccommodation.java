@@ -33,7 +33,7 @@ public class ApplicationAccommodation extends BaseEntity {
     @Column(name = "check_in", nullable = false)
     private LocalDateTime checkIn;
 
-    @Column(name = "check_in", nullable = false)
+    @Column(name = "check_out", nullable = false)
     private LocalDateTime checkOut;
 
     @OneToMany(mappedBy = "application", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

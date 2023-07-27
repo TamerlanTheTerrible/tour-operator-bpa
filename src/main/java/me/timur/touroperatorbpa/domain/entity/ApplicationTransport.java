@@ -27,21 +27,14 @@ public class ApplicationTransport extends BaseEntity {
     @JoinColumn(name = "group", nullable = false)
     private Group group;
 
-    @Column(name = "from", nullable = false)
-    private LocalDate from;
-
-    @Column(name = "to", nullable = false)
-    private LocalDate to;
+    @Column(name = "date", nullable = false)
+    private LocalDate date;
 
     @Column(name = "direction", nullable = false)
     private String direction;
 
     @Column(name = "comment")
     private String comment;
-
-    @ManyToOne
-    @JoinColumn(name = "driver")
-    private User driver;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)

@@ -29,7 +29,7 @@ public class ApplicationGeneral extends BaseEntity {
     private LocalDate date;
 
     @ManyToOne
-    @JoinColumn(name = "restaurant", nullable = false)
+    @JoinColumn(name = "location", nullable = false)
     private Location location;
 
     @Column(name = "comment")

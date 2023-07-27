@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import me.timur.touroperatorbpa.domain.enums.ApplicationStatus;
+import me.timur.touroperatorbpa.domain.enums.MealType;
 
 import java.time.LocalDate;
 
@@ -31,6 +32,10 @@ public class ApplicationRestaurant extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "restaurant", nullable = false)
     private Restaurant restaurant;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "meal_type", nullable = false)
+    private MealType mealType;
 
     @Column(name = "requested", nullable = false)
     private Integer requested;

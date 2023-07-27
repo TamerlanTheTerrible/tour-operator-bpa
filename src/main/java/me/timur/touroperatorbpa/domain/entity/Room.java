@@ -18,7 +18,7 @@ import lombok.Setter;
 @Table(name = "room")
 public class Room extends BaseEntity {
     @ManyToOne
-    @JoinColumn(name = "application", nullable = false)
+    @JoinColumn(name = "accommodation_application", nullable = false)
     private ApplicationAccommodation application;
 
     @Column(name = "group_number", nullable = false)
