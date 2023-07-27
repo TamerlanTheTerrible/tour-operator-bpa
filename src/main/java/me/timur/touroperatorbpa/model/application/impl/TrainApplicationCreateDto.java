@@ -61,7 +61,6 @@ public class TrainApplicationCreateDto extends AbstractApplicationCreate {
                     ", ticketClass=" + ticketClass +
                     ", time='" + time + '\'' +
                     ", requested=" + requested +
-                    ", provided=" + provided +
                     ", comment='" + comment + '\'' +
                     '}';
         }
