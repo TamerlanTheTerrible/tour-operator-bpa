@@ -6,7 +6,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import me.timur.touroperatorbpa.domain.enums.ApplicationStatus;
 import me.timur.touroperatorbpa.domain.enums.FlightClass;
+import me.timur.touroperatorbpa.model.application.AbstractApplication;
 import me.timur.touroperatorbpa.model.application.AbstractApplicationCreate;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 
@@ -19,7 +21,7 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class FlightApplicationCreateDto extends AbstractApplicationCreate {
+public class FlightApplicationDto extends AbstractApplication {
 
     @JsonProperty("items")
     private List<FlightItem> items;
@@ -46,8 +48,14 @@ public class FlightApplicationCreateDto extends AbstractApplicationCreate {
         @JsonProperty("requested")
         private Integer requested;
 
+        @JsonProperty("provided")
+        private Integer provided;
+
         @JsonProperty("comment")
         private String comment;
+
+        @JsonProperty("status")
+        public ApplicationStatus status;
 
         @Override
         public String toString() {
@@ -58,16 +66,20 @@ public class FlightApplicationCreateDto extends AbstractApplicationCreate {
                     ", ticketClass=" + ticketClass +
                     ", time='" + time + '\'' +
                     ", requested=" + requested +
+                    ", provided=" + provided +
                     ", comment='" + comment + '\'' +
+                    ", status=" + status +
                     '}';
         }
     }
 
     @Override
     public String toString() {
-        return "FlightApplicationCreateDto{" +
+        return "FlightApplicationDto{" +
                 "items=" + items +
+                ", id=" + id +
                 ", groupId=" + groupId +
+                ", groupNumber='" + groupNumber + '\'' +
                 '}';
     }
 }

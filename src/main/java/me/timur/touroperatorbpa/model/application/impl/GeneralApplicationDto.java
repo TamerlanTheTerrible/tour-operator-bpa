@@ -5,11 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import me.timur.touroperatorbpa.domain.entity.Guide;
+import me.timur.touroperatorbpa.domain.entity.Location;
+import me.timur.touroperatorbpa.domain.enums.ApplicationStatus;
+import me.timur.touroperatorbpa.model.application.AbstractApplication;
 import me.timur.touroperatorbpa.model.application.AbstractApplicationCreate;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 
@@ -22,45 +22,45 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class GuideApplicationCreateDto extends AbstractApplicationCreate {
+public class GeneralApplicationDto extends AbstractApplication {
 
     @JsonProperty("items")
-    private List<GuideItem> items;
+    private List<Item> items;
 
     @Data
-    public static class GuideItem {
-        @JsonProperty("from")
+    public static class Item {
+        @JsonProperty("date")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = LocalDateTimeUtil.DATE_PATTERN)
         @JsonDeserialize(using = LocalDateDeserializer.class)
-        private LocalDate from;
+        private LocalDate date;
 
-        @JsonProperty("to")
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = LocalDateTimeUtil.DATE_PATTERN)
-        @JsonDeserialize(using = LocalDateDeserializer.class)
-        private LocalDate to;
-
-        @JsonProperty("guide_id")
-        private Long guideId;
+        @JsonProperty("location")
+        private String location;
 
         @JsonProperty("comment")
         private String comment;
 
+        @JsonProperty("status")
+        private ApplicationStatus status;
+
         @Override
         public String toString() {
-            return "GuideItem{" +
-                    "from=" + from +
-                    ", to=" + to +
-                    ", guideId=" + guideId +
+            return "Item{" +
+                    "date=" + date +
+                    ", location=" + location +
                     ", comment='" + comment + '\'' +
+                    ", status=" + status +
                     '}';
         }
     }
 
     @Override
     public String toString() {
-        return "GuideApplicationCreateDto{" +
+        return "GeneralApplicationDto{" +
                 "items=" + items +
+                ", id=" + id +
                 ", groupId=" + groupId +
+                ", groupNumber='" + groupNumber + '\'' +
                 '}';
     }
 }

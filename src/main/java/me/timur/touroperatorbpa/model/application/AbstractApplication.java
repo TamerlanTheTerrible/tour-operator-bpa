@@ -10,10 +10,9 @@ import me.timur.touroperatorbpa.domain.enums.ApplicationStatus;
 
 @Data
 public abstract class AbstractApplication {
+    public Long id;
     @JsonProperty("group_id")
     public Long groupId;
     @JsonProperty("group_number")
     public String groupNumber;
-    public String comment;
-    public ApplicationStatus status;
 }

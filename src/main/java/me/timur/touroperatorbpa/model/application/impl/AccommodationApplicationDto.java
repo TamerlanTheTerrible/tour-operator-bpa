@@ -6,7 +6,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import me.timur.touroperatorbpa.model.application.AbstractApplicationCreate;
+import me.timur.touroperatorbpa.domain.enums.ApplicationStatus;
+import me.timur.touroperatorbpa.model.application.AbstractApplication;
 import me.timur.touroperatorbpa.model.application.RoomDto;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 
@@ -19,7 +20,7 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class AccommodationApplicationCreateDto extends AbstractApplicationCreate {
+public class AccommodationApplicationDto extends AbstractApplication {
 
     @JsonProperty("items")
     private List<AccommodationItem> items;
@@ -45,6 +46,8 @@ public class AccommodationApplicationCreateDto extends AbstractApplicationCreate
         @JsonProperty("comment")
         public String comment;
 
+        @JsonProperty("status")
+        public ApplicationStatus status;
 
         @Override
         public String toString() {
@@ -54,15 +57,18 @@ public class AccommodationApplicationCreateDto extends AbstractApplicationCreate
                     ", checkOut=" + checkOut +
                     ", rooms=" + rooms +
                     ", comment='" + comment + '\'' +
+                    ", status=" + status +
                     '}';
         }
     }
 
     @Override
     public String toString() {
-        return "AccommodationApplicationCreateDto{" +
+        return "AccommodationApplicationDto{" +
                 "items=" + items +
+                ", id=" + id +
                 ", groupId=" + groupId +
+                ", groupNumber='" + groupNumber + '\'' +
                 '}';
     }
 }

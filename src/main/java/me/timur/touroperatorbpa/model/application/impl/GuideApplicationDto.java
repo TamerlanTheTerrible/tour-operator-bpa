@@ -5,11 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import me.timur.touroperatorbpa.domain.entity.Guide;
+import me.timur.touroperatorbpa.domain.enums.ApplicationStatus;
+import me.timur.touroperatorbpa.model.application.AbstractApplication;
 import me.timur.touroperatorbpa.model.application.AbstractApplicationCreate;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 
@@ -22,7 +21,7 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class GuideApplicationCreateDto extends AbstractApplicationCreate {
+public class GuideApplicationDto extends AbstractApplication {
 
     @JsonProperty("items")
     private List<GuideItem> items;
@@ -45,6 +44,9 @@ public class GuideApplicationCreateDto extends AbstractApplicationCreate {
         @JsonProperty("comment")
         private String comment;
 
+        @JsonProperty("status")
+        private ApplicationStatus status;
+
         @Override
         public String toString() {
             return "GuideItem{" +
@@ -52,15 +54,18 @@ public class GuideApplicationCreateDto extends AbstractApplicationCreate {
                     ", to=" + to +
                     ", guideId=" + guideId +
                     ", comment='" + comment + '\'' +
+                    ", status=" + status +
                     '}';
         }
     }
 
     @Override
     public String toString() {
-        return "GuideApplicationCreateDto{" +
+        return "GuideApplicationDto{" +
                 "items=" + items +
+                ", id=" + id +
                 ", groupId=" + groupId +
+                ", groupNumber='" + groupNumber + '\'' +
                 '}';
     }
 }

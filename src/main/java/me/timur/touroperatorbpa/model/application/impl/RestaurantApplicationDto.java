@@ -6,7 +6,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import me.timur.touroperatorbpa.domain.enums.FlightClass;
+import me.timur.touroperatorbpa.domain.enums.ApplicationStatus;
+import me.timur.touroperatorbpa.domain.enums.MealType;
+import me.timur.touroperatorbpa.model.application.AbstractApplication;
 import me.timur.touroperatorbpa.model.application.AbstractApplicationCreate;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 
@@ -19,55 +21,49 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class FlightApplicationCreateDto extends AbstractApplicationCreate {
+public class RestaurantApplicationDto extends AbstractApplication {
 
     @JsonProperty("items")
-    private List<FlightItem> items;
+    private List<RestaurantItem> restaurantItems;
 
     @Data
-    public static class FlightItem {
+    public static class RestaurantItem {
         @JsonProperty("date")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = LocalDateTimeUtil.DATE_PATTERN)
         @JsonDeserialize(using = LocalDateDeserializer.class)
         private LocalDate date;
 
-        @JsonProperty("from")
-        private String from;
+        @JsonProperty("restaurant_id")
+        private Long restaurantId;
 
-        @JsonProperty("to")
-        private String to;
-
-        @JsonProperty("ticket_class")
-        private FlightClass ticketClass;
-
-        @JsonProperty("time")
-        private String time;
+        @JsonProperty("meal_type")
+        private MealType mealType;
 
         @JsonProperty("requested")
         private Integer requested;
 
-        @JsonProperty("comment")
-        private String comment;
+        @JsonProperty("status")
+        private ApplicationStatus status;
 
         @Override
         public String toString() {
-            return "FlightItem{" +
+            return "Item{" +
                     "date=" + date +
-                    ", from='" + from + '\'' +
-                    ", to='" + to + '\'' +
-                    ", ticketClass=" + ticketClass +
-                    ", time='" + time + '\'' +
+                    ", restaurantId=" + restaurantId +
+                    ", mealType=" + mealType +
                     ", requested=" + requested +
-                    ", comment='" + comment + '\'' +
+                    ", status=" + status +
                     '}';
         }
     }
 
     @Override
     public String toString() {
-        return "FlightApplicationCreateDto{" +
-                "items=" + items +
+        return "RestaurantApplicationDto{" +
+                "restaurantItems=" + restaurantItems +
+                ", id=" + id +
                 ", groupId=" + groupId +
+                ", groupNumber='" + groupNumber + '\'' +
                 '}';
     }
 }

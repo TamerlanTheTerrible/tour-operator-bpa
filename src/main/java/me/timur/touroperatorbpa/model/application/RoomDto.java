@@ -8,16 +8,19 @@ import lombok.Data;
  */
 
 @Data
-public class RoomCreateDto {
+public class RoomDto {
     @JsonProperty("room_type")
     private String roomType;
 
     @JsonProperty("requested")
     private Integer requested;
 
+    @JsonProperty("provided")
+    private Integer provided;
+
     @Override
     public String toString() {
-        return "RoomCreateDto{" +
+        return "RoomDto{" +
                 "roomType='" + roomType + '\'' +
                 ", requested=" + requested +
                 '}';

@@ -35,9 +35,9 @@ public class GeneralApplicationCreateDto extends AbstractApplicationCreate {
         private LocalDate date;
 
         @JsonProperty("location")
-        private Location location;
+        private String location;
 
-        @Column(name = "comment")
+        @JsonProperty("comment")
         private String comment;
 
         @Override
