@@ -13,7 +13,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "accommodation")
 public class Accommodation extends BaseEntity {
@@ -23,4 +22,9 @@ public class Accommodation extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "location", nullable = false)
     private Location location;
+
+    public Accommodation(String name, Location location) {
+        this.name = name;
+        this.location = location;
+    }
 }

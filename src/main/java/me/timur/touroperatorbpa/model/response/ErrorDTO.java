@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import me.timur.touroperatorbpa.exception.BaseException;
+import me.timur.touroperatorbpa.exception.OperatorBpaException;
 import me.timur.touroperatorbpa.exception.ResponseCode;
 
 /**
@@ -20,8 +20,8 @@ public class ErrorDTO{
     private String message;
 
     public ErrorDTO(Exception e) {
-        if(e instanceof BaseException) {
-            this.code = ((BaseException) e).getErrorConstant().code();
+        if(e instanceof OperatorBpaException) {
+            this.code = ((OperatorBpaException) e).getResponseCode().code();
             this.message = e.getMessage();
         } else {
             this.code = ResponseCode.INTERNAL_SERVER_ERROR.code();
