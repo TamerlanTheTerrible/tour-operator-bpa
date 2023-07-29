@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Created by Temurbek Ismoilov on 26/07/23.
@@ -12,5 +13,7 @@ import java.time.LocalDateTime;
 
 @Repository
 public interface GroupRepository extends JpaRepository<Group, Long> {
-    Long countByAndArrivalBetween(LocalDateTime from, LocalDateTime to);
+    Long countByArrivalBetween(LocalDateTime from, LocalDateTime to);
+    Boolean existsByNumberStartsWithAndArrivalBetween(String number, LocalDateTime from, LocalDateTime to);
+    List<Group> findAllByTourOperatorId(Long id);
 }
