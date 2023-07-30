@@ -22,7 +22,7 @@ import java.time.LocalDate;
 @Table(name = "application_general")
 public class ApplicationGeneral extends BaseEntity {
     @ManyToOne
-    @JoinColumn(name = "group", nullable = false)
+    @JoinColumn(name = "group_id", nullable = false)
     private Group group;
 
     @Column(name = "date", nullable = false)

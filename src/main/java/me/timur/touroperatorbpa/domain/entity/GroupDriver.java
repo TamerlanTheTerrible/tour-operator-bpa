@@ -24,10 +24,10 @@ public class GroupDriver extends BaseEntity {
     @JoinColumn(name = "transport_application", nullable = false)
     private ApplicationTransport application;
 
-    @Column(name = "from", nullable = false)
+    @Column(name = "fromDate", nullable = false)
     private LocalDate from;
 
-    @Column(name = "to", nullable = false)
+    @Column(name = "toDate", nullable = false)
     private LocalDate to;
 
     @ManyToOne

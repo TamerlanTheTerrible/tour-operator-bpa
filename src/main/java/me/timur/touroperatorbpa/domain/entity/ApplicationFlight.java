@@ -23,16 +23,16 @@ import java.time.LocalDate;
 @Table(name = "application_flight")
 public class ApplicationFlight extends BaseEntity {
     @ManyToOne
-    @JoinColumn(name = "group", nullable = false)
+    @JoinColumn(name = "group_id", nullable = false)
     private Group group;
 
     @Column(name = "date", nullable = false)
     private LocalDate date;
 
-    @Column(name = "from", nullable = false)
+    @Column(name = "from_location", nullable = false)
     private String from;
 
-    @Column(name = "to", nullable = false)
+    @Column(name = "to_location", nullable = false)
     private String to;
 
     @Enumerated(EnumType.STRING)

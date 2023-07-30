@@ -24,7 +24,7 @@ import java.util.List;
 @Table(name = "application_transport")
 public class ApplicationTransport extends BaseEntity {
     @ManyToOne
-    @JoinColumn(name = "group", nullable = false)
+    @JoinColumn(name = "group_id", nullable = false)
     private Group group;
 
     @Column(name = "date", nullable = false)

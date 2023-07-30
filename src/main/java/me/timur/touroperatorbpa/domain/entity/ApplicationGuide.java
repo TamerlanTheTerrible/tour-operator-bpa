@@ -22,13 +22,13 @@ import java.time.LocalDate;
 @Table(name = "application_guide")
 public class ApplicationGuide extends BaseEntity {
     @ManyToOne
-    @JoinColumn(name = "group", nullable = false)
+    @JoinColumn(name = "group_id", nullable = false)
     private Group group;
 
-    @Column(name = "from", nullable = false)
+    @Column(name = "fromDate", nullable = false)
     private LocalDate from;
 
-    @Column(name = "to", nullable = false)
+    @Column(name = "toDate", nullable = false)
     private LocalDate to;
 
     @ManyToOne
