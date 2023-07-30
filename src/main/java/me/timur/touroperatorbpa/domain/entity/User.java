@@ -15,7 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User extends BaseEntity {
     @Column(name = "first_name", nullable = false)
     private String firstName;

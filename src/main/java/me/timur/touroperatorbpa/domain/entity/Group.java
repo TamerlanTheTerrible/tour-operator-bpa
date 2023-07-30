@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "group")
+@Table(name = "groups")
 public class Group extends BaseEntity {
     @Column(name = "number", nullable = false)
     private String number;
@@ -64,5 +64,6 @@ public class Group extends BaseEntity {
         this.arrival = dto.getArrival();
         this.departure = dto.getDeparture();
         this.comment = dto.getComment();
+        this.status = GroupStatus.ACTIVE;
     }
 }
