@@ -28,6 +28,8 @@ public class TrainApplicationDto extends AbstractApplication {
 
     @Data
     public static class TrainItem {
+        private Long id;
+
         @JsonProperty("date")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = LocalDateTimeUtil.DATE_PATTERN)
         @JsonDeserialize(using = LocalDateDeserializer.class)
@@ -60,7 +62,8 @@ public class TrainApplicationDto extends AbstractApplication {
         @Override
         public String toString() {
             return "TrainItem{" +
-                    "date=" + date +
+                    "id=" + id +
+                    ", date=" + date +
                     ", from='" + from + '\'' +
                     ", to='" + to + '\'' +
                     ", ticketClass=" + ticketClass +
@@ -77,7 +80,6 @@ public class TrainApplicationDto extends AbstractApplication {
     public String toString() {
         return "TrainApplicationDto{" +
                 "items=" + items +
-                ", id=" + id +
                 ", groupId=" + groupId +
                 ", groupNumber='" + groupNumber + '\'' +
                 '}';

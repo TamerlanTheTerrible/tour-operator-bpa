@@ -29,6 +29,8 @@ public class GeneralApplicationDto extends AbstractApplication {
 
     @Data
     public static class Item {
+        private Long id;
+
         @JsonProperty("date")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = LocalDateTimeUtil.DATE_PATTERN)
         @JsonDeserialize(using = LocalDateDeserializer.class)
@@ -46,8 +48,9 @@ public class GeneralApplicationDto extends AbstractApplication {
         @Override
         public String toString() {
             return "Item{" +
-                    "date=" + date +
-                    ", location=" + location +
+                    "id=" + id +
+                    ", date=" + date +
+                    ", location='" + location + '\'' +
                     ", comment='" + comment + '\'' +
                     ", status=" + status +
                     '}';
@@ -58,7 +61,6 @@ public class GeneralApplicationDto extends AbstractApplication {
     public String toString() {
         return "GeneralApplicationDto{" +
                 "items=" + items +
-                ", id=" + id +
                 ", groupId=" + groupId +
                 ", groupNumber='" + groupNumber + '\'' +
                 '}';

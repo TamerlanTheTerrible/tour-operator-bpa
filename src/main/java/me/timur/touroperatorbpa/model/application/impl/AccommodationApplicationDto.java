@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import me.timur.touroperatorbpa.domain.entity.ApplicationAccommodation;
+import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.domain.enums.ApplicationStatus;
 import me.timur.touroperatorbpa.model.application.AbstractApplication;
 import me.timur.touroperatorbpa.model.application.RoomDto;
@@ -27,6 +29,8 @@ public class AccommodationApplicationDto extends AbstractApplication {
 
     @Data
     public static class AccommodationItem {
+        public Long id;
+
         @JsonProperty("accommodation_id")
         private Long accommodationId;
 
@@ -49,10 +53,21 @@ public class AccommodationApplicationDto extends AbstractApplication {
         @JsonProperty("status")
         public ApplicationStatus status;
 
+        public AccommodationItem(ApplicationAccommodation entity) {
+            this.id = entity.getId();
+            this.accommodationId = entity.getAccommodation().getId();
+            this.checkIn = entity.getCheckIn();
+            this.checkOut = entity.getCheckOut();
+            this.rooms = entity.getRooms().stream().map(RoomDto::new).toList();
+            this.comment = entity.getComment();
+
+        }
+
         @Override
         public String toString() {
             return "AccommodationItem{" +
-                    "accommodationId=" + accommodationId +
+                    "id=" + id +
+                    ", accommodationId=" + accommodationId +
                     ", checkIn=" + checkIn +
                     ", checkOut=" + checkOut +
                     ", rooms=" + rooms +
@@ -62,11 +77,17 @@ public class AccommodationApplicationDto extends AbstractApplication {
         }
     }
 
+    public AccommodationApplicationDto(Group group, List<ApplicationAccommodation> entities) {
+        this.items = entities.stream().map(AccommodationItem::new).toList();
+        this.groupId = group.getId();
+        this.groupNumber = group.getNumber();
+        this.status = this.getOverallStatus(this.items.stream().map(AccommodationItem::getStatus).toList());
+    }
+
     @Override
     public String toString() {
         return "AccommodationApplicationDto{" +
                 "items=" + items +
-                ", id=" + id +
                 ", groupId=" + groupId +
                 ", groupNumber='" + groupNumber + '\'' +
                 '}';

@@ -28,6 +28,8 @@ public class TransportApplicationDto extends AbstractApplication {
 
     @Data
     public static class TransportItem {
+        private Long id;
+
         @JsonProperty("date")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = LocalDateTimeUtil.DATE_PATTERN)
         @JsonDeserialize(using = LocalDateDeserializer.class)
@@ -48,7 +50,8 @@ public class TransportApplicationDto extends AbstractApplication {
         @Override
         public String toString() {
             return "TransportItem{" +
-                    "date=" + date +
+                    "id=" + id +
+                    ", date=" + date +
                     ", direction='" + direction + '\'' +
                     ", comment='" + comment + '\'' +
                     ", drivers=" + drivers +
@@ -61,7 +64,6 @@ public class TransportApplicationDto extends AbstractApplication {
     public String toString() {
         return "TransportApplicationDto{" +
                 "items=" + items +
-                ", id=" + id +
                 ", groupId=" + groupId +
                 ", groupNumber='" + groupNumber + '\'' +
                 '}';

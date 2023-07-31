@@ -28,6 +28,8 @@ public class GuideApplicationDto extends AbstractApplication {
 
     @Data
     public static class GuideItem {
+        private Long id;
+
         @JsonProperty("from")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = LocalDateTimeUtil.DATE_PATTERN)
         @JsonDeserialize(using = LocalDateDeserializer.class)
@@ -50,7 +52,8 @@ public class GuideApplicationDto extends AbstractApplication {
         @Override
         public String toString() {
             return "GuideItem{" +
-                    "from=" + from +
+                    "id=" + id +
+                    ", from=" + from +
                     ", to=" + to +
                     ", guideId=" + guideId +
                     ", comment='" + comment + '\'' +
@@ -63,7 +66,6 @@ public class GuideApplicationDto extends AbstractApplication {
     public String toString() {
         return "GuideApplicationDto{" +
                 "items=" + items +
-                ", id=" + id +
                 ", groupId=" + groupId +
                 ", groupNumber='" + groupNumber + '\'' +
                 '}';

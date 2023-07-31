@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import me.timur.touroperatorbpa.model.application.RoomDto;
 
 /**
  * Created by Temurbek Ismoilov on 26/07/23.
@@ -32,4 +33,12 @@ public class Room extends BaseEntity {
 
     @Column(name = "provided", nullable = false)
     private Integer provided;
+
+    public Room(ApplicationAccommodation application, RoomDto roomDto) {
+        this.application = application;
+        this.groupNumber = application.getGroup().getNumber();
+        this.roomType = roomDto.getRoomType();
+        this.requested = roomDto.getRequested();
+        this.provided = 0;
+    }
 }

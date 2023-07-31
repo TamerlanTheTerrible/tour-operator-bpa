@@ -28,6 +28,8 @@ public class RestaurantApplicationDto extends AbstractApplication {
 
     @Data
     public static class RestaurantItem {
+        private Long id;
+
         @JsonProperty("date")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = LocalDateTimeUtil.DATE_PATTERN)
         @JsonDeserialize(using = LocalDateDeserializer.class)
@@ -47,8 +49,9 @@ public class RestaurantApplicationDto extends AbstractApplication {
 
         @Override
         public String toString() {
-            return "Item{" +
-                    "date=" + date +
+            return "RestaurantItem{" +
+                    "id=" + id +
+                    ", date=" + date +
                     ", restaurantId=" + restaurantId +
                     ", mealType=" + mealType +
                     ", requested=" + requested +
@@ -61,7 +64,6 @@ public class RestaurantApplicationDto extends AbstractApplication {
     public String toString() {
         return "RestaurantApplicationDto{" +
                 "restaurantItems=" + restaurantItems +
-                ", id=" + id +
                 ", groupId=" + groupId +
                 ", groupNumber='" + groupNumber + '\'' +
                 '}';

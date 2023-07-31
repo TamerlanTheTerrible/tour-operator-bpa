@@ -6,8 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import me.timur.touroperatorbpa.domain.enums.ApplicationStatus;
+import me.timur.touroperatorbpa.model.application.impl.AccommodationApplicationCreateDto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,7 +39,7 @@ public class ApplicationAccommodation extends BaseEntity {
     private LocalDateTime checkOut;
 
     @OneToMany(mappedBy = "application", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Room> rooms;
+    private List<Room> rooms = new ArrayList<>();
 
     @Column(name = "comment")
     private String comment;
@@ -45,4 +47,22 @@ public class ApplicationAccommodation extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private ApplicationStatus status;
+
+    public ApplicationAccommodation(Group group, Accommodation accommodation, AccommodationApplicationCreateDto.AccommodationItem createDto) {
+        this.group = group;
+        this.accommodation = accommodation;
+        this.checkIn = createDto.getCheckIn();
+        this.checkOut = createDto.getCheckOut();
+        this.comment = createDto.getComment();
+        this.status = ApplicationStatus.ACTIVE;
+    }
+
+    public void addRoom(Room room) {
+        room.setApplication(this);
+        rooms.add(room);
+    }
+
+    public void addRooms(List<Room> rooms) {
+        rooms.forEach(this::addRoom);
+    }
 }

@@ -28,6 +28,8 @@ public class FlightApplicationDto extends AbstractApplication {
 
     @Data
     public static class FlightItem {
+        private Long id;
+
         @JsonProperty("date")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = LocalDateTimeUtil.DATE_PATTERN)
         @JsonDeserialize(using = LocalDateDeserializer.class)
@@ -60,7 +62,8 @@ public class FlightApplicationDto extends AbstractApplication {
         @Override
         public String toString() {
             return "FlightItem{" +
-                    "date=" + date +
+                    "id=" + id +
+                    ", date=" + date +
                     ", from='" + from + '\'' +
                     ", to='" + to + '\'' +
                     ", ticketClass=" + ticketClass +
@@ -77,7 +80,6 @@ public class FlightApplicationDto extends AbstractApplication {
     public String toString() {
         return "FlightApplicationDto{" +
                 "items=" + items +
-                ", id=" + id +
                 ", groupId=" + groupId +
                 ", groupNumber='" + groupNumber + '\'' +
                 '}';
