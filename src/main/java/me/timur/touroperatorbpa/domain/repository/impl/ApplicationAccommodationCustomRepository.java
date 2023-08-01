@@ -9,6 +9,7 @@ import me.timur.touroperatorbpa.domain.entity.ApplicationAccommodation;
 import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.domain.repository.CustomRepository;
 import me.timur.touroperatorbpa.model.BaseFilter;
+import me.timur.touroperatorbpa.model.application.accommodation.AccommodationApplicationFilter;
 import me.timur.touroperatorbpa.model.group.GroupFilter;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Repository;
@@ -21,13 +22,13 @@ import java.util.List;
  */
 
 @Repository
-public class ApplicationAccommodationCustomRepository implements CustomRepository<ApplicationAccommodation> {
+public class ApplicationAccommodationCustomRepository implements CustomRepository<ApplicationAccommodation, AccommodationApplicationFilter> {
 
     @PersistenceContext
     public EntityManager em;
 
     @Override
-    public <R extends BaseFilter> Pair<List<ApplicationAccommodation>, Long> findAllFiltered(R filter) {
+    public Pair<List<ApplicationAccommodation>, Long> findAllFiltered(AccommodationApplicationFilter filter) {
         return null;
     }
 

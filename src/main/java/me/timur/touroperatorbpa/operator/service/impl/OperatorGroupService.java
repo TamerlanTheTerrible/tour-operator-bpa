@@ -9,6 +9,7 @@ import me.timur.touroperatorbpa.domain.enums.GroupStatus;
 import me.timur.touroperatorbpa.domain.repository.CompanyRepository;
 import me.timur.touroperatorbpa.domain.repository.GroupRepository;
 import me.timur.touroperatorbpa.domain.repository.UserRepository;
+import me.timur.touroperatorbpa.domain.repository.impl.GroupCustomRepository;
 import me.timur.touroperatorbpa.exception.OperatorBpaException;
 import me.timur.touroperatorbpa.exception.ResponseCode;
 import me.timur.touroperatorbpa.model.PageableList;
@@ -34,6 +35,7 @@ import java.util.regex.Pattern;
 public class OperatorGroupService implements GroupService {
 
     private final GroupRepository groupRepository;
+    private final GroupCustomRepository groupCustomRepository;
     private final UserRepository userRepository;
     private final CompanyRepository companyRepository;
     private final GroupNumberService groupNumberService;
@@ -121,7 +123,7 @@ public class OperatorGroupService implements GroupService {
 
     @Override
     public PageableList<GroupDto> getAllByFiltered(GroupFilter filter) {
-        final Pair<List<Group>, Long> result = groupRepository.findAllFiltered(filter);
+        final Pair<List<Group>, Long> result = groupCustomRepository.findAllFiltered(filter);
 
         return new PageableList<>(
                 result.getSecond(),

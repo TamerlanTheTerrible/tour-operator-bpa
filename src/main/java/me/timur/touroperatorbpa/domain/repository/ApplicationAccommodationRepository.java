@@ -11,6 +11,6 @@ import java.util.List;
  */
 
 @Repository
-public interface ApplicationAccommodationRepository extends JpaRepository<ApplicationAccommodation, Long>, CustomRepository<ApplicationAccommodation> {
+public interface ApplicationAccommodationRepository extends JpaRepository<ApplicationAccommodation, Long> {
     List<ApplicationAccommodation> findAllByGroupId(Long groupId);
 }

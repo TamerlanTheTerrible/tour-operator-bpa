@@ -20,15 +20,14 @@ import java.util.List;
  */
 
 @Repository
-public class GroupCustomRepository implements CustomRepository<Group> {
+public class GroupCustomRepository implements CustomRepository<Group, GroupFilter> {
 
     @PersistenceContext
     public EntityManager em;
 
     @Override
-    public <R extends BaseFilter> Pair<List<Group>, Long> findAllFiltered(R filter) {
+    public Pair<List<Group>, Long> findAllFiltered(GroupFilter guideFilterDto) {
         try {
-            GroupFilter guideFilterDto = (GroupFilter) filter;
             var cb = em.getCriteriaBuilder();
 
             // count query
