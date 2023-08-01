@@ -1,15 +1,12 @@
-package me.timur.touroperatorbpa.model.application.impl;
+package me.timur.touroperatorbpa.model.application.restaurant;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import jakarta.persistence.Column;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import me.timur.touroperatorbpa.domain.entity.Location;
-import me.timur.touroperatorbpa.domain.enums.ApplicationStatus;
-import me.timur.touroperatorbpa.model.application.AbstractApplication;
+import me.timur.touroperatorbpa.domain.enums.MealType;
 import me.timur.touroperatorbpa.model.application.AbstractApplicationCreate;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 
@@ -22,47 +19,43 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class GeneralApplicationDto extends AbstractApplication {
+public class RestaurantApplicationCreateDto extends AbstractApplicationCreate {
 
     @JsonProperty("items")
-    private List<Item> items;
+    private List<RestaurantItem> restaurantItems;
 
     @Data
-    public static class Item {
-        private Long id;
-
+    public static class RestaurantItem {
         @JsonProperty("date")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = LocalDateTimeUtil.DATE_PATTERN)
         @JsonDeserialize(using = LocalDateDeserializer.class)
         private LocalDate date;
 
-        @JsonProperty("location")
-        private String location;
+        @JsonProperty("restaurant_id")
+        private Long restaurantId;
 
-        @JsonProperty("comment")
-        private String comment;
+        @JsonProperty("meal_type")
+        private MealType mealType;
 
-        @JsonProperty("status")
-        private ApplicationStatus status;
+        @JsonProperty("requested")
+        private Integer requested;
 
         @Override
         public String toString() {
             return "Item{" +
-                    "id=" + id +
-                    ", date=" + date +
-                    ", location='" + location + '\'' +
-                    ", comment='" + comment + '\'' +
-                    ", status=" + status +
+                    "date=" + date +
+                    ", restaurantId=" + restaurantId +
+                    ", mealType=" + mealType +
+                    ", requested=" + requested +
                     '}';
         }
     }
 
     @Override
     public String toString() {
-        return "GeneralApplicationDto{" +
-                "items=" + items +
+        return "RestaurantApplicationCreateDto{" +
+                "items=" + restaurantItems +
                 ", groupId=" + groupId +
-                ", groupNumber='" + groupNumber + '\'' +
                 '}';
     }
 }

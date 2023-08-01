@@ -13,8 +13,8 @@ import me.timur.touroperatorbpa.domain.repository.GroupRepository;
 import me.timur.touroperatorbpa.exception.OperatorBpaException;
 import me.timur.touroperatorbpa.exception.ResponseCode;
 import me.timur.touroperatorbpa.model.BaseFilter;
-import me.timur.touroperatorbpa.model.application.impl.AccommodationApplicationCreateDto;
-import me.timur.touroperatorbpa.model.application.impl.AccommodationApplicationDto;
+import me.timur.touroperatorbpa.model.application.accommodation.AccommodationApplicationCreateDto;
+import me.timur.touroperatorbpa.model.application.accommodation.AccommodationApplicationDto;
 import me.timur.touroperatorbpa.operator.service.ApplicationService;
 import org.springframework.stereotype.Service;
 

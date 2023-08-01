@@ -1,4 +1,4 @@
-package me.timur.touroperatorbpa.model.application.impl;
+package me.timur.touroperatorbpa.model.application.train;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,7 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import me.timur.touroperatorbpa.domain.enums.ApplicationStatus;
-import me.timur.touroperatorbpa.domain.enums.FlightClass;
+import me.timur.touroperatorbpa.domain.enums.TrainClass;
 import me.timur.touroperatorbpa.model.application.AbstractApplication;
 import me.timur.touroperatorbpa.model.application.AbstractApplicationCreate;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
@@ -21,13 +21,13 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class FlightApplicationDto extends AbstractApplication {
+public class TrainApplicationDto extends AbstractApplication {
 
     @JsonProperty("items")
-    private List<FlightItem> items;
+    private List<TrainItem> items;
 
     @Data
-    public static class FlightItem {
+    public static class TrainItem {
         private Long id;
 
         @JsonProperty("date")
@@ -42,7 +42,7 @@ public class FlightApplicationDto extends AbstractApplication {
         private String to;
 
         @JsonProperty("ticket_class")
-        private FlightClass ticketClass;
+        private TrainClass ticketClass;
 
         @JsonProperty("time")
         private String time;
@@ -61,7 +61,7 @@ public class FlightApplicationDto extends AbstractApplication {
 
         @Override
         public String toString() {
-            return "FlightItem{" +
+            return "TrainItem{" +
                     "id=" + id +
                     ", date=" + date +
                     ", from='" + from + '\'' +
@@ -78,7 +78,7 @@ public class FlightApplicationDto extends AbstractApplication {
 
     @Override
     public String toString() {
-        return "FlightApplicationDto{" +
+        return "TrainApplicationDto{" +
                 "items=" + items +
                 ", groupId=" + groupId +
                 ", groupNumber='" + groupNumber + '\'' +

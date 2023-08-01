@@ -1,4 +1,4 @@
-package me.timur.touroperatorbpa.model.application.impl;
+package me.timur.touroperatorbpa.model.application.transport;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import me.timur.touroperatorbpa.domain.enums.MealType;
 import me.timur.touroperatorbpa.model.application.AbstractApplicationCreate;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 
@@ -19,42 +18,38 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class RestaurantApplicationCreateDto extends AbstractApplicationCreate {
+public class TransportApplicationCreateDto extends AbstractApplicationCreate {
 
     @JsonProperty("items")
-    private List<RestaurantItem> restaurantItems;
+    private List<TransportItem> items;
 
     @Data
-    public static class RestaurantItem {
+    public static class TransportItem {
         @JsonProperty("date")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = LocalDateTimeUtil.DATE_PATTERN)
         @JsonDeserialize(using = LocalDateDeserializer.class)
         private LocalDate date;
 
-        @JsonProperty("restaurant_id")
-        private Long restaurantId;
+        @JsonProperty("direction")
+        private String direction;
 
-        @JsonProperty("meal_type")
-        private MealType mealType;
-
-        @JsonProperty("requested")
-        private Integer requested;
+        @JsonProperty("comment")
+        public String comment;
 
         @Override
         public String toString() {
-            return "Item{" +
+            return "TransportItem{" +
                     "date=" + date +
-                    ", restaurantId=" + restaurantId +
-                    ", mealType=" + mealType +
-                    ", requested=" + requested +
+                    ", direction=" + direction +
+                    ", comment='" + comment + '\'' +
                     '}';
         }
     }
 
     @Override
     public String toString() {
-        return "RestaurantApplicationCreateDto{" +
-                "items=" + restaurantItems +
+        return "TransportApplicationCreateDto{" +
+                "items=" + items +
                 ", groupId=" + groupId +
                 '}';
     }

@@ -1,11 +1,15 @@
-package me.timur.touroperatorbpa.model.application.impl;
+package me.timur.touroperatorbpa.model.application.train;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import me.timur.touroperatorbpa.domain.enums.TrainClass;
 import me.timur.touroperatorbpa.model.application.AbstractApplicationCreate;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 
@@ -18,29 +22,45 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class TransportApplicationCreateDto extends AbstractApplicationCreate {
+public class TrainApplicationCreateDto extends AbstractApplicationCreate {
 
     @JsonProperty("items")
-    private List<TransportItem> items;
+    private List<TrainItem> items;
 
     @Data
-    public static class TransportItem {
+    public static class TrainItem {
         @JsonProperty("date")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = LocalDateTimeUtil.DATE_PATTERN)
         @JsonDeserialize(using = LocalDateDeserializer.class)
         private LocalDate date;
 
-        @JsonProperty("direction")
-        private String direction;
+        @JsonProperty("from")
+        private String from;
+
+        @JsonProperty("to")
+        private String to;
+
+        @JsonProperty("ticket_class")
+        private TrainClass ticketClass;
+
+        @JsonProperty("time")
+        private String time;
+
+        @JsonProperty("requested")
+        private Integer requested;
 
         @JsonProperty("comment")
         public String comment;
 
         @Override
         public String toString() {
-            return "TransportItem{" +
+            return "TrainItem{" +
                     "date=" + date +
-                    ", direction=" + direction +
+                    ", from='" + from + '\'' +
+                    ", to='" + to + '\'' +
+                    ", ticketClass=" + ticketClass +
+                    ", time='" + time + '\'' +
+                    ", requested=" + requested +
                     ", comment='" + comment + '\'' +
                     '}';
         }
@@ -48,7 +68,7 @@ public class TransportApplicationCreateDto extends AbstractApplicationCreate {
 
     @Override
     public String toString() {
-        return "TransportApplicationCreateDto{" +
+        return "TrainApplicationCreateDto{" +
                 "items=" + items +
                 ", groupId=" + groupId +
                 '}';

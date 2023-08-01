@@ -1,13 +1,13 @@
-package me.timur.touroperatorbpa.model.application.impl;
+package me.timur.touroperatorbpa.model.application.guide;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import jakarta.persistence.Column;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import me.timur.touroperatorbpa.domain.enums.ApplicationStatus;
-import me.timur.touroperatorbpa.domain.enums.MealType;
 import me.timur.touroperatorbpa.model.application.AbstractApplication;
 import me.timur.touroperatorbpa.model.application.AbstractApplicationCreate;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
@@ -21,40 +21,42 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class RestaurantApplicationDto extends AbstractApplication {
+public class GuideApplicationDto extends AbstractApplication {
 
     @JsonProperty("items")
-    private List<RestaurantItem> restaurantItems;
+    private List<GuideItem> items;
 
     @Data
-    public static class RestaurantItem {
+    public static class GuideItem {
         private Long id;
 
-        @JsonProperty("date")
+        @JsonProperty("from")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = LocalDateTimeUtil.DATE_PATTERN)
         @JsonDeserialize(using = LocalDateDeserializer.class)
-        private LocalDate date;
+        private LocalDate from;
 
-        @JsonProperty("restaurant_id")
-        private Long restaurantId;
+        @JsonProperty("to")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = LocalDateTimeUtil.DATE_PATTERN)
+        @JsonDeserialize(using = LocalDateDeserializer.class)
+        private LocalDate to;
 
-        @JsonProperty("meal_type")
-        private MealType mealType;
+        @JsonProperty("guide_id")
+        private Long guideId;
 
-        @JsonProperty("requested")
-        private Integer requested;
+        @JsonProperty("comment")
+        private String comment;
 
         @JsonProperty("status")
         private ApplicationStatus status;
 
         @Override
         public String toString() {
-            return "RestaurantItem{" +
+            return "GuideItem{" +
                     "id=" + id +
-                    ", date=" + date +
-                    ", restaurantId=" + restaurantId +
-                    ", mealType=" + mealType +
-                    ", requested=" + requested +
+                    ", from=" + from +
+                    ", to=" + to +
+                    ", guideId=" + guideId +
+                    ", comment='" + comment + '\'' +
                     ", status=" + status +
                     '}';
         }
@@ -62,8 +64,8 @@ public class RestaurantApplicationDto extends AbstractApplication {
 
     @Override
     public String toString() {
-        return "RestaurantApplicationDto{" +
-                "restaurantItems=" + restaurantItems +
+        return "GuideApplicationDto{" +
+                "items=" + items +
                 ", groupId=" + groupId +
                 ", groupNumber='" + groupNumber + '\'' +
                 '}';

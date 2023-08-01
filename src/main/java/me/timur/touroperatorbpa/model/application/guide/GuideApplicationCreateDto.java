@@ -1,14 +1,15 @@
-package me.timur.touroperatorbpa.model.application.impl;
+package me.timur.touroperatorbpa.model.application.guide;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import me.timur.touroperatorbpa.domain.enums.ApplicationStatus;
-import me.timur.touroperatorbpa.model.application.AbstractApplication;
+import me.timur.touroperatorbpa.domain.entity.Guide;
 import me.timur.touroperatorbpa.model.application.AbstractApplicationCreate;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 
@@ -21,15 +22,13 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class GuideApplicationDto extends AbstractApplication {
+public class GuideApplicationCreateDto extends AbstractApplicationCreate {
 
     @JsonProperty("items")
     private List<GuideItem> items;
 
     @Data
     public static class GuideItem {
-        private Long id;
-
         @JsonProperty("from")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = LocalDateTimeUtil.DATE_PATTERN)
         @JsonDeserialize(using = LocalDateDeserializer.class)
@@ -46,28 +45,22 @@ public class GuideApplicationDto extends AbstractApplication {
         @JsonProperty("comment")
         private String comment;
 
-        @JsonProperty("status")
-        private ApplicationStatus status;
-
         @Override
         public String toString() {
             return "GuideItem{" +
-                    "id=" + id +
-                    ", from=" + from +
+                    "from=" + from +
                     ", to=" + to +
                     ", guideId=" + guideId +
                     ", comment='" + comment + '\'' +
-                    ", status=" + status +
                     '}';
         }
     }
 
     @Override
     public String toString() {
-        return "GuideApplicationDto{" +
+        return "GuideApplicationCreateDto{" +
                 "items=" + items +
                 ", groupId=" + groupId +
-                ", groupNumber='" + groupNumber + '\'' +
                 '}';
     }
 }
