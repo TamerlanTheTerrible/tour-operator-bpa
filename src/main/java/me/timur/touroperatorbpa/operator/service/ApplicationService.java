@@ -1,8 +1,10 @@
 package me.timur.touroperatorbpa.operator.service;
 
 import me.timur.touroperatorbpa.model.BaseFilter;
+import me.timur.touroperatorbpa.model.PageableList;
 import me.timur.touroperatorbpa.model.application.Application;
 import me.timur.touroperatorbpa.model.application.ApplicationCreate;
+import me.timur.touroperatorbpa.model.application.accommodation.AccommodationApplicationDto;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
@@ -26,5 +28,5 @@ public interface ApplicationService<T extends ApplicationCreate, R extends Appli
 
     R getByGroupId(Long groupId);
 
-    Collection<R> getAllFiltered(BaseFilter filter);
+    PageableList<AccommodationApplicationDto.AccommodationItem> getAllFiltered(BaseFilter filter);
 }

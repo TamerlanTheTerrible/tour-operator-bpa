@@ -13,6 +13,7 @@ import me.timur.touroperatorbpa.domain.repository.GroupRepository;
 import me.timur.touroperatorbpa.exception.OperatorBpaException;
 import me.timur.touroperatorbpa.exception.ResponseCode;
 import me.timur.touroperatorbpa.model.BaseFilter;
+import me.timur.touroperatorbpa.model.PageableList;
 import me.timur.touroperatorbpa.model.application.accommodation.AccommodationApplicationCreateDto;
 import me.timur.touroperatorbpa.model.application.accommodation.AccommodationApplicationDto;
 import me.timur.touroperatorbpa.operator.service.ApplicationService;
@@ -138,7 +139,7 @@ public class AccommodationApplicationService implements ApplicationService<Accom
     }
 
     @Override
-    public Collection<AccommodationApplicationDto> getAllFiltered(BaseFilter baseFilter) {
+    public PageableList<AccommodationApplicationDto.AccommodationItem> getAllFiltered(BaseFilter baseFilter) {
         return null;
     }
 

@@ -20,7 +20,7 @@ import java.util.List;
  */
 
 @Repository
-public class GroupCustomRepositoryImpl implements CustomRepository<Group> {
+public class GroupCustomRepository implements CustomRepository<Group> {
 
     @PersistenceContext
     public EntityManager em;
