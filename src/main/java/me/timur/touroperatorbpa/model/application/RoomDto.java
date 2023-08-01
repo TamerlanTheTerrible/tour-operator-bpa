@@ -3,6 +3,7 @@ package me.timur.touroperatorbpa.model.application;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import me.timur.touroperatorbpa.domain.entity.Room;
+import me.timur.touroperatorbpa.domain.enums.RoomType;
 
 /**
  * Created by Temurbek Ismoilov on 27/07/23.
@@ -11,7 +12,7 @@ import me.timur.touroperatorbpa.domain.entity.Room;
 @Data
 public class RoomDto {
     @JsonProperty("room_type")
-    private String roomType;
+    private RoomType roomType;
 
     @JsonProperty("requested")
     private Integer requested;
@@ -23,6 +24,12 @@ public class RoomDto {
         this.roomType = room.getRoomType();
         this.requested = room.getRequested();
         this.provided = room.getProvided();
+    }
+
+    public RoomDto(RoomType roomType, int requested) {
+        this.roomType = roomType;
+        this.requested = requested;
+        this.provided = 0;
     }
 
     @Override

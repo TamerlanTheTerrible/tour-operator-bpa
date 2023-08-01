@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import me.timur.touroperatorbpa.domain.enums.RoomType;
 import me.timur.touroperatorbpa.model.application.RoomDto;
 
 /**
@@ -25,8 +26,9 @@ public class Room extends BaseEntity {
     @Column(name = "group_number", nullable = false)
     private String groupNumber;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "room_type", nullable = false)
-    private String roomType;
+    private RoomType roomType;
 
     @Column(name = "requested", nullable = false)
     private Integer requested;

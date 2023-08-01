@@ -9,11 +9,14 @@ import me.timur.touroperatorbpa.domain.repository.UserRepository;
 import me.timur.touroperatorbpa.model.group.GroupCreateDto;
 import me.timur.touroperatorbpa.model.group.GroupDto;
 import me.timur.touroperatorbpa.operator.service.impl.OperatorGroupService;
+import org.hibernate.query.sql.internal.ParameterRecognizerImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -28,7 +31,7 @@ import static org.mockito.MockitoAnnotations.openMocks;
  * Created by Temurbek Ismoilov on 28/07/23.
  */
 
-//@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class OperatorGroupServiceTest {
     @Mock
     private GroupRepository groupRepository;
@@ -39,13 +42,11 @@ public class OperatorGroupServiceTest {
     @Mock
     private CompanyRepository companyRepository;
 
+    @Mock
+    private GroupNumberService groupNumberService;
+
     @InjectMocks
     private OperatorGroupService operatorGroupService;
-
-    @BeforeEach
-    public void init() {
-        openMocks(this);
-    }
 
     @Test
     public void testCreateGroupWithValidInput() {
@@ -77,6 +78,5 @@ public class OperatorGroupServiceTest {
         assertNotNull(result);
         assertEquals(group.getId(), result.getId());
         assertEquals(group.getNumber(), result.getNumber());
-        // Add more assertions as needed for other fields
     }
 }
