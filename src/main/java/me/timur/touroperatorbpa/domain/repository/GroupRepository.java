@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 @Repository
-public interface GroupRepository extends JpaRepository<Group, Long> {
+public interface GroupRepository extends JpaRepository<Group, Long>, CustomRepository<Group> {
     Long countByArrivalBetween(LocalDateTime from, LocalDateTime to);
     Boolean existsByNumberStartsWithAndArrivalBetween(String number, LocalDateTime from, LocalDateTime to);
     List<Group> findAllByTourOperatorId(Long id);

@@ -1,6 +1,7 @@
 package me.timur.touroperatorbpa.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,11 +11,11 @@ import java.util.List;
  */
 
 @Getter
-public class CriteriaSearchResult<T> {
+public class PageableList<T> {
     private final Long count;
     private final List<T> resultList;
 
-    public CriteriaSearchResult(Long count, List<T> resultList) {
+    public PageableList(Long count, List<T> resultList) {
         this.count = count;
         this.resultList = resultList;
     }

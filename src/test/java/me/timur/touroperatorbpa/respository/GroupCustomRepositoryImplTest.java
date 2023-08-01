@@ -209,6 +209,33 @@ public class GroupCustomRepositoryImplTest {
     }
 
     @Test
+    public void testByStatus() {
+        // GIVEN 1
+        GroupFilter filter1 = new GroupFilter();
+        filter1.setStatus(GroupStatus.ACTIVE);
+        // GIVEN 2
+        GroupFilter filter2 = new GroupFilter();
+
+        // WHEN 1
+        Pair<List<Group>, Long> result1 = groupCustomRepository.findAllFiltered(filter1);
+        List<Group> groups1 = result1.getFirst();
+        Long count1 = result1.getSecond();
+        // WHEN 2
+        Pair<List<Group>, Long> result2 = groupCustomRepository.findAllFiltered(filter2);
+        List<Group> groups2 = result2.getFirst();
+        Long count2 = result2.getSecond();
+
+        // THEN 1
+        assertEquals(1, groups1.size());
+        assertEquals(Long.valueOf(1), count1);
+        assertEquals(GroupStatus.ACTIVE, groups1.get(0).getStatus());
+        // THEN 2
+        assertEquals(2, groups2.size());
+        assertEquals(Long.valueOf(2), count2);
+
+    }
+
+    @Test
     public void testByPageNumber() {
         // GIVEN 1
         GroupFilter filter1 = new GroupFilter();
@@ -289,8 +316,8 @@ public class GroupCustomRepositoryImplTest {
 
         LocalDateTime arrival1 = LocalDateTime.now().plusMonths(2);
         LocalDateTime arrival2 = LocalDateTime.now().plusMonths(3);
-        group1 = createGroup(1L,"Group 1", "Country A", company1, tourOperator, arrival1);
-        group2 = createGroup(2L,"Group 2", "Country B", company2, tourOperator, arrival2);
+        group1 = createGroup(1L,"Group 1", "Country A", company1, tourOperator, arrival1, GroupStatus.ACTIVE);
+        group2 = createGroup(2L,"Group 2", "Country B", company2, tourOperator, arrival2, GroupStatus.CANCELLED);
 
     }
 
@@ -318,7 +345,7 @@ public class GroupCustomRepositoryImplTest {
         return company;
     }
 
-    private Group createGroup(Long id, String number, String country, Company company, User tourOperator, LocalDateTime arrival) {
+    private Group createGroup(Long id, String number, String country, Company company, User tourOperator, LocalDateTime arrival, GroupStatus status) {
         Group group = new Group();
         group.setId(id);
         group.setSize(3);
@@ -330,6 +357,7 @@ public class GroupCustomRepositoryImplTest {
         group.setTourOperator(tourOperator);
         group.setArrival(arrival);
         group.setDateCreated(LocalDateTime.now());
+        group.setStatus(status);
 
         groupRepository.save(group);
 

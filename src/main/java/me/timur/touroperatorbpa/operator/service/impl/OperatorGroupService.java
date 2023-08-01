@@ -11,10 +11,13 @@ import me.timur.touroperatorbpa.domain.repository.GroupRepository;
 import me.timur.touroperatorbpa.domain.repository.UserRepository;
 import me.timur.touroperatorbpa.exception.OperatorBpaException;
 import me.timur.touroperatorbpa.exception.ResponseCode;
+import me.timur.touroperatorbpa.model.PageableList;
 import me.timur.touroperatorbpa.model.group.GroupCreateDto;
 import me.timur.touroperatorbpa.model.group.GroupDto;
+import me.timur.touroperatorbpa.model.group.GroupFilter;
 import me.timur.touroperatorbpa.operator.service.GroupNumberService;
 import me.timur.touroperatorbpa.operator.service.GroupService;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -114,6 +117,16 @@ public class OperatorGroupService implements GroupService {
         return groupRepository.findAllByTourOperatorId(id).stream()
                 .map(GroupDto::new)
                 .toList();
+    }
+
+    @Override
+    public PageableList<GroupDto> getAllByFiltered(GroupFilter filter) {
+        final Pair<List<Group>, Long> result = groupRepository.findAllFiltered(filter);
+
+        return new PageableList<>(
+                result.getSecond(),
+                result.getFirst().stream().map(GroupDto::new).toList()
+        );
     }
 
     private Group getEntity(Long id) {

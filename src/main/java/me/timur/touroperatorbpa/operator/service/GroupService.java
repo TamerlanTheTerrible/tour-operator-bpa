@@ -1,7 +1,9 @@
 package me.timur.touroperatorbpa.operator.service;
 
+import me.timur.touroperatorbpa.model.PageableList;
 import me.timur.touroperatorbpa.model.group.GroupCreateDto;
 import me.timur.touroperatorbpa.model.group.GroupDto;
+import me.timur.touroperatorbpa.model.group.GroupFilter;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -22,4 +24,6 @@ public interface GroupService {
     GroupDto get(Long id);
 
     List<GroupDto> getAllByOperatorId(Long id);
+
+    PageableList<GroupDto> getAllByFiltered(GroupFilter filter);
 }

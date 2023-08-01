@@ -72,6 +72,9 @@ public class GroupCustomRepositoryImpl implements CustomRepository<Group> {
         if (filter.getArrivalTo() != null) {
             predicates.add(cb.lessThanOrEqualTo(root.get("arrival"), filter.getArrivalTo()));
         }
+        if (filter.getStatus() != null) {
+            predicates.add(cb.equal(root.get("status"), filter.getStatus()));
+        }
 
         return predicates.toArray(new Predicate[0]);
     }
