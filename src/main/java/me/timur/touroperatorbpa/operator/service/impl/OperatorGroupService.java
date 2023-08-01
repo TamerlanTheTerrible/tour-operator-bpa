@@ -9,7 +9,7 @@ import me.timur.touroperatorbpa.domain.enums.GroupStatus;
 import me.timur.touroperatorbpa.domain.repository.CompanyRepository;
 import me.timur.touroperatorbpa.domain.repository.GroupRepository;
 import me.timur.touroperatorbpa.domain.repository.UserRepository;
-import me.timur.touroperatorbpa.domain.repository.impl.GroupCustomRepository;
+import me.timur.touroperatorbpa.domain.repository.impl.GroupFilteredFetchReposiory;
 import me.timur.touroperatorbpa.exception.OperatorBpaException;
 import me.timur.touroperatorbpa.exception.ResponseCode;
 import me.timur.touroperatorbpa.model.PageableList;
@@ -21,9 +21,7 @@ import me.timur.touroperatorbpa.operator.service.GroupService;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  * Created by Temurbek Ismoilov on 28/07/23.
@@ -35,7 +33,7 @@ import java.util.regex.Pattern;
 public class OperatorGroupService implements GroupService {
 
     private final GroupRepository groupRepository;
-    private final GroupCustomRepository groupCustomRepository;
+    private final GroupFilteredFetchReposiory groupCustomRepository;
     private final UserRepository userRepository;
     private final CompanyRepository companyRepository;
     private final GroupNumberService groupNumberService;

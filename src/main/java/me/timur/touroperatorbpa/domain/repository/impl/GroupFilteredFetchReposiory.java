@@ -6,8 +6,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import me.timur.touroperatorbpa.domain.entity.Group;
-import me.timur.touroperatorbpa.domain.repository.CustomRepository;
-import me.timur.touroperatorbpa.model.BaseFilter;
+import me.timur.touroperatorbpa.domain.repository.FilteredFetchReposiory;
 import me.timur.touroperatorbpa.model.group.GroupFilter;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Repository;
@@ -20,7 +19,7 @@ import java.util.List;
  */
 
 @Repository
-public class GroupCustomRepository implements CustomRepository<Group, GroupFilter> {
+public class GroupFilteredFetchReposiory implements FilteredFetchReposiory<Group, GroupFilter> {
 
     @PersistenceContext
     public EntityManager em;
