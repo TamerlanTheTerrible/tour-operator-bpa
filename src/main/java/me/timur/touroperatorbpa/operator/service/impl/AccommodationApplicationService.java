@@ -6,14 +6,13 @@ import me.timur.touroperatorbpa.domain.entity.Accommodation;
 import me.timur.touroperatorbpa.domain.entity.ApplicationAccommodation;
 import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.domain.entity.Room;
+import me.timur.touroperatorbpa.domain.enums.ApplicationStatus;
 import me.timur.touroperatorbpa.domain.repository.AccommodationRepository;
 import me.timur.touroperatorbpa.domain.repository.ApplicationAccommodationRepository;
 import me.timur.touroperatorbpa.domain.repository.GroupRepository;
 import me.timur.touroperatorbpa.exception.OperatorBpaException;
 import me.timur.touroperatorbpa.exception.ResponseCode;
 import me.timur.touroperatorbpa.model.BaseFilter;
-import me.timur.touroperatorbpa.model.application.Application;
-import me.timur.touroperatorbpa.model.application.ApplicationCreate;
 import me.timur.touroperatorbpa.model.application.impl.AccommodationApplicationCreateDto;
 import me.timur.touroperatorbpa.model.application.impl.AccommodationApplicationDto;
 import me.timur.touroperatorbpa.operator.service.ApplicationService;
@@ -21,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by Temurbek Ismoilov on 31/07/23.
@@ -68,7 +66,7 @@ public class AccommodationApplicationService implements ApplicationService<Accom
             if (item.getId() != null) {
                 log.info("Updating application: {}", item);
 
-                var application = getApplication(item.getId());
+                var application = getApplicationEntity(item.getId());
                 if (item.getAccommodationId() != null) {
                     application.setAccommodation(getAccommodation(item.getAccommodationId()));
                 }
@@ -108,14 +106,24 @@ public class AccommodationApplicationService implements ApplicationService<Accom
         return new AccommodationApplicationDto(group, applications);
     }
 
-    private ApplicationAccommodation getApplication(Long id) {
-        return applicationAccommodationRepository.findById(id)
-                .orElseThrow(() -> new OperatorBpaException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find application with id: " + id));
+    @Override
+    public void cancel(Long id) {
+        log.info("Attempting to cancel accommodation application with id: {}", id);
+        var application = getApplicationEntity(id);
+        application.setStatus(ApplicationStatus.CANCELLED);
+        applicationAccommodationRepository.save(application);
+
+        // TODO send notifications
     }
 
     @Override
-    public void cancel(Long id) {
+    public void cancelByGroupId(Long groupId) {
+        log.info("Attempting to cancel accommodation applications with group id: {}", groupId);
+        var applications = applicationAccommodationRepository.findAllByGroupId(groupId);
+        applications.forEach(application -> application.setStatus(ApplicationStatus.CANCELLED));
+        applicationAccommodationRepository.saveAll(applications);
 
+        // TODO send notifications
     }
 
     @Override
@@ -124,9 +132,21 @@ public class AccommodationApplicationService implements ApplicationService<Accom
     }
 
     @Override
+    public AccommodationApplicationDto getByGroupId(Long groupId) {
+        var applications = applicationAccommodationRepository.findAllByGroupId(groupId);
+        return new AccommodationApplicationDto(getGroup(groupId), applications);
+    }
+
+    @Override
     public Collection<AccommodationApplicationDto> getAllFiltered(BaseFilter baseFilter) {
         return null;
     }
+
+    private ApplicationAccommodation getApplicationEntity(Long id) {
+        return applicationAccommodationRepository.findById(id)
+                .orElseThrow(() -> new OperatorBpaException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find application with id: " + id));
+    }
+
 
     private Accommodation getAccommodation(Long accommodationId) {
         return accommodationRepository.findById(accommodationId)

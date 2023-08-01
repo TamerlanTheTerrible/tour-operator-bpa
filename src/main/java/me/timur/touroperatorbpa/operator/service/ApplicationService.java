@@ -20,7 +20,11 @@ public interface ApplicationService<T extends ApplicationCreate, R extends Appli
 
     void cancel(Long id);
 
+    void cancelByGroupId(Long groupId);
+
     R get(Long id);
+
+    R getByGroupId(Long groupId);
 
     Collection<R> getAllFiltered(BaseFilter filter);
 }
