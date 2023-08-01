@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import me.timur.touroperatorbpa.domain.entity.ApplicationAccommodation;
 import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.domain.enums.ApplicationStatus;
@@ -21,6 +23,8 @@ import java.util.List;
  */
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class AccommodationApplicationDto extends AbstractApplication {
 
@@ -28,6 +32,8 @@ public class AccommodationApplicationDto extends AbstractApplication {
     private List<AccommodationItem> items;
 
     @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class AccommodationItem {
         public Long id;
 

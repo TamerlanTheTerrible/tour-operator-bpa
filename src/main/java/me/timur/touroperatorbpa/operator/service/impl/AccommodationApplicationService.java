@@ -57,19 +57,60 @@ public class AccommodationApplicationService implements ApplicationService<Accom
         return new AccommodationApplicationDto(group, applications);
     }
 
-    private Accommodation getAccommodation(Long accommodationId) {
-        return accommodationRepository.findById(accommodationId)
-                .orElseThrow(() -> new OperatorBpaException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find accommodation with id: " + accommodationId));
-    }
-
-    private Group getGroup(Long groupId) {
-        return groupRepository.findById(groupId)
-                .orElseThrow(() -> new OperatorBpaException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find group with id: " + groupId));
-    }
-
     @Override
-    public AccommodationApplicationDto update(AccommodationApplicationDto accommodationApplicationDto) {
-        return null;
+    public AccommodationApplicationDto update(AccommodationApplicationDto dto) {
+        log.info("Attempting to update accommodation application: {}", dto);
+
+        var group = getGroup(dto.getGroupId());
+        var applications = new ArrayList<ApplicationAccommodation>();
+        for (var item: dto.getItems()) {
+            // if application id is not null then update application, else create new application
+            if (item.getId() != null) {
+                log.info("Updating application: {}", item);
+
+                var application = getApplication(item.getId());
+                if (item.getAccommodationId() != null) {
+                    application.setAccommodation(getAccommodation(item.getAccommodationId()));
+                }
+                if (item.getCheckIn() != null) {
+                    application.setCheckIn(item.getCheckIn());
+                }
+                if (item.getCheckOut() != null) {
+                    application.setCheckOut(item.getCheckOut());
+                }
+                if (item.getRooms() != null && item.getRooms().size() > 0) {
+                    var rooms = item.getRooms().stream().map(roomDto -> new Room(application, roomDto)).toList();
+                    application.addRooms(rooms);
+                }
+                if (item.getStatus() != null) {
+                    application.setStatus(item.getStatus());
+                }
+                if (item.getComment() != null) {
+                    application.setComment(item.getComment());
+                }
+
+                applications.add(application);
+            } else {
+                log.info("Attempting to create accommodation application: {}", item);
+                var application = new ApplicationAccommodation(group, getAccommodation(item.getAccommodationId()), item);
+                application.addRooms(
+                        item.getRooms().stream().map(roomDto -> new Room(application, roomDto)).toList()
+                );
+
+                applications.add(application);
+            }
+        }
+
+        applicationAccommodationRepository.saveAll(applications);
+
+        // TODO send notifications
+
+        return new AccommodationApplicationDto(group, applications);
+    }
+
+    private ApplicationAccommodation getApplication(Long id) {
+        return applicationAccommodationRepository.findById(id)
+                .orElseThrow(() -> new OperatorBpaException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find application with id: " + id));
     }
 
     @Override
@@ -86,4 +127,15 @@ public class AccommodationApplicationService implements ApplicationService<Accom
     public Collection<AccommodationApplicationDto> getAllFiltered(BaseFilter baseFilter) {
         return null;
     }
+
+    private Accommodation getAccommodation(Long accommodationId) {
+        return accommodationRepository.findById(accommodationId)
+                .orElseThrow(() -> new OperatorBpaException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find accommodation with id: " + accommodationId));
+    }
+
+    private Group getGroup(Long groupId) {
+        return groupRepository.findById(groupId)
+                .orElseThrow(() -> new OperatorBpaException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find group with id: " + groupId));
+    }
+
 }

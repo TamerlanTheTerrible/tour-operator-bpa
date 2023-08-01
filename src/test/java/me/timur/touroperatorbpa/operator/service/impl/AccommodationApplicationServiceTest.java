@@ -100,4 +100,74 @@ public class AccommodationApplicationServiceTest {
         assertEquals(item0.getRooms().size(), resultDtoItem0.getRooms().size());
     }
 
+    @Test
+    public void testUpdate() {
+        // Create some test data
+        Long groupId = 1L;
+        Long accommodationId = 101L;
+
+        AccommodationApplicationDto.AccommodationItem item = new AccommodationApplicationDto.AccommodationItem();
+        item.setId(1L);
+        item.setAccommodationId(accommodationId);
+        item.setCheckIn(LocalDateTime.of(2023, Month.JANUARY, 1, 12, 0));
+        item.setCheckOut(LocalDateTime.of(2023, Month.JANUARY, 5, 12, 0));
+        item.setComment("Test comment");
+
+        RoomDto roomDto = new RoomDto(RoomType.SINGLE, 2);
+        List<RoomDto> rooms = new ArrayList<>();
+        rooms.add(roomDto);
+        item.setRooms(rooms);
+
+        List<AccommodationApplicationDto.AccommodationItem> items = new ArrayList<>();
+        items.add(item);
+
+        AccommodationApplicationDto dto = new AccommodationApplicationDto();
+        dto.setGroupId(groupId);
+        dto.setGroupNumber("Group-123");
+        dto.setItems(items);
+
+        Group group = new Group();
+        group.setId(groupId);
+        group.setNumber(dto.getGroupNumber());
+
+        Accommodation accommodation = new Accommodation();
+        accommodation.setId(accommodationId);
+
+        ApplicationAccommodation application = new ApplicationAccommodation(group, accommodation, item);
+        application.setId(item.getId());
+
+        // Mock the repository methods
+        when(groupRepository.findById(groupId)).thenReturn(Optional.of(group));
+        when(accommodationRepository.findById(accommodationId)).thenReturn(Optional.of(accommodation));
+        when(applicationAccommodationRepository.findById(item.getId())).thenReturn(Optional.of(application));
+        when(applicationAccommodationRepository.saveAll(any())).thenReturn(null);
+
+        // Call the update() method
+        AccommodationApplicationDto resultDto = accommodationApplicationService.update(dto);
+
+        // Verify the interactions
+        verify(groupRepository, times(1)).findById(groupId);
+        verify(accommodationRepository, times(1)).findById(accommodationId);
+        verify(applicationAccommodationRepository, times(1)).saveAll(any());
+
+        // Assert the result
+        assertEquals(dto.getGroupId(), resultDto.getGroupId());
+        assertEquals(dto.getGroupNumber(), resultDto.getGroupNumber());
+
+        // Assert the item
+        assertEquals(dto.getItems().size(), resultDto.getItems().size());
+        AccommodationApplicationDto.AccommodationItem resultItem = resultDto.getItems().get(0);
+        assertEquals(item.getId(), resultItem.getId());
+        assertEquals(item.getAccommodationId(), resultItem.getAccommodationId());
+        assertEquals(item.getCheckIn(), resultItem.getCheckIn());
+        assertEquals(item.getCheckOut(), resultItem.getCheckOut());
+        assertEquals(item.getComment(), resultItem.getComment());
+
+        // Assert the rooms
+        assertEquals(item.getRooms().size(), resultItem.getRooms().size());
+        RoomDto resultRoomDto = resultItem.getRooms().get(0);
+        assertEquals(roomDto.getRoomType(), resultRoomDto.getRoomType());
+        assertEquals(roomDto.getRequested(), resultRoomDto.getRequested());
+    }
+
 }
