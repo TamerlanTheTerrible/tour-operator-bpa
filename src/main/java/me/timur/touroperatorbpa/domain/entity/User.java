@@ -5,6 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import me.timur.touroperatorbpa.domain.converter.StringToListConverter;
+import me.timur.touroperatorbpa.user.model.UserCreateDto;
+
+import java.util.List;
 
 /**
  * Created by Temurbek Ismoilov on 25/07/23.
@@ -35,10 +39,18 @@ public class User extends BaseEntity {
     @Column(name= "phone_number")
     private String phoneNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "role", nullable = false)
-    private Role role;
+    @Convert(converter = StringToListConverter.class)
+    @Column(name = "roles")
+    private List<String> roles;
 
     @Column(name = "is_active")
     private Boolean isActive = true;
+
+    public User(UserCreateDto userCreateDto) {
+        this.firstName = userCreateDto.getFirstName();
+        this.lastName = userCreateDto.getLastName();
+        this.email = userCreateDto.getEmail();
+        this.initial = userCreateDto.getInitials();
+        this.roles = userCreateDto.getRoles();
+    }
 }

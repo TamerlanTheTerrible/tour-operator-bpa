@@ -31,7 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 
 @SpringBootTest
-//@RunWith(SpringRunner.class)
 @Import(TestIntegrationConfiguration.class)
 @AutoConfigureMockMvc(addFilters = false)
 @ActiveProfiles("test")
@@ -310,7 +309,7 @@ public class GroupFilteredFetchRepositoryTest {
         Role role = new Role("ROLE_TOUR_OPERATOR");
         roleRepository.save(role);
 
-        tourOperator = createUser(role);
+        tourOperator = createUser(List.of("ROLE_TOUR_OPERATOR"));
         company1 = createCompany(1L,"Company A");
         company2 = createCompany(2L,"Company B");
 
@@ -322,9 +321,9 @@ public class GroupFilteredFetchRepositoryTest {
     }
 
     // Helper methods to create entities
-    private User createUser(Role role) {
+    private User createUser(List<String> roles) {
         User user = new User();
-        user.setRole(role);
+        user.setRoles(roles);
         user.setDateCreated(LocalDateTime.now());
         user.setId(1L);
         user.setFirstName("John Doe");
