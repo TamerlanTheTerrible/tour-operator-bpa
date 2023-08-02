@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import me.timur.touroperatorbpa.domain.enums.ApplicationStatus;
-import me.timur.touroperatorbpa.model.application.accommodation.AccommodationApplicationCreateDto;
-import me.timur.touroperatorbpa.model.application.accommodation.AccommodationApplicationDto;
+import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationCreateDto;
+import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationDto;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

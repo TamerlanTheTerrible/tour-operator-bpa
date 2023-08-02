@@ -1,7 +1,6 @@
 package me.timur.touroperatorbpa.domain.repository;
 
 import me.timur.touroperatorbpa.domain.entity.Group;
-import me.timur.touroperatorbpa.model.group.GroupFilter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -6,11 +6,10 @@ import me.timur.touroperatorbpa.domain.entity.User;
 import me.timur.touroperatorbpa.domain.repository.CompanyRepository;
 import me.timur.touroperatorbpa.domain.repository.GroupRepository;
 import me.timur.touroperatorbpa.domain.repository.UserRepository;
-import me.timur.touroperatorbpa.model.group.GroupCreateDto;
-import me.timur.touroperatorbpa.model.group.GroupDto;
-import me.timur.touroperatorbpa.operator.service.impl.OperatorGroupService;
-import org.hibernate.query.sql.internal.ParameterRecognizerImpl;
-import org.junit.jupiter.api.BeforeEach;
+import me.timur.touroperatorbpa.group.model.GroupCreateDto;
+import me.timur.touroperatorbpa.group.model.GroupDto;
+import me.timur.touroperatorbpa.group.service.OperatorGroupService;
+import me.timur.touroperatorbpa.group.service.GroupNumberService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -25,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.openMocks;
 
 /**
  * Created by Temurbek Ismoilov on 28/07/23.

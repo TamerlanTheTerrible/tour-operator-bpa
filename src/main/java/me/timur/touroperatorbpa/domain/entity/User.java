@@ -38,4 +38,7 @@ public class User extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "role", nullable = false)
     private Role role;
+
+    @Column(name = "is_active")
+    private Boolean isActive = true;
 }

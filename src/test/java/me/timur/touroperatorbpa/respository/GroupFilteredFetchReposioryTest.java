@@ -11,7 +11,7 @@ import me.timur.touroperatorbpa.domain.repository.GroupRepository;
 import me.timur.touroperatorbpa.domain.repository.RoleRepository;
 import me.timur.touroperatorbpa.domain.repository.UserRepository;
 import me.timur.touroperatorbpa.domain.repository.impl.GroupFilteredFetchReposiory;
-import me.timur.touroperatorbpa.model.group.GroupFilter;
+import me.timur.touroperatorbpa.group.model.GroupFilter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
