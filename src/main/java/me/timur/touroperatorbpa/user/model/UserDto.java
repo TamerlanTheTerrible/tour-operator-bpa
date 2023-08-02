@@ -30,6 +30,9 @@ public class UserDto {
     @JsonProperty("email")
     private String email;
 
+    @JsonProperty("phone_number")
+    private String phoneNumber;
+
     @JsonProperty("initials")
     private String initials;
 
@@ -44,8 +47,9 @@ public class UserDto {
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
         this.email = user.getEmail();
-        this.initials = user.getInitial();
+        this.initials = user.getInitials();
         this.roles = user.getRoles().stream().map(Role::getName).toList();
         this.isActive = user.getIsActive();
+        this.phoneNumber = user.getPhoneNumber();
     }
 }

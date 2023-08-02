@@ -71,12 +71,33 @@ public class UserServiceImpl implements UserService {
     public UserDto update(UserDto userDto) {
         log.info("Updating user: {}", userDto);
 
-        return null;
+        var user = getEntity(userDto.getUserId());
+        if (userDto.getFirstName() != null) {
+            user.setFirstName(userDto.getFirstName());
+        }
+        if (userDto.getLastName() != null) {
+            user.setLastName(userDto.getLastName());
+        }
+        if (userDto.getEmail() != null) {
+            user.setEmail(userDto.getEmail());
+        }
+        if (userDto.getPhoneNumber() != null) {
+            user.setPhoneNumber(userDto.getPhoneNumber());
+        }
+        if (userDto.getInitials() != null) {
+            user.setInitials(userDto.getInitials());
+        }
+        if (userDto.getRoles() != null && !userDto.getRoles().isEmpty()) {
+            user.setRoles(roleRepository.findAllByNameIn(userDto.getRoles()));
+        }
+        userRepository.save(user);
+
+        return new UserDto(user);
     }
 
     @Override
     public List<UserDto> getAll() {
-        return null;
+        return userRepository.findAll().stream().map(UserDto::new).toList();
     }
 
     private User getEntity(Long id) {

@@ -42,7 +42,7 @@ public class OperatorGroupService implements GroupService {
 
         var user = getUser(createDto.getTourOperatorId());
         var company = getCompany(createDto.getCompanyId());
-        createDto.setNumber(groupNumberService.getValidNumber(createDto, user.getInitial()));
+        createDto.setNumber(groupNumberService.getValidNumber(createDto, user.getInitials()));
 
         // save and return group
         Group group = groupRepository.save(new Group(createDto, user, company));

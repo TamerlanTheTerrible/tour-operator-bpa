@@ -25,6 +25,9 @@ public class UserCreateDto {
     @JsonProperty("email")
     private String email;
 
+    @JsonProperty("phone_number")
+    private String phoneNumber;
+
     @JsonProperty("password")
     private String password;
 
@@ -33,5 +36,6 @@ public class UserCreateDto {
 
     @JsonProperty("roles")
     private List<String> roles;
+
 
 }

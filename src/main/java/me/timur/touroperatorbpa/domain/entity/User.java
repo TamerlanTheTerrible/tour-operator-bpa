@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import me.timur.touroperatorbpa.domain.converter.StringToListConverter;
 import me.timur.touroperatorbpa.user.model.UserCreateDto;
 
 import java.util.List;
@@ -34,7 +33,7 @@ public class User extends BaseEntity {
     private String password;
 
     @Column(name = "initial", unique = true)
-    private String initial;
+    private String initials;
 
     @Column(name= "phone_number")
     private String phoneNumber;
@@ -52,8 +51,10 @@ public class User extends BaseEntity {
         this.firstName = userCreateDto.getFirstName();
         this.lastName = userCreateDto.getLastName();
         this.email = userCreateDto.getEmail();
-        this.initial = userCreateDto.getInitials();
+        this.initials = userCreateDto.getInitials();
+        this.phoneNumber = userCreateDto.getPhoneNumber();
         this.roles = roles;
+        this.password = password;
         this.isActive = true;
     }
 }

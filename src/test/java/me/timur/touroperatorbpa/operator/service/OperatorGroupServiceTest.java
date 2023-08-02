@@ -58,7 +58,7 @@ public class OperatorGroupServiceTest {
 
         User user = new User();
         user.setId(1L);
-        user.setInitial("AB");
+        user.setInitials("AB");
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
         Company company = new Company();
