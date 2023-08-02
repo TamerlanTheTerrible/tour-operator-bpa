@@ -9,7 +9,7 @@ import me.timur.touroperatorbpa.model.enums.GroupStatus;
 import me.timur.touroperatorbpa.domain.repository.CompanyRepository;
 import me.timur.touroperatorbpa.domain.repository.GroupRepository;
 import me.timur.touroperatorbpa.domain.repository.UserRepository;
-import me.timur.touroperatorbpa.domain.repository.impl.GroupFilteredFetchReposiory;
+import me.timur.touroperatorbpa.domain.repository.impl.GroupFilteredFetchRepository;
 import me.timur.touroperatorbpa.exception.OperatorBpaException;
 import me.timur.touroperatorbpa.exception.ResponseCode;
 import me.timur.touroperatorbpa.model.PageableList;
@@ -31,7 +31,7 @@ import java.util.List;
 public class OperatorGroupService implements GroupService {
 
     private final GroupRepository groupRepository;
-    private final GroupFilteredFetchReposiory groupCustomRepository;
+    private final GroupFilteredFetchRepository groupCustomRepository;
     private final UserRepository userRepository;
     private final CompanyRepository companyRepository;
     private final GroupNumberService groupNumberService;

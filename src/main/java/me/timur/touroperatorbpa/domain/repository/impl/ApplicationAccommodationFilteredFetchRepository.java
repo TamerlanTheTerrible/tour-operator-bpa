@@ -7,7 +7,7 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import me.timur.touroperatorbpa.domain.entity.ApplicationAccommodation;
 import me.timur.touroperatorbpa.domain.entity.Group;
-import me.timur.touroperatorbpa.domain.repository.FilteredFetchReposiory;
+import me.timur.touroperatorbpa.domain.repository.FilteredFetchRepository;
 import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationFilter;
 import me.timur.touroperatorbpa.group.model.GroupFilter;
 import org.springframework.data.util.Pair;
@@ -20,7 +20,7 @@ import java.util.List;
  */
 
 @Repository
-public class ApplicationAccommodationFilteredFetchReposiory implements FilteredFetchReposiory<ApplicationAccommodation, AccommodationApplicationFilter> {
+public class ApplicationAccommodationFilteredFetchRepository implements FilteredFetchRepository<ApplicationAccommodation, AccommodationApplicationFilter> {
 
     @PersistenceContext
     public EntityManager em;

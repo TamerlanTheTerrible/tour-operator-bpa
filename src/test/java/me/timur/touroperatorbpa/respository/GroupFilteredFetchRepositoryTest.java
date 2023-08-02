@@ -10,7 +10,7 @@ import me.timur.touroperatorbpa.domain.repository.CompanyRepository;
 import me.timur.touroperatorbpa.domain.repository.GroupRepository;
 import me.timur.touroperatorbpa.domain.repository.RoleRepository;
 import me.timur.touroperatorbpa.domain.repository.UserRepository;
-import me.timur.touroperatorbpa.domain.repository.impl.GroupFilteredFetchReposiory;
+import me.timur.touroperatorbpa.domain.repository.impl.GroupFilteredFetchRepository;
 import me.timur.touroperatorbpa.group.model.GroupFilter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,10 +35,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Import(TestIntegrationConfiguration.class)
 @AutoConfigureMockMvc(addFilters = false)
 @ActiveProfiles("test")
-public class GroupFilteredFetchReposioryTest {
+public class GroupFilteredFetchRepositoryTest {
 
     @Autowired
-    private GroupFilteredFetchReposiory groupCustomRepository;
+    private GroupFilteredFetchRepository groupCustomRepository;
     @Autowired
     private UserRepository userRepository;
     @Autowired

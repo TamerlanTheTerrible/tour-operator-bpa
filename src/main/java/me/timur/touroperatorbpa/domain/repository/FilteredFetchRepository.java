@@ -10,6 +10,6 @@ import java.util.List;
  * Created by Temurbek Ismoilov on 29/07/23.
  */
 
-public interface FilteredFetchReposiory<T extends BaseEntity, R extends PageableFilter> {
+public interface FilteredFetchRepository<T extends BaseEntity, R extends PageableFilter> {
      Pair<List<T>, Long> findAllFiltered(R filter);
 }
