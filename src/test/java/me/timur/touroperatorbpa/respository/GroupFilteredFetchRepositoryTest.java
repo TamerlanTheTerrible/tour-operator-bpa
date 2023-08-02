@@ -309,7 +309,7 @@ public class GroupFilteredFetchRepositoryTest {
         Role role = new Role("ROLE_TOUR_OPERATOR");
         roleRepository.save(role);
 
-        tourOperator = createUser(List.of("ROLE_TOUR_OPERATOR"));
+        tourOperator = createUser(List.of(role));
         company1 = createCompany(1L,"Company A");
         company2 = createCompany(2L,"Company B");
 
@@ -321,7 +321,7 @@ public class GroupFilteredFetchRepositoryTest {
     }
 
     // Helper methods to create entities
-    private User createUser(List<String> roles) {
+    private User createUser(List<Role> roles) {
         User user = new User();
         user.setRoles(roles);
         user.setDateCreated(LocalDateTime.now());

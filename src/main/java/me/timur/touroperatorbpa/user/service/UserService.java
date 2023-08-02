@@ -12,8 +12,8 @@ import java.util.List;
 public interface UserService {
     UserDto create(UserCreateDto userCreateDto);
     UserDto get(Long id);
-    UserDto deactivate(Long id);
-    UserDto activate(Long id);
+    UserDto changeStatus(Long id, boolean isActive);
+    UserDto changePassword(Long id, String password);
     UserDto update(UserDto userDto);
     List<UserDto> getAll();
 }

@@ -39,18 +39,21 @@ public class User extends BaseEntity {
     @Column(name= "phone_number")
     private String phoneNumber;
 
-    @Convert(converter = StringToListConverter.class)
-    @Column(name = "roles")
-    private List<String> roles;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "name", nullable = false))
+    private List<Role> roles;
 
     @Column(name = "is_active")
     private Boolean isActive = true;
 
-    public User(UserCreateDto userCreateDto) {
+    public User(UserCreateDto userCreateDto, String password, List<Role> roles) {
         this.firstName = userCreateDto.getFirstName();
         this.lastName = userCreateDto.getLastName();
         this.email = userCreateDto.getEmail();
         this.initial = userCreateDto.getInitials();
-        this.roles = userCreateDto.getRoles();
+        this.roles = roles;
+        this.isActive = true;
     }
 }

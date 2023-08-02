@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import me.timur.touroperatorbpa.domain.entity.Role;
 import me.timur.touroperatorbpa.domain.entity.User;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class UserDto {
         this.lastName = user.getLastName();
         this.email = user.getEmail();
         this.initials = user.getInitial();
-        this.roles = user.getRoles();
+        this.roles = user.getRoles().stream().map(Role::getName).toList();
         this.isActive = user.getIsActive();
     }
 }
