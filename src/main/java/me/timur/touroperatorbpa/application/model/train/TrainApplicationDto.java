@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import me.timur.touroperatorbpa.domain.enums.ApplicationStatus;
-import me.timur.touroperatorbpa.domain.enums.TrainClass;
+import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
+import me.timur.touroperatorbpa.model.enums.TrainClass;
 import me.timur.touroperatorbpa.application.model.AbstractApplication;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 

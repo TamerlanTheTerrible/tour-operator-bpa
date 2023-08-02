@@ -3,7 +3,7 @@ package me.timur.touroperatorbpa.application.model.accommodation;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import me.timur.touroperatorbpa.domain.entity.Room;
-import me.timur.touroperatorbpa.domain.enums.RoomType;
+import me.timur.touroperatorbpa.model.enums.RoomType;
 
 /**
  * Created by Temurbek Ismoilov on 27/07/23.

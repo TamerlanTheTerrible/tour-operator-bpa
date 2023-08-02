@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import me.timur.touroperatorbpa.domain.entity.ApplicationAccommodation;
 import me.timur.touroperatorbpa.domain.entity.Group;
-import me.timur.touroperatorbpa.domain.enums.ApplicationStatus;
+import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
 import me.timur.touroperatorbpa.application.model.AbstractApplication;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 

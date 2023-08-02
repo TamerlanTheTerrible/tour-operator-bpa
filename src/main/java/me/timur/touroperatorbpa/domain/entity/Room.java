@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import me.timur.touroperatorbpa.domain.enums.RoomType;
-import me.timur.touroperatorbpa.model.application.RoomDto;
+import me.timur.touroperatorbpa.model.enums.RoomType;
+import me.timur.touroperatorbpa.application.model.accommodation.RoomDto;
 
 /**
  * Created by Temurbek Ismoilov on 26/07/23.

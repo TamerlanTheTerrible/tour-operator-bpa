@@ -2,7 +2,7 @@ package me.timur.touroperatorbpa.application.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import me.timur.touroperatorbpa.domain.enums.ApplicationStatus;
+import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
 
 import java.util.List;
 

@@ -9,7 +9,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import me.timur.touroperatorbpa.domain.enums.GroupStatus;
+import me.timur.touroperatorbpa.model.enums.GroupStatus;
 import me.timur.touroperatorbpa.model.PageableFilter;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 

@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import me.timur.touroperatorbpa.domain.enums.GroupStatus;
-import me.timur.touroperatorbpa.model.group.GroupCreateDto;
+import me.timur.touroperatorbpa.model.enums.GroupStatus;
+import me.timur.touroperatorbpa.group.model.GroupCreateDto;
 
 import java.time.LocalDateTime;
 

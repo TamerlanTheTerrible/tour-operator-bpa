@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import me.timur.touroperatorbpa.domain.enums.ApplicationStatus;
-import me.timur.touroperatorbpa.domain.enums.MealType;
+import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
+import me.timur.touroperatorbpa.model.enums.MealType;
 
 import java.time.LocalDate;
 

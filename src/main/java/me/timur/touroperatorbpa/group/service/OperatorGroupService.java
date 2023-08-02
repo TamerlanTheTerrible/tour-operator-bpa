@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.timur.touroperatorbpa.domain.entity.Company;
 import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.domain.entity.User;
-import me.timur.touroperatorbpa.domain.enums.GroupStatus;
+import me.timur.touroperatorbpa.model.enums.GroupStatus;
 import me.timur.touroperatorbpa.domain.repository.CompanyRepository;
 import me.timur.touroperatorbpa.domain.repository.GroupRepository;
 import me.timur.touroperatorbpa.domain.repository.UserRepository;

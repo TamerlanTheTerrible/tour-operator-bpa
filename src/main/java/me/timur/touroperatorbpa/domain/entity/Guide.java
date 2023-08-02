@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import me.timur.touroperatorbpa.domain.enums.Language;
+import me.timur.touroperatorbpa.model.enums.Language;
 
 import java.util.List;
 

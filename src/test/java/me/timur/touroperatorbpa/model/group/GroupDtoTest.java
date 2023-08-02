@@ -3,6 +3,7 @@ package me.timur.touroperatorbpa.model.group;
 import me.timur.touroperatorbpa.domain.entity.Company;
 import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.domain.entity.User;
+import me.timur.touroperatorbpa.group.model.GroupDto;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

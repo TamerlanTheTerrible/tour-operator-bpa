@@ -1,4 +1,4 @@
-package me.timur.touroperatorbpa.domain.enums;
+package me.timur.touroperatorbpa.model.enums;
 
 /**
  * Created by Temurbek Ismoilov on 26/07/23.
