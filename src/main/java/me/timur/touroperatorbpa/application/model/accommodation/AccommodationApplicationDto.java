@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -34,6 +35,7 @@ public class AccommodationApplicationDto extends AbstractApplication {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class AccommodationItem {
+        @NotNull
         public Long id;
 
         @JsonProperty("accommodation_id")

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class PageableFilter {
+public class PageableFilter {
     @JsonProperty("page_number")
     protected Integer pageNumber = 0;
     @JsonProperty("page_size")
