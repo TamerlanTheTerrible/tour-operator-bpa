@@ -1,0 +1,57 @@
+package me.timur.touroperatorbpa.application.service.impl;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import me.timur.touroperatorbpa.application.model.Application;
+import me.timur.touroperatorbpa.application.model.ApplicationCreate;
+import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationDto;
+import me.timur.touroperatorbpa.application.model.transport.TransportApplicationCreateDto;
+import me.timur.touroperatorbpa.application.model.transport.TransportApplicationDto;
+import me.timur.touroperatorbpa.application.service.ApplicationService;
+import me.timur.touroperatorbpa.model.PageableFilter;
+import me.timur.touroperatorbpa.model.PageableList;
+import org.springframework.stereotype.Service;
+
+/**
+ * Created by Temurbek Ismoilov on 03/08/23.
+ */
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class TransportApplicationService<T extends ApplicationCreate, R extends Application> implements ApplicationService<TransportApplicationCreateDto, TransportApplicationDto> {
+    @Override
+    public TransportApplicationDto create(TransportApplicationCreateDto transportApplicationCreateDto) {
+        return null;
+    }
+
+    @Override
+    public TransportApplicationDto update(TransportApplicationDto transportApplicationDto) {
+        return null;
+    }
+
+    @Override
+    public void cancel(Long id) {
+
+    }
+
+    @Override
+    public void cancelByGroupId(Long groupId) {
+
+    }
+
+    @Override
+    public TransportApplicationDto get(Long id) {
+        return null;
+    }
+
+    @Override
+    public TransportApplicationDto getByGroupId(Long groupId) {
+        return null;
+    }
+
+    @Override
+    public PageableList<AccommodationApplicationDto.AccommodationItem> getAllFiltered(PageableFilter filter) {
+        return null;
+    }
+}

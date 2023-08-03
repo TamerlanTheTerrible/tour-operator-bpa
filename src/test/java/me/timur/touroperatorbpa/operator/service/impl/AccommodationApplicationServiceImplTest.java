@@ -11,7 +11,7 @@ import me.timur.touroperatorbpa.domain.repository.GroupRepository;
 import me.timur.touroperatorbpa.application.model.accommodation.RoomDto;
 import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationCreateDto;
 import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationDto;
-import me.timur.touroperatorbpa.application.service.impl.AccommodationApplicationService;
+import me.timur.touroperatorbpa.application.service.impl.AccommodationApplicationServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,10 +28,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class AccommodationApplicationServiceTest {
+public class AccommodationApplicationServiceImplTest {
 
     @InjectMocks
-    private AccommodationApplicationService accommodationApplicationService;
+    private AccommodationApplicationServiceImpl accommodationApplicationServiceImpl;
 
     @Mock
     private ApplicationAccommodationRepository applicationAccommodationRepository;
@@ -79,7 +79,7 @@ public class AccommodationApplicationServiceTest {
 
 
         // WHEN
-        AccommodationApplicationDto result = accommodationApplicationService.create(createDto);
+        AccommodationApplicationDto result = accommodationApplicationServiceImpl.create(createDto);
 
 
         // THEN
@@ -144,7 +144,7 @@ public class AccommodationApplicationServiceTest {
         when(applicationAccommodationRepository.saveAll(any())).thenReturn(null);
 
         // Call the update() method
-        AccommodationApplicationDto resultDto = accommodationApplicationService.update(dto);
+        AccommodationApplicationDto resultDto = accommodationApplicationServiceImpl.update(dto);
 
         // Verify the interactions
         verify(groupRepository, times(1)).findById(groupId);

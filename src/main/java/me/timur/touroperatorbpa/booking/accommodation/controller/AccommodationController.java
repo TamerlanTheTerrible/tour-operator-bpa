@@ -14,7 +14,6 @@ import java.util.List;
  * Created by Temurbek Ismoilov on 03/08/23.
  */
 
-@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/accommodation")

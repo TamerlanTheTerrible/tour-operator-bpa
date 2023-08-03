@@ -16,7 +16,6 @@ import java.util.List;
  * Created by Temurbek Ismoilov on 02/08/23.
  */
 
-@Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/user/")
 @RestController

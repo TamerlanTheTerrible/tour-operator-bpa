@@ -2,6 +2,7 @@ package me.timur.touroperatorbpa.application.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.timur.touroperatorbpa.application.service.AccommodationApplicationService;
 import me.timur.touroperatorbpa.domain.entity.Accommodation;
 import me.timur.touroperatorbpa.domain.entity.ApplicationAccommodation;
 import me.timur.touroperatorbpa.domain.entity.Group;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class AccommodationApplicationService implements ApplicationService<AccommodationApplicationCreateDto, AccommodationApplicationDto> {
+public class AccommodationApplicationServiceImpl implements ApplicationService<AccommodationApplicationCreateDto, AccommodationApplicationDto> {
 
     private final ApplicationAccommodationRepository applicationAccommodationRepository;
     private final AccommodationRepository accommodationRepository;
