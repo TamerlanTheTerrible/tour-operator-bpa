@@ -1,6 +1,7 @@
 package me.timur.touroperatorbpa.user.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 public class UserDto {
 
+    @NotNull
     @JsonProperty("user_id")
     private Long userId;
 

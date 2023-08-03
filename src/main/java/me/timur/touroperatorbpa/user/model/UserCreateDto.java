@@ -1,6 +1,8 @@
 package me.timur.touroperatorbpa.user.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,9 +18,11 @@ import java.util.List;
 @NoArgsConstructor
 public class UserCreateDto {
 
+    @NotNull(message = "First name must not be null")
     @JsonProperty("first_name")
     private String firstName;
 
+    @NotNull(message = "Last name must not be null")
     @JsonProperty("last_name")
     private String lastName;
 
@@ -34,6 +38,7 @@ public class UserCreateDto {
     @JsonProperty("initials")
     private String initials;
 
+    @NotNull(message = "Roles must not be null") @NotEmpty
     @JsonProperty("roles")
     private List<String> roles;
 
