@@ -1,18 +1,16 @@
-package me.timur.touroperatorbpa.booking.accommodation.service.impl;
+package me.timur.touroperatorbpa.accommodation.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.timur.touroperatorbpa.booking.accommodation.model.AccommodationCreateDto;
-import me.timur.touroperatorbpa.booking.accommodation.model.AccommodationDto;
-import me.timur.touroperatorbpa.booking.accommodation.service.AccommodationService;
+import me.timur.touroperatorbpa.accommodation.model.AccommodationCreateDto;
+import me.timur.touroperatorbpa.accommodation.model.AccommodationDto;
+import me.timur.touroperatorbpa.accommodation.service.AccommodationService;
 import me.timur.touroperatorbpa.domain.entity.Accommodation;
 import me.timur.touroperatorbpa.domain.entity.Location;
 import me.timur.touroperatorbpa.domain.repository.AccommodationRepository;
 import me.timur.touroperatorbpa.domain.repository.LocationRepository;
 import me.timur.touroperatorbpa.exception.OperatorBpaException;
 import me.timur.touroperatorbpa.exception.ResponseCode;
-import me.timur.touroperatorbpa.model.PageableFilter;
-import me.timur.touroperatorbpa.model.PageableList;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

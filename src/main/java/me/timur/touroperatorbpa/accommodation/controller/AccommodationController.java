@@ -1,10 +1,9 @@
-package me.timur.touroperatorbpa.booking.accommodation.controller;
+package me.timur.touroperatorbpa.accommodation.controller;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import me.timur.touroperatorbpa.booking.accommodation.model.AccommodationCreateDto;
-import me.timur.touroperatorbpa.booking.accommodation.model.AccommodationDto;
-import me.timur.touroperatorbpa.booking.accommodation.service.AccommodationService;
+import me.timur.touroperatorbpa.accommodation.model.AccommodationCreateDto;
+import me.timur.touroperatorbpa.accommodation.model.AccommodationDto;
+import me.timur.touroperatorbpa.accommodation.service.AccommodationService;
 import me.timur.touroperatorbpa.model.response.BaseResponse;
 import org.springframework.web.bind.annotation.*;
 

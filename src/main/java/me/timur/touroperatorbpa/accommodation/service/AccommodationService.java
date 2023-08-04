@@ -1,7 +1,7 @@
-package me.timur.touroperatorbpa.booking.accommodation.service;
+package me.timur.touroperatorbpa.accommodation.service;
 
-import me.timur.touroperatorbpa.booking.accommodation.model.AccommodationCreateDto;
-import me.timur.touroperatorbpa.booking.accommodation.model.AccommodationDto;
+import me.timur.touroperatorbpa.accommodation.model.AccommodationCreateDto;
+import me.timur.touroperatorbpa.accommodation.model.AccommodationDto;
 
 import java.util.List;
 

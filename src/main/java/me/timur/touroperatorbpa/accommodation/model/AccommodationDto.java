@@ -1,4 +1,4 @@
-package me.timur.touroperatorbpa.booking.accommodation.model;
+package me.timur.touroperatorbpa.accommodation.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
