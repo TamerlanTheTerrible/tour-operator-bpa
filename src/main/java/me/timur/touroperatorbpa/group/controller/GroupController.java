@@ -1,5 +1,6 @@
 package me.timur.touroperatorbpa.group.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import me.timur.touroperatorbpa.group.model.GroupCreateDto;
 import me.timur.touroperatorbpa.group.model.GroupDto;
@@ -22,7 +23,7 @@ public class GroupController {
     private final GroupService groupService;
 
     @PostMapping(value = {"", "/"})
-    public BaseResponse<GroupDto> create(GroupCreateDto groupCreateDto) {
+    public BaseResponse<GroupDto> create(@Valid @RequestBody GroupCreateDto groupCreateDto) {
         return BaseResponse.ok(groupService.create(groupCreateDto));
     }
 
@@ -32,7 +33,7 @@ public class GroupController {
     }
 
     @PutMapping(value = {"", "/"})
-    public BaseResponse<GroupDto> update(GroupDto groupDto) {
+    public BaseResponse<GroupDto> update(@Valid @RequestBody GroupDto groupDto) {
         return BaseResponse.ok(groupService.update(groupDto));
     }
 
