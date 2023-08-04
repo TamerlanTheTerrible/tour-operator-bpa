@@ -5,8 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import me.timur.touroperatorbpa.domain.entity.User;
 import me.timur.touroperatorbpa.domain.repository.RoleRepository;
 import me.timur.touroperatorbpa.domain.repository.UserRepository;
-import me.timur.touroperatorbpa.exception.OperatorBpaException;
-import me.timur.touroperatorbpa.exception.ResponseCode;
+import me.timur.touroperatorbpa.exception.ClientException;
+import me.timur.touroperatorbpa.model.enums.ResponseCode;
 import me.timur.touroperatorbpa.user.model.UserCreateDto;
 import me.timur.touroperatorbpa.user.model.UserDto;
 import me.timur.touroperatorbpa.user.service.UserService;
@@ -102,6 +102,6 @@ public class UserServiceImpl implements UserService {
 
     private User getEntity(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new OperatorBpaException(ResponseCode.RESOURCE_NOT_FOUND, "User not found"));
+                .orElseThrow(() -> new ClientException(ResponseCode.RESOURCE_NOT_FOUND, "User not found"));
     }
 }

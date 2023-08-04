@@ -22,21 +22,21 @@ public class AccommodationController {
 
     @PostMapping(value = {"", "/"})
     public BaseResponse<AccommodationDto> create(@RequestBody AccommodationCreateDto createDto) {
-        return BaseResponse.payload(accommodationService.create(createDto));
+        return BaseResponse.ok(accommodationService.create(createDto));
     }
 
     @GetMapping("/{id}")
     public BaseResponse<AccommodationDto> get(@PathVariable Long id) {
-        return BaseResponse.payload(accommodationService.get(id));
+        return BaseResponse.ok(accommodationService.get(id));
     }
 
     @PutMapping(value = {"", "/"})
     public BaseResponse<AccommodationDto> update(@RequestBody AccommodationDto updateDto) {
-        return BaseResponse.payload(accommodationService.update(updateDto));
+        return BaseResponse.ok(accommodationService.update(updateDto));
     }
 
     @GetMapping(value = {"", "/"})
     public BaseResponse<List<AccommodationDto>> getAll() {
-        return BaseResponse.payload(accommodationService.getAll());
+        return BaseResponse.ok(accommodationService.getAll());
     }
 }

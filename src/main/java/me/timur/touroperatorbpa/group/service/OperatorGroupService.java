@@ -10,8 +10,8 @@ import me.timur.touroperatorbpa.domain.repository.CompanyRepository;
 import me.timur.touroperatorbpa.domain.repository.GroupRepository;
 import me.timur.touroperatorbpa.domain.repository.UserRepository;
 import me.timur.touroperatorbpa.domain.repository.impl.GroupFilteredFetchRepository;
-import me.timur.touroperatorbpa.exception.OperatorBpaException;
-import me.timur.touroperatorbpa.exception.ResponseCode;
+import me.timur.touroperatorbpa.exception.ClientException;
+import me.timur.touroperatorbpa.model.enums.ResponseCode;
 import me.timur.touroperatorbpa.model.PageableList;
 import me.timur.touroperatorbpa.group.model.GroupCreateDto;
 import me.timur.touroperatorbpa.group.model.GroupDto;
@@ -129,16 +129,16 @@ public class OperatorGroupService implements GroupService {
 
     private Group getEntity(Long id) {
         return groupRepository.findById(id)
-                .orElseThrow(() -> new OperatorBpaException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find group with id: " + id));
+                .orElseThrow(() -> new ClientException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find group with id: " + id));
     }
 
     private User getUser(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new OperatorBpaException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find user with id: " + id));
+                .orElseThrow(() -> new ClientException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find user with id: " + id));
     }
 
     private Company getCompany(Long id) {
         return companyRepository.findById(id)
-                .orElseThrow(() -> new OperatorBpaException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find company with id: " + id));
+                .orElseThrow(() -> new ClientException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find company with id: " + id));
     }
 }

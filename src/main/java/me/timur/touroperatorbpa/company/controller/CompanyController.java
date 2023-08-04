@@ -23,21 +23,21 @@ public class CompanyController {
 
     @PostMapping(value = {"/", ""})
     public BaseResponse<CompanyDto> create(@Valid @RequestBody CompanyCreateDto createDto) {
-        return BaseResponse.payload(companyService.create(createDto));
+        return BaseResponse.ok(companyService.create(createDto));
     }
 
     @GetMapping("/{id}")
     public BaseResponse<CompanyDto> get(@PathVariable Long id) {
-        return BaseResponse.payload(companyService.get(id));
+        return BaseResponse.ok(companyService.get(id));
     }
 
     @PutMapping(value = {"/", ""})
     public BaseResponse<CompanyDto> update(@RequestBody CompanyDto updateDto) {
-        return BaseResponse.payload(companyService.update(updateDto));
+        return BaseResponse.ok(companyService.update(updateDto));
     }
 
     @GetMapping(value = {"/", ""})
     public BaseResponse<List<CompanyDto>> getAll() {
-        return BaseResponse.payload(companyService.getAll());
+        return BaseResponse.ok(companyService.getAll());
     }
 }

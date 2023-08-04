@@ -23,27 +23,27 @@ public class GroupController {
 
     @PostMapping(value = {"", "/"})
     public BaseResponse<GroupDto> create(GroupCreateDto groupCreateDto) {
-        return BaseResponse.payload(groupService.create(groupCreateDto));
+        return BaseResponse.ok(groupService.create(groupCreateDto));
     }
 
     @GetMapping("/{id}")
     public BaseResponse<GroupDto> get(@PathVariable Long id) {
-        return BaseResponse.payload(groupService.get(id));
+        return BaseResponse.ok(groupService.get(id));
     }
 
     @PutMapping(value = {"", "/"})
     public BaseResponse<GroupDto> update(GroupDto groupDto) {
-        return BaseResponse.payload(groupService.update(groupDto));
+        return BaseResponse.ok(groupService.update(groupDto));
     }
 
     @DeleteMapping("/{id}")
     public BaseResponse<NoopDTO> cancel(@PathVariable Long id) {
         groupService.cancel(id);
-        return BaseResponse.payload();
+        return BaseResponse.ok();
     }
 
     @PostMapping("/filter")
     public BaseResponse<PageableList<GroupDto>> getAllByFiltered(@RequestBody GroupFilter groupFilter) {
-        return BaseResponse.payload(groupService.getAllByFiltered(groupFilter));
+        return BaseResponse.ok(groupService.getAllByFiltered(groupFilter));
     }
 }

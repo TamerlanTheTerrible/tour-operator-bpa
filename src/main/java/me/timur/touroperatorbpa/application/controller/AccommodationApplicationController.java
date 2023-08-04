@@ -20,11 +20,11 @@ public class AccommodationApplicationController {
 
     @PostMapping(value = {"", "/"})
     public BaseResponse<AccommodationApplicationDto> create(AccommodationApplicationCreateDto accommodationApplicationCreateDto) {
-        return BaseResponse.payload(applicationService.create(accommodationApplicationCreateDto));
+        return BaseResponse.ok(applicationService.create(accommodationApplicationCreateDto));
     }
 
     @GetMapping("/{id}")
     public BaseResponse<AccommodationApplicationDto> get(@PathVariable Long id) {
-        return BaseResponse.payload(applicationService.get(id));
+        return BaseResponse.ok(applicationService.get(id));
     }
 }

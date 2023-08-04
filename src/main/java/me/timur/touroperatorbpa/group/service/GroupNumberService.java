@@ -3,8 +3,8 @@ package me.timur.touroperatorbpa.group.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.timur.touroperatorbpa.domain.repository.GroupRepository;
-import me.timur.touroperatorbpa.exception.OperatorBpaException;
-import me.timur.touroperatorbpa.exception.ResponseCode;
+import me.timur.touroperatorbpa.exception.ClientException;
+import me.timur.touroperatorbpa.model.enums.ResponseCode;
 import me.timur.touroperatorbpa.group.model.GroupCreateDto;
 import org.springframework.stereotype.Component;
 
@@ -27,10 +27,10 @@ public class GroupNumberService {
 
         if (number != null) {
             if (!isValidGroupNumber(number)) {
-                throw new OperatorBpaException(ResponseCode.BAD_REQUEST, "Invalid group number: " + number);
+                throw new ClientException(ResponseCode.BAD_REQUEST, "Invalid group number: " + number);
             }
             if(!isUniqueGroupNumber(number, createDto.getArrival())) {
-                throw new OperatorBpaException(ResponseCode.BAD_REQUEST, "Group number is not unique: " + number);
+                throw new ClientException(ResponseCode.BAD_REQUEST, "Group number is not unique: " + number);
             }
         } else {
             number = generateGroupNumber(createDto.getArrival(), initials);
@@ -61,7 +61,7 @@ public class GroupNumberService {
     private String generateGroupNumber(LocalDateTime arrival, String initials) {
         // validate arrival and initials
         if (arrival == null || initials == null) {
-            throw new OperatorBpaException(ResponseCode.BAD_REQUEST, "Arrival date or initials is null");
+            throw new ClientException(ResponseCode.BAD_REQUEST, "Arrival date or initials is null");
         }
         // count groups by arrival month
         var arrivalMonth = arrival.getMonth();

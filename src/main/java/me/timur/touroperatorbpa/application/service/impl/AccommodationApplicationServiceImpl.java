@@ -2,7 +2,6 @@ package me.timur.touroperatorbpa.application.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.timur.touroperatorbpa.application.service.AccommodationApplicationService;
 import me.timur.touroperatorbpa.domain.entity.Accommodation;
 import me.timur.touroperatorbpa.domain.entity.ApplicationAccommodation;
 import me.timur.touroperatorbpa.domain.entity.Group;
@@ -11,8 +10,8 @@ import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
 import me.timur.touroperatorbpa.domain.repository.AccommodationRepository;
 import me.timur.touroperatorbpa.domain.repository.ApplicationAccommodationRepository;
 import me.timur.touroperatorbpa.domain.repository.GroupRepository;
-import me.timur.touroperatorbpa.exception.OperatorBpaException;
-import me.timur.touroperatorbpa.exception.ResponseCode;
+import me.timur.touroperatorbpa.exception.ClientException;
+import me.timur.touroperatorbpa.model.enums.ResponseCode;
 import me.timur.touroperatorbpa.model.PageableFilter;
 import me.timur.touroperatorbpa.model.PageableList;
 import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationCreateDto;
@@ -145,18 +144,18 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
 
     private ApplicationAccommodation getApplicationEntity(Long id) {
         return applicationAccommodationRepository.findById(id)
-                .orElseThrow(() -> new OperatorBpaException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find application with id: " + id));
+                .orElseThrow(() -> new ClientException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find application with id: " + id));
     }
 
 
     private Accommodation getAccommodation(Long accommodationId) {
         return accommodationRepository.findById(accommodationId)
-                .orElseThrow(() -> new OperatorBpaException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find accommodation with id: " + accommodationId));
+                .orElseThrow(() -> new ClientException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find accommodation with id: " + accommodationId));
     }
 
     private Group getGroup(Long groupId) {
         return groupRepository.findById(groupId)
-                .orElseThrow(() -> new OperatorBpaException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find group with id: " + groupId));
+                .orElseThrow(() -> new ClientException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find group with id: " + groupId));
     }
 
 }

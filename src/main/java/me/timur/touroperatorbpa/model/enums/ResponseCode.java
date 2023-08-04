@@ -1,4 +1,4 @@
-package me.timur.touroperatorbpa.exception;
+package me.timur.touroperatorbpa.model.enums;
 
 public enum ResponseCode {
     OK(0),

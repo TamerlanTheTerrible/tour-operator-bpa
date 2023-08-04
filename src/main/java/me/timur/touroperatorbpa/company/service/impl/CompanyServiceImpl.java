@@ -7,8 +7,8 @@ import me.timur.touroperatorbpa.company.model.CompanyDto;
 import me.timur.touroperatorbpa.company.service.CompanyService;
 import me.timur.touroperatorbpa.domain.entity.Company;
 import me.timur.touroperatorbpa.domain.repository.CompanyRepository;
-import me.timur.touroperatorbpa.exception.OperatorBpaException;
-import me.timur.touroperatorbpa.exception.ResponseCode;
+import me.timur.touroperatorbpa.exception.ClientException;
+import me.timur.touroperatorbpa.model.enums.ResponseCode;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -62,6 +62,6 @@ public class CompanyServiceImpl implements CompanyService {
 
     private Company getCompanyEntity(Long id) {
         return companyRepository.findById(id)
-                .orElseThrow(() -> new OperatorBpaException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find company with id: " + id));
+                .orElseThrow(() -> new ClientException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find company with id: " + id));
     }
 }

@@ -9,8 +9,8 @@ import me.timur.touroperatorbpa.domain.entity.Accommodation;
 import me.timur.touroperatorbpa.domain.entity.Location;
 import me.timur.touroperatorbpa.domain.repository.AccommodationRepository;
 import me.timur.touroperatorbpa.domain.repository.LocationRepository;
-import me.timur.touroperatorbpa.exception.OperatorBpaException;
-import me.timur.touroperatorbpa.exception.ResponseCode;
+import me.timur.touroperatorbpa.exception.ClientException;
+import me.timur.touroperatorbpa.model.enums.ResponseCode;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -70,11 +70,11 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     private Accommodation getAccommodationEntity(Long id) {
         return accommodationRepository.findById(id)
-                .orElseThrow(() -> new OperatorBpaException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find accommodation with id: " + id));
+                .orElseThrow(() -> new ClientException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find accommodation with id: " + id));
     }
 
     private Location getLocation(String name) {
         return locationRepository.findByName(name)
-                .orElseThrow(() -> new OperatorBpaException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find location: " + name));
+                .orElseThrow(() -> new ClientException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find location: " + name));
     }
 }
