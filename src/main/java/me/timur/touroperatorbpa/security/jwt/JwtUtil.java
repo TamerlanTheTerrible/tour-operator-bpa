@@ -22,13 +22,13 @@ public class JwtUtil {
     private String secretKey;
 
     @Value("${jwt.expiration-millis}")
-    private String expirationInMillis;
+    private Long expirationInMillis;
 
     public String getAccessToken(String username, Collection<? extends GrantedAuthority> authorities) {
         return Jwts.builder()
                 .setSubject(username)
                 .claim("authorities", authorities)
-                .setIssuedAt(new java.util.Date())
+                .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expirationInMillis))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
