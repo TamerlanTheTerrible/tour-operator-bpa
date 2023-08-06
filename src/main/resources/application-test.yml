@@ -12,3 +12,6 @@ spring:
       ddl-auto: create-drop
     show-sql: true
 
+jwt:
+  secret-key: aWIqyxBCOJqfLLTJfxVF
+  expiration-millis: 360000
