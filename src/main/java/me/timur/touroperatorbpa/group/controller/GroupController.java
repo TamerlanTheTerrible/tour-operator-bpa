@@ -2,6 +2,8 @@ package me.timur.touroperatorbpa.group.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import me.timur.touroperatorbpa.annotation.AuthorizedUser;
+import me.timur.touroperatorbpa.domain.entity.User;
 import me.timur.touroperatorbpa.group.model.GroupCreateDto;
 import me.timur.touroperatorbpa.group.model.GroupDto;
 import me.timur.touroperatorbpa.group.model.GroupFilter;
@@ -23,8 +25,8 @@ public class GroupController {
     private final GroupService groupService;
 
     @PostMapping(value = {"", "/"})
-    public BaseResponse<GroupDto> create(@Valid @RequestBody GroupCreateDto groupCreateDto) {
-        return BaseResponse.ok(groupService.create(groupCreateDto));
+    public BaseResponse<GroupDto> create(@Valid @RequestBody GroupCreateDto groupCreateDto, @AuthorizedUser User user) {
+        return BaseResponse.ok(groupService.create(groupCreateDto, user));
     }
 
     @GetMapping("/{id}")

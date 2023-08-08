@@ -37,10 +37,9 @@ public class OperatorGroupService implements GroupService {
     private final GroupNumberService groupNumberService;
 
     @Override
-    public GroupDto create(GroupCreateDto createDto) {
+    public GroupDto create(GroupCreateDto createDto, User user) {
         log.info("Creating group: {}", createDto);
 
-        var user = getUser(createDto.getTourOperatorId());
         var company = getCompany(createDto.getCompanyId());
         createDto.setNumber(groupNumberService.getValidNumber(createDto, user.getInitials()));
 

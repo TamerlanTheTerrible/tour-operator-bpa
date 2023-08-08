@@ -46,11 +46,12 @@ public class JwtVerifierFilter extends OncePerRequestFilter {
             context.setAuthentication(new UsernamePasswordAuthenticationToken(username, null, grantedAuthorities));
             SecurityContextHolder.setContext(context);
             // go to the next filter
-            filterChain.doFilter(request, response);
         } catch (JwtException e) {
             log.error(String.format("Token %s cannot be trusted", token), e);
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.getWriter().write("UNAUTHORIZED");
+            return;
         }
+        filterChain.doFilter(request, response);
     }
 }

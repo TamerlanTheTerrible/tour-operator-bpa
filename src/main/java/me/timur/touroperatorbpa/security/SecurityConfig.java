@@ -7,12 +7,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 /**
  * Created by Temurbek Ismoilov on 06/08/23.
@@ -20,21 +23,33 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
     private final UserDetailsService userDetailsService;
     private final JwtVerifierFilter jwtVerifierFilter;
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http
+//                .securityMatcher("/api/**")
+//                .authorizeHttpRequests((authorizeRequests) -> authorizeRequests
+//                        .requestMatchers(request -> request.getServletPath().startsWith("/sign-in")).permitAll()
+//                        .requestMatchers(request -> request.getServletPath().startsWith("/api/v1/group")).permitAll()
+//                        .anyRequest().authenticated()
+//                )
+//                .addFilterAfter(jwtVerifierFilter, UsernamePasswordAuthenticationFilter.class);
+
         http
-                .securityMatcher("/api/**")
-                .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers(request -> request.getServletPath().startsWith("/sign-in")).permitAll()
-                        .anyRequest().authenticated()
-                )
-                .addFilterAfter(jwtVerifierFilter, UsernamePasswordAuthenticationFilter.class);
+                .csrf()
+                .disable()
+                .addFilterAfter(jwtVerifierFilter, UsernamePasswordAuthenticationFilter.class)
+                .authorizeHttpRequests()
+                .requestMatchers("/sign-in").permitAll()
+                .requestMatchers("/api/v1/group/**").hasAnyAuthority("TOUR_OPERATOR")
+                .anyRequest().authenticated()
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        ;
 
         return http.build();
     }

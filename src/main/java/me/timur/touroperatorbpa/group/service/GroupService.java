@@ -1,5 +1,6 @@
 package me.timur.touroperatorbpa.group.service;
 
+import me.timur.touroperatorbpa.domain.entity.User;
 import me.timur.touroperatorbpa.model.PageableList;
 import me.timur.touroperatorbpa.group.model.GroupCreateDto;
 import me.timur.touroperatorbpa.group.model.GroupDto;
@@ -13,7 +14,7 @@ import java.util.List;
  */
 
 public interface GroupService {
-    GroupDto create(GroupCreateDto groupCreateDto);
+    GroupDto create(GroupCreateDto groupCreateDto, User user);
 
     @Transactional
     GroupDto update(GroupDto groupDto);

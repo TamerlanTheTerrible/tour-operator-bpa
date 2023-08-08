@@ -29,7 +29,7 @@ public class GroupNumberService {
             if (!isValidGroupNumber(number)) {
                 throw new ClientException(ResponseCode.BAD_REQUEST, "Invalid group number: " + number);
             }
-            if(!isUniqueGroupNumber(number, createDto.getArrival())) {
+            if(isNotUniqueGroupNumber(number, createDto.getArrival())) {
                 throw new ClientException(ResponseCode.BAD_REQUEST, "Group number is not unique: " + number);
             }
         } else {
@@ -48,7 +48,7 @@ public class GroupNumberService {
         return pattern.matcher(input).matches();
     }
 
-    private boolean isUniqueGroupNumber(String groupNumber, LocalDateTime arrival) {
+    private boolean isNotUniqueGroupNumber(String groupNumber, LocalDateTime arrival) {
         var monthAndNumber = groupNumber.split("-")[0];
         var arrivalMonth = arrival.getMonth();
         return groupRepository.existsByNumberStartsWithAndArrivalBetween(

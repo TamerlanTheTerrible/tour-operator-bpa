@@ -5,6 +5,6 @@ package me.timur.touroperatorbpa.util;
  */
 
 public class LocalDateTimeUtil {
-    public final static String DATE_PATTERN = "dd-MM-yy";
-    public final static String DATE_TIME_PATTERN = "dd-MM-yy HH:mm:ss";
+    public final static String DATE_PATTERN = "dd-MM-yyyy";
+    public final static String DATE_TIME_PATTERN = "dd-MM-yyyy HH:mm:ss";
 }
