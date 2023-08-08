@@ -31,15 +31,6 @@ public class SecurityConfig {
     private final JwtVerifierFilter jwtVerifierFilter;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http
-//                .securityMatcher("/api/**")
-//                .authorizeHttpRequests((authorizeRequests) -> authorizeRequests
-//                        .requestMatchers(request -> request.getServletPath().startsWith("/sign-in")).permitAll()
-//                        .requestMatchers(request -> request.getServletPath().startsWith("/api/v1/group")).permitAll()
-//                        .anyRequest().authenticated()
-//                )
-//                .addFilterAfter(jwtVerifierFilter, UsernamePasswordAuthenticationFilter.class);
-
         http
                 .csrf()
                 .disable()
