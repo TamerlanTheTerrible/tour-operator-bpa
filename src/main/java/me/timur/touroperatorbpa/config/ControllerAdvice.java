@@ -1,6 +1,7 @@
 package me.timur.touroperatorbpa.config;
 
 import lombok.extern.slf4j.Slf4j;
+import me.timur.touroperatorbpa.exception.AuthenticationException;
 import me.timur.touroperatorbpa.exception.ClientException;
 import me.timur.touroperatorbpa.exception.InternalException;
 import me.timur.touroperatorbpa.model.enums.ResponseCode;
@@ -22,6 +23,13 @@ public class ControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = ClientException.class)
     public BaseResponse<NoopDTO> handleClientException(ClientException e) {
+        log.error(e.getMessage());
+        return BaseResponse.error(e.getResponseCode(), e.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(value = AuthenticationException.class)
+    public BaseResponse<NoopDTO> handleAuthenticationException(AuthenticationException e) {
         log.error(e.getMessage());
         return BaseResponse.error(e.getResponseCode(), e.getMessage());
     }

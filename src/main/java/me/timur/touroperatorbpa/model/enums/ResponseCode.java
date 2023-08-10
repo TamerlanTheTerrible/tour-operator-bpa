@@ -7,6 +7,8 @@ public enum ResponseCode {
 
     RESOURCE_NOT_FOUND(-201),
     BAD_REQUEST(-202),
+
+    AUTHENTICATION_ERROR(-301),
     ;
 
 

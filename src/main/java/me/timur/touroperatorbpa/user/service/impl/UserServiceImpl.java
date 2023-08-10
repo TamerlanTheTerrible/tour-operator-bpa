@@ -10,6 +10,7 @@ import me.timur.touroperatorbpa.model.enums.ResponseCode;
 import me.timur.touroperatorbpa.user.model.UserCreateDto;
 import me.timur.touroperatorbpa.user.model.UserDto;
 import me.timur.touroperatorbpa.user.service.UserService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public UserDto create(UserCreateDto createDto) {
@@ -32,7 +34,7 @@ public class UserServiceImpl implements UserService {
 
         User user = new User(
                 createDto,
-                createDto.getPassword(), //TODO: encrypt password
+                passwordEncoder.encode(createDto.getPassword()),
                 roleRepository.findAllByNameIn(createDto.getRoles())
         );
         userRepository.save(user);
@@ -61,7 +63,7 @@ public class UserServiceImpl implements UserService {
         log.info("Changing password of user with id: {}", id);
 
         var user = getEntity(id);
-        user.setPassword(password); //TODO: encrypt password
+        user.setPassword(passwordEncoder.encode(password));
         userRepository.save(user);
 
         return new UserDto(user);

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.timur.touroperatorbpa.security.jwt.JwtVerifierFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,7 +16,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * Created by Temurbek Ismoilov on 06/08/23.
@@ -29,6 +31,7 @@ public class SecurityConfig {
 
     private final UserDetailsService userDetailsService;
     private final JwtVerifierFilter jwtVerifierFilter;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -37,11 +40,16 @@ public class SecurityConfig {
                 .addFilterAfter(jwtVerifierFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests()
                 .requestMatchers("/sign-in").permitAll()
+
+                .requestMatchers("/api/v1/user/create", "/api/v1/user/*/status/*").hasAnyAuthority("ADMIN", "GENERAL_MANAGER")
+                .requestMatchers(HttpMethod.GET, "/api/v1/user/*").hasAnyAuthority("ADMIN", "GENERAL_MANAGER", "TOUR_OPERATOR", "ACCOUNTANT")
+                .requestMatchers("/api/v1/user/*/change-password", "/api/v1/user/update").hasAnyAuthority("TOUR_OPERATOR")
+
                 .requestMatchers("/api/v1/group/**").hasAnyAuthority("TOUR_OPERATOR")
+                .requestMatchers("/api/v1/group/filter").hasAnyAuthority("GENERAL_MANAGER", "TOUR_OPERATOR")
                 .anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         ;
-
         return http.build();
     }
 

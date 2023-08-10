@@ -22,7 +22,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping(value = {"/", ""})
+    @PostMapping(value = {"/create"})
     public BaseResponse<UserDto> create(@Valid @RequestBody UserCreateDto createDto) {
         return BaseResponse.ok(userService.create(createDto));
     }
@@ -47,7 +47,7 @@ public class UserController {
         return BaseResponse.ok(userService.getAll());
     }
 
-    @PutMapping(value = {"/", ""})
+    @PutMapping(value = {"/update"})
     public BaseResponse<UserDto> update(@RequestBody UserDto userDto) {
         return BaseResponse.ok(userService.update(userDto));
     }
