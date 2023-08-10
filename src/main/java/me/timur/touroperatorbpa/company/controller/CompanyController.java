@@ -21,7 +21,7 @@ public class CompanyController {
 
     private final CompanyService companyService;
 
-    @PostMapping(value = {"/", ""})
+    @PostMapping(value = {"/create", })
     public BaseResponse<CompanyDto> create(@Valid @RequestBody CompanyCreateDto createDto) {
         return BaseResponse.ok(companyService.create(createDto));
     }
@@ -31,7 +31,7 @@ public class CompanyController {
         return BaseResponse.ok(companyService.get(id));
     }
 
-    @PutMapping(value = {"/", ""})
+    @PutMapping(value = {"/update"})
     public BaseResponse<CompanyDto> update(@RequestBody CompanyDto updateDto) {
         return BaseResponse.ok(companyService.update(updateDto));
     }

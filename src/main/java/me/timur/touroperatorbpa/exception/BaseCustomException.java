@@ -16,5 +16,10 @@ public abstract class BaseCustomException extends RuntimeException {
         this.message = message;
         this.responseCode = responseCode;
     }
+
+    public BaseCustomException(ResponseCode responseCode, String message, Object... args) {
+        this.message = String.format(message, args);
+        this.responseCode = responseCode;
+    }
 }
 

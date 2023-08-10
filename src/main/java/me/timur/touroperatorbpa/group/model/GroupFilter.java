@@ -7,8 +7,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import me.timur.touroperatorbpa.model.enums.GroupStatus;
 import me.timur.touroperatorbpa.model.PageableFilter;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
@@ -20,6 +22,8 @@ import java.time.LocalDateTime;
  */
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GroupFilter extends PageableFilter {
@@ -30,7 +34,7 @@ public class GroupFilter extends PageableFilter {
     @JsonProperty("company_id")
     private Long companyId;
 
-    @JsonProperty("company")
+    @JsonProperty("country")
     private String country;
 
     @JsonProperty("arrival_from")

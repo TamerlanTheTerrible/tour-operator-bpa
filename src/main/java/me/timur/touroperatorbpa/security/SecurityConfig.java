@@ -45,6 +45,9 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/v1/user/*").hasAnyAuthority("ADMIN", "GENERAL_MANAGER", "TOUR_OPERATOR", "ACCOUNTANT")
                 .requestMatchers("/api/v1/user/*/change-password", "/api/v1/user/update").hasAnyAuthority("TOUR_OPERATOR")
 
+                .requestMatchers("/api/v1/company/create", "/api/v1/company/update").hasAnyAuthority("ADMIN", "GENERAL_MANAGER", "TOUR_OPERATOR")
+                .requestMatchers(HttpMethod.GET, "/api/v1/company/**").permitAll()
+
                 .requestMatchers("/api/v1/group/**").hasAnyAuthority("TOUR_OPERATOR")
                 .requestMatchers("/api/v1/group/filter").hasAnyAuthority("GENERAL_MANAGER", "TOUR_OPERATOR")
                 .anyRequest().authenticated()

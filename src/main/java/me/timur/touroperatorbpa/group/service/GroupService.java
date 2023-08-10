@@ -7,8 +7,6 @@ import me.timur.touroperatorbpa.group.model.GroupDto;
 import me.timur.touroperatorbpa.group.model.GroupFilter;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 /**
  * Created by Temurbek Ismoilov on 27/07/23.
  */
@@ -17,14 +15,12 @@ public interface GroupService {
     GroupDto create(GroupCreateDto groupCreateDto, User user);
 
     @Transactional
-    GroupDto update(GroupDto groupDto);
+    GroupDto update(GroupDto groupDto, User user);
 
     @Transactional
-    void cancel(Long id);
+    void cancel(Long id, User user);
 
-    GroupDto get(Long id);
+    GroupDto get(Long id, User user);
 
-    List<GroupDto> getAllByOperatorId(Long id);
-
-    PageableList<GroupDto> getAllByFiltered(GroupFilter filter);
+    PageableList<GroupDto> getAllByFiltered(GroupFilter filter, User user);
 }

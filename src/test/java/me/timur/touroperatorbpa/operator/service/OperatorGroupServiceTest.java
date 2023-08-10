@@ -70,7 +70,7 @@ public class OperatorGroupServiceTest {
         when(groupRepository.save(any(Group.class))).thenReturn(group);
 
         // Call the create method
-        GroupDto result = operatorGroupService.create(createDto);
+        GroupDto result = operatorGroupService.create(createDto, new User());
 
         // Assert the result
         assertNotNull(result);

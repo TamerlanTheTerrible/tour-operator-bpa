@@ -8,6 +8,8 @@ import lombok.Setter;
 import me.timur.touroperatorbpa.user.model.UserCreateDto;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by Temurbek Ismoilov on 25/07/23.
@@ -56,5 +58,9 @@ public class User extends BaseEntity {
         this.roles = roles;
         this.password = password;
         this.isActive = true;
+    }
+
+    public Set<String> getRoleNames() {
+        return roles.stream().map(Role::getName).collect(Collectors.toSet());
     }
 }

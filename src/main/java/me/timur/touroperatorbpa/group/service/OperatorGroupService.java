@@ -20,6 +20,7 @@ import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Temurbek Ismoilov on 28/07/23.
@@ -50,11 +51,11 @@ public class OperatorGroupService implements GroupService {
     }
 
     @Override
-    public GroupDto update(GroupDto dto) {
+    public GroupDto update(GroupDto dto, User user) {
         log.info("Updating group: {}", dto);
 
         //update group
-        var group = getEntity(dto.getId());
+        var group = getGroupOfOperator(dto.getId(), user);
         if (dto.getCountry() != null) {
             group.setCountry(dto.getCountry());
         }
@@ -93,10 +94,10 @@ public class OperatorGroupService implements GroupService {
     }
 
     @Override
-    public void cancel(Long id) {
+    public void cancel(Long id, User user) {
         log.info("Cancelling group with id: {}", id);
 
-        var group = getEntity(id);
+        var group = getGroupOfOperator(id, user);
         group.setStatus(GroupStatus.CANCELLED);
         groupRepository.save(group);
 
@@ -105,19 +106,16 @@ public class OperatorGroupService implements GroupService {
     }
 
     @Override
-    public GroupDto get(Long id) {
-        return new GroupDto(getEntity(id));
+    public GroupDto get(Long id, User user) {
+        return new GroupDto(getGroupOfOperator(id, user));
     }
 
     @Override
-    public List<GroupDto> getAllByOperatorId(Long id) {
-        return groupRepository.findAllByTourOperatorId(id).stream()
-                .map(GroupDto::new)
-                .toList();
-    }
+    public PageableList<GroupDto> getAllByFiltered(GroupFilter filter, User user) {
+        if (filter.getTourOperatorId() == null && user.getRoleNames().contains("TOUR_OPERATOR")) {
+            filter.setTourOperatorId(user.getId());
+        }
 
-    @Override
-    public PageableList<GroupDto> getAllByFiltered(GroupFilter filter) {
         final Pair<List<Group>, Long> result = groupCustomRepository.findAllFiltered(filter);
 
         return new PageableList<>(
@@ -126,9 +124,15 @@ public class OperatorGroupService implements GroupService {
         );
     }
 
-    private Group getEntity(Long id) {
-        return groupRepository.findById(id)
+    private Group getGroupOfOperator(Long id, User user) {
+        var group = groupRepository.findById(id)
                 .orElseThrow(() -> new ClientException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find group with id: " + id));
+
+        if (!Objects.equals(group.getTourOperator().getId(), user.getId())) {
+            throw new ClientException(ResponseCode.FORBIDDEN_RESOURCE, "User %s is not allowed to access group %s", user.getId(), id);
+        }
+
+        return group;
     }
 
     private User getUser(Long id) {
