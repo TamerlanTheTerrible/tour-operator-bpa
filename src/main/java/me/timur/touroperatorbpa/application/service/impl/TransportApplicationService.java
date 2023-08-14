@@ -12,6 +12,8 @@ import me.timur.touroperatorbpa.model.PageableFilter;
 import me.timur.touroperatorbpa.model.PageableList;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by Temurbek Ismoilov on 03/08/23.
  */
@@ -26,7 +28,7 @@ public class TransportApplicationService<T extends ApplicationCreate, R extends 
     }
 
     @Override
-    public TransportApplicationDto update(TransportApplicationDto transportApplicationDto) {
+    public List<TransportApplicationDto> update(TransportApplicationDto transportApplicationDto) {
         return null;
     }
 

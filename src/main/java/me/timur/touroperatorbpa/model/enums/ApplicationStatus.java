@@ -6,7 +6,7 @@ package me.timur.touroperatorbpa.model.enums;
 
 public enum ApplicationStatus {
     ACTIVE,
-    WAITING,
+    DEPRECATED,
     CONFIRMED,
     CANCELLED,
 }

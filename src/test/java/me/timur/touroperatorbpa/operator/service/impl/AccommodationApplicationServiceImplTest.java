@@ -1,7 +1,7 @@
 package me.timur.touroperatorbpa.operator.service.impl;
 
 import me.timur.touroperatorbpa.domain.entity.Accommodation;
-import me.timur.touroperatorbpa.domain.entity.ApplicationAccommodation;
+import me.timur.touroperatorbpa.domain.entity.application.ApplicationAccommodation;
 import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
 import me.timur.touroperatorbpa.model.enums.RoomType;
@@ -144,7 +144,8 @@ public class AccommodationApplicationServiceImplTest {
         when(applicationAccommodationRepository.saveAll(any())).thenReturn(null);
 
         // Call the update() method
-        AccommodationApplicationDto resultDto = accommodationApplicationServiceImpl.update(dto);
+        List<AccommodationApplicationDto> resultDtos = accommodationApplicationServiceImpl.update(dto);
+        var resultDto = resultDtos.get(0);
 
         // Verify the interactions
         verify(groupRepository, times(1)).findById(groupId);

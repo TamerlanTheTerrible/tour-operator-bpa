@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import me.timur.touroperatorbpa.domain.entity.application.ApplicationAccommodation;
 import me.timur.touroperatorbpa.model.enums.RoomType;
 import me.timur.touroperatorbpa.application.model.accommodation.RoomDto;
 
@@ -42,5 +43,13 @@ public class Room extends BaseEntity {
         this.roomType = roomDto.getRoomType();
         this.requested = roomDto.getRequested();
         this.provided = 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "roomType=" + roomType +
+                ", requested=" + requested +
+                '}';
     }
 }

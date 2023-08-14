@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import me.timur.touroperatorbpa.domain.entity.ApplicationAccommodation;
+import me.timur.touroperatorbpa.domain.entity.application.ApplicationAccommodation;
 import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
 import me.timur.touroperatorbpa.application.model.AbstractApplication;
@@ -89,6 +89,7 @@ public class AccommodationApplicationDto extends AbstractApplication {
         this.groupId = group.getId();
         this.groupNumber = group.getNumber();
         this.status = this.getOverallStatus(this.items.stream().map(AccommodationItem::getStatus).toList());
+        this.version = entities.get(0).getVersion();
     }
 
     @Override
@@ -97,6 +98,7 @@ public class AccommodationApplicationDto extends AbstractApplication {
                 "items=" + items +
                 ", groupId=" + groupId +
                 ", groupNumber='" + groupNumber + '\'' +
+                ", version='" + groupNumber + '\'' +
                 '}';
     }
 }

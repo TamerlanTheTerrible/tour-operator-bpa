@@ -14,15 +14,22 @@ import java.util.List;
 public abstract class AbstractApplication implements Application {
     @JsonProperty("group_id")
     public Long groupId;
+
     @JsonProperty("group_number")
     public String groupNumber;
+
+    @JsonProperty("status")
     public ApplicationStatus status;
+
+    @JsonProperty("version")
+    public Integer version;
 
     public ApplicationStatus getOverallStatus(List<ApplicationStatus> statusList) {
         return statusList.stream().allMatch(s -> s == ApplicationStatus.CONFIRMED)
                 ? ApplicationStatus.CONFIRMED
                 : statusList.stream().allMatch(s -> s == ApplicationStatus.CANCELLED)
                 ? ApplicationStatus.CANCELLED
-                : ApplicationStatus.ACTIVE;
+                : statusList.stream().anyMatch(s -> s == ApplicationStatus.DEPRECATED)
+                ? ApplicationStatus.DEPRECATED : ApplicationStatus.ACTIVE;
     }
 }

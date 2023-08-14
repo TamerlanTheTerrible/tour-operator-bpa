@@ -1,10 +1,12 @@
-package me.timur.touroperatorbpa.domain.entity;
+package me.timur.touroperatorbpa.domain.entity.application;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import me.timur.touroperatorbpa.domain.entity.BaseEntity;
+import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
 
 import java.time.LocalDate;
@@ -37,4 +39,8 @@ public class ApplicationTransport extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private ApplicationStatus status;
+
+    @Column(name = "version")
+    private Integer version = 1;
+
 }

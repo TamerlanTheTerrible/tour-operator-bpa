@@ -1,10 +1,14 @@
-package me.timur.touroperatorbpa.domain.entity;
+package me.timur.touroperatorbpa.domain.entity.application;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import me.timur.touroperatorbpa.domain.entity.Accommodation;
+import me.timur.touroperatorbpa.domain.entity.BaseEntity;
+import me.timur.touroperatorbpa.domain.entity.Group;
+import me.timur.touroperatorbpa.domain.entity.Room;
 import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
 import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationCreateDto;
 import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationDto;
@@ -49,6 +53,9 @@ public class ApplicationAccommodation extends BaseEntity {
     @Column(name = "status", nullable = false)
     private ApplicationStatus status;
 
+    @Column(name = "version")
+    private Integer version = 1;
+
     public ApplicationAccommodation(Group group, Accommodation accommodation, AccommodationApplicationCreateDto.AccommodationItem createDto) {
         this.group = group;
         this.accommodation = accommodation;
@@ -56,6 +63,7 @@ public class ApplicationAccommodation extends BaseEntity {
         this.checkOut = createDto.getCheckOut();
         this.comment = createDto.getComment();
         this.status = ApplicationStatus.ACTIVE;
+        this.version = 0;
     }
 
     public ApplicationAccommodation(Group group, Accommodation accommodation, AccommodationApplicationDto.AccommodationItem createDto) {
@@ -65,6 +73,7 @@ public class ApplicationAccommodation extends BaseEntity {
         this.checkOut = createDto.getCheckOut();
         this.comment = createDto.getComment();
         this.status = ApplicationStatus.ACTIVE;
+        this.version = 0;
     }
 
     public void addRoom(Room room) {

@@ -7,6 +7,8 @@ import me.timur.touroperatorbpa.application.model.ApplicationCreate;
 import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationDto;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by Temurbek Ismoilov on 27/07/23.
  */
@@ -16,7 +18,7 @@ public interface ApplicationService<T extends ApplicationCreate, R extends Appli
     R create(T t);
 
     @Transactional
-    R update(R r);
+    List<R> update(R r);
 
     void cancel(Long id);
 

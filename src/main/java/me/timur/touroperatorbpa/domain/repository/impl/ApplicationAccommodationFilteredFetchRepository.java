@@ -5,7 +5,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
-import me.timur.touroperatorbpa.domain.entity.ApplicationAccommodation;
+import me.timur.touroperatorbpa.domain.entity.application.ApplicationAccommodation;
 import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.domain.repository.FilteredFetchRepository;
 import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationFilter;

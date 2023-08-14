@@ -1,6 +1,6 @@
 package me.timur.touroperatorbpa.domain.repository;
 
-import me.timur.touroperatorbpa.domain.entity.ApplicationTransport;
+import me.timur.touroperatorbpa.domain.entity.application.ApplicationTransport;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -18,7 +18,7 @@ public class AccommodationApplicationController {
 
     private final ApplicationService<AccommodationApplicationCreateDto, AccommodationApplicationDto> applicationService;
 
-    @PostMapping(value = {"", "/"})
+    @PostMapping("/create")
     public BaseResponse<AccommodationApplicationDto> create(AccommodationApplicationCreateDto accommodationApplicationCreateDto) {
         return BaseResponse.ok(applicationService.create(accommodationApplicationCreateDto));
     }

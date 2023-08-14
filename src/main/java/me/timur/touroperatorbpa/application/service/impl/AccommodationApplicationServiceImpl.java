@@ -3,7 +3,7 @@ package me.timur.touroperatorbpa.application.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.timur.touroperatorbpa.domain.entity.Accommodation;
-import me.timur.touroperatorbpa.domain.entity.ApplicationAccommodation;
+import me.timur.touroperatorbpa.domain.entity.application.ApplicationAccommodation;
 import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.domain.entity.Room;
 import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
@@ -20,6 +20,7 @@ import me.timur.touroperatorbpa.application.service.ApplicationService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Temurbek Ismoilov on 31/07/23.
@@ -56,7 +57,7 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
     }
 
     @Override
-    public AccommodationApplicationDto update(AccommodationApplicationDto dto) {
+    public List<AccommodationApplicationDto> update(AccommodationApplicationDto dto) {
         log.info("Attempting to update accommodation application: {}", dto);
 
         var group = getGroup(dto.getGroupId());
@@ -64,20 +65,25 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
         for (var item: dto.getItems()) {
             // if application id is not null then update application, else create new application
             if (item.getId() != null) {
-                log.info("Updating application: {}", item);
-
+                log.info("Updating application item: {}", item.getId());
+                var changeLog = new StringBuilder();
                 var application = getApplicationEntity(item.getId());
-                if (item.getAccommodationId() != null) {
-                    application.setAccommodation(getAccommodation(item.getAccommodationId()));
-                }
                 if (item.getCheckIn() != null) {
+                    changeLog.append("Заезд: ").append(application.getCheckIn()).append(" -> ").append(item.getCheckIn()).append("\n");
                     application.setCheckIn(item.getCheckIn());
                 }
                 if (item.getCheckOut() != null) {
+                    changeLog.append("Выезд: ").append(application.getCheckOut()).append(" -> ").append(item.getCheckOut()).append("\n");
                     application.setCheckOut(item.getCheckOut());
                 }
-                if (item.getRooms() != null && item.getRooms().size() > 0) {
+                if (item.getAccommodationId() != null) {
+                    final Accommodation newAccommodation = getAccommodation(item.getAccommodationId());
+                    changeLog.append("Отель: ").append(application.getAccommodation().getName()).append(" -> ").append(newAccommodation.getName()).append("\n");
+                    application.setAccommodation(newAccommodation);
+                }
+                if (item.getRooms() != null && !item.getRooms().isEmpty()) {
                     var rooms = item.getRooms().stream().map(roomDto -> new Room(application, roomDto)).toList();
+//                    changeLog.append("Комнаты: ").append(application.getRooms()).append(" -> ").append(newAccommodation.getName()).append("\n");
                     application.addRooms(rooms);
                 }
                 if (item.getStatus() != null) {
@@ -103,7 +109,7 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
 
         // TODO send notifications
 
-        return new AccommodationApplicationDto(group, applications);
+        return List.of(new AccommodationApplicationDto(group, applications));
     }
 
     @Override
