@@ -1,6 +1,7 @@
 package me.timur.touroperatorbpa.domain.repository;
 
 import me.timur.touroperatorbpa.domain.entity.application.ApplicationAccommodation;
+import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,5 +13,6 @@ import java.util.List;
 
 @Repository
 public interface ApplicationAccommodationRepository extends JpaRepository<ApplicationAccommodation, Long> {
-    List<ApplicationAccommodation> findAllByGroupId(Long groupId);
+    List<ApplicationAccommodation> findAllByGroupIdOrderByVersionDesc(Long groupId);
+    List<ApplicationAccommodation> findAllByGroupIdAndStatus(Long group_id, ApplicationStatus status);
 }

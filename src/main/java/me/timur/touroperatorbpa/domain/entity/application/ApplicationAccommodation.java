@@ -63,17 +63,28 @@ public class ApplicationAccommodation extends BaseEntity {
         this.checkOut = createDto.getCheckOut();
         this.comment = createDto.getComment();
         this.status = ApplicationStatus.ACTIVE;
-        this.version = 0;
+        this.version = 1;
     }
 
-    public ApplicationAccommodation(Group group, Accommodation accommodation, AccommodationApplicationDto.AccommodationItem createDto) {
+    public ApplicationAccommodation(Group group, Accommodation accommodation, AccommodationApplicationDto.AccommodationItem dto, int version) {
         this.group = group;
         this.accommodation = accommodation;
-        this.checkIn = createDto.getCheckIn();
-        this.checkOut = createDto.getCheckOut();
-        this.comment = createDto.getComment();
+        this.checkIn = dto.getCheckIn();
+        this.checkOut = dto.getCheckOut();
+        this.comment = dto.getComment();
         this.status = ApplicationStatus.ACTIVE;
-        this.version = 0;
+        this.version = version;
+    }
+
+    public ApplicationAccommodation(ApplicationAccommodation application) {
+        this.group = application.getGroup();
+        this.accommodation = application.getAccommodation();
+        this.rooms = application.getRooms();
+        this.checkIn = application.getCheckIn();
+        this.checkOut = application.getCheckOut();
+        this.comment = application.getComment();
+        this.status = ApplicationStatus.ACTIVE;
+        this.version = application.getVersion() + 1;
     }
 
     public void addRoom(Room room) {

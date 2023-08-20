@@ -2,7 +2,9 @@ package me.timur.touroperatorbpa.application.model.accommodation;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import me.timur.touroperatorbpa.domain.entity.Room;
 import me.timur.touroperatorbpa.model.enums.RoomType;
 
@@ -11,6 +13,8 @@ import me.timur.touroperatorbpa.model.enums.RoomType;
  */
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class RoomDto {
     @NotNull
     @JsonProperty("room_type")
