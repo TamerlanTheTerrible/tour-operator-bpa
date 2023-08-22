@@ -3,6 +3,7 @@ package me.timur.touroperatorbpa.accommodation.controller;
 import lombok.RequiredArgsConstructor;
 import me.timur.touroperatorbpa.accommodation.model.AccommodationCreateDto;
 import me.timur.touroperatorbpa.accommodation.model.AccommodationDto;
+import me.timur.touroperatorbpa.accommodation.model.AccommodationFilter;
 import me.timur.touroperatorbpa.accommodation.service.AccommodationService;
 import me.timur.touroperatorbpa.model.response.BaseResponse;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class AccommodationController {
 
     private final AccommodationService accommodationService;
 
-    @PostMapping(value = {"", "/"})
+    @PostMapping(value = {"/create"})
     public BaseResponse<AccommodationDto> create(@RequestBody AccommodationCreateDto createDto) {
         return BaseResponse.ok(accommodationService.create(createDto));
     }
@@ -35,8 +36,8 @@ public class AccommodationController {
         return BaseResponse.ok(accommodationService.update(updateDto));
     }
 
-    @GetMapping(value = {"", "/"})
-    public BaseResponse<List<AccommodationDto>> getAll() {
-        return BaseResponse.ok(accommodationService.getAll());
+    @PostMapping(value = {"", "/"})
+    public BaseResponse<List<AccommodationDto>> getAll(@RequestBody AccommodationFilter filter) {
+        return BaseResponse.ok(accommodationService.getAll(filter));
     }
 }

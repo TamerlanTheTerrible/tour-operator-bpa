@@ -39,8 +39,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/sign-in").permitAll()
 
+                .requestMatchers(HttpMethod.GET, "/api/v1/accommodation/*").hasAnyAuthority("TOUR_OPERATOR", "ACCOUNTANT")
+                .requestMatchers(HttpMethod.POST, "/api/v1/accommodation/").hasAnyAuthority("TOUR_OPERATOR", "ACCOUNTANT")
                 .requestMatchers("/api/v1/accommodation/**").hasAnyAuthority("ADMIN", "MANAGER_BOOKING")
-                .requestMatchers(HttpMethod.GET, "/api/v1/accommodation/**").hasAnyAuthority("TOUR_OPERATOR", "ACCOUNTANT")
 
                 .requestMatchers("/api/v1/company/**").hasAnyAuthority("ADMIN", "TOUR_OPERATOR")
                 .requestMatchers(HttpMethod.GET, "/api/v1/company/**").hasAnyAuthority("GENERAL_MANAGER", "ACCOUNTANT")

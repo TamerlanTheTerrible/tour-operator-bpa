@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.timur.touroperatorbpa.accommodation.model.AccommodationCreateDto;
 import me.timur.touroperatorbpa.accommodation.model.AccommodationDto;
+import me.timur.touroperatorbpa.accommodation.model.AccommodationFilter;
 import me.timur.touroperatorbpa.accommodation.service.AccommodationService;
 import me.timur.touroperatorbpa.domain.entity.Accommodation;
 import me.timur.touroperatorbpa.domain.entity.Location;
@@ -62,8 +63,14 @@ public class AccommodationServiceImpl implements AccommodationService {
     }
 
     @Override
-    public List<AccommodationDto> getAll() {
-        return accommodationRepository.findAll().stream()
+    public List<AccommodationDto> getAll(AccommodationFilter filter) {
+        var accommodations = filter.getLocation() == null
+                ? accommodationRepository.findAll()
+                : accommodationRepository.findByLocation(
+                        locationRepository.findByName(filter.getLocation()).orElseThrow(() -> new ClientException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find location: " + filter.getLocation()))
+        );
+
+        return accommodations.stream()
                 .map(AccommodationDto::new)
                 .toList();
     }

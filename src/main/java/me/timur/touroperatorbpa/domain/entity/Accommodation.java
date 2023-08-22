@@ -23,6 +23,9 @@ public class Accommodation extends BaseEntity {
     @JoinColumn(name = "location", nullable = false)
     private Location location;
 
+    @Column(name = "status", nullable = false)
+    private boolean status = true;
+
     public Accommodation(String name, Location location) {
         this.name = name;
         this.location = location;
