@@ -32,8 +32,8 @@ public class AccommodationApplicationController {
         return BaseResponse.ok(applicationService.update(accommodationApplicationDto, user));
     }
 
-    @GetMapping("/{id}")
-    public BaseResponse<AccommodationApplicationDto> get(@PathVariable Long id) {
-        return BaseResponse.ok(applicationService.get(id));
+    @GetMapping("/group/{groupId}")
+    public BaseResponse<List<AccommodationApplicationDto>> getByGroupId(@PathVariable Long groupId, @AuthorizedUser User user) {
+        return BaseResponse.ok(applicationService.getByGroupId(groupId, user));
     }
 }

@@ -25,9 +25,9 @@ public interface ApplicationService<T extends ApplicationCreate, R extends Appli
 
     void cancelByGroupId(Long groupId);
 
-    R get(Long id);
+    R get(Long id, User user);
 
-    List<R> getByGroupId(Long groupId);
+    List<R> getByGroupId(Long groupId, User user);
 
     PageableList<AccommodationApplicationDto.AccommodationItem> getAllFiltered(PageableFilter filter);
 }

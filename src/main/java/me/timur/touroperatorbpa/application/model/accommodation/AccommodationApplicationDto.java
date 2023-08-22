@@ -41,6 +41,9 @@ public class AccommodationApplicationDto extends AbstractApplication {
         @JsonProperty("accommodation_id")
         private Long accommodationId;
 
+        @JsonProperty("accommodation_name")
+        private String accommodationName;
+
         @JsonProperty("check_in")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = LocalDateTimeUtil.DATE_TIME_PATTERN)
         @JsonDeserialize(using = LocalDateTimeDeserializer.class)
@@ -63,6 +66,7 @@ public class AccommodationApplicationDto extends AbstractApplication {
         public AccommodationItem(ApplicationAccommodation entity) {
             this.id = entity.getId();
             this.accommodationId = entity.getAccommodation().getId();
+            this.accommodationName = entity.getAccommodation().getName();
             this.checkIn = entity.getCheckIn();
             this.checkOut = entity.getCheckOut();
             this.rooms = entity.getRooms().stream().map(RoomDto::new).toList();
@@ -75,6 +79,7 @@ public class AccommodationApplicationDto extends AbstractApplication {
             return "AccommodationItem{" +
                     "id=" + id +
                     ", accommodationId=" + accommodationId +
+                    ", accommodationName=" + accommodationName +
                     ", checkIn=" + checkIn +
                     ", checkOut=" + checkOut +
                     ", rooms=" + rooms +

@@ -43,7 +43,7 @@ public class ApplicationAccommodation extends BaseEntity {
     @Column(name = "check_out", nullable = false)
     private LocalDateTime checkOut;
 
-    @OneToMany(mappedBy = "application", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "application", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Room> rooms = new ArrayList<>();
 
     @Column(name = "comment")

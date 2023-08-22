@@ -44,12 +44,12 @@ public class TransportApplicationService<T extends ApplicationCreate, R extends 
     }
 
     @Override
-    public TransportApplicationDto get(Long id) {
+    public TransportApplicationDto get(Long id, User user) {
         return null;
     }
 
     @Override
-    public List<TransportApplicationDto> getByGroupId(Long groupId) {
+    public List<TransportApplicationDto> getByGroupId(Long groupId, User user) {
         return null;
     }
 

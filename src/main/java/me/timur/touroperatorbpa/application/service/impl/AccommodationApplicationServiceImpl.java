@@ -69,6 +69,9 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
         log.info("Attempting to update accommodation application: {}", dto);
 
         var group = getGroup(dto.getGroupId());
+        if (!Objects.equals(group.getTourOperator().getId(), user.getId())) {
+            throw new ClientException(ResponseCode.FORBIDDEN_RESOURCE, "User {} is not allowed to update application for this group {}", user.getId(), group.getId());
+        }
 
         // get latest applications and filter only active ones. Throw exception if no active applications found
         var allApplications = applicationAccommodationRepository.findAllByGroupIdOrderByVersionDesc(dto.getGroupId());
@@ -179,12 +182,12 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
     }
 
     @Override
-    public AccommodationApplicationDto get(Long id) {
+    public AccommodationApplicationDto get(Long id, User user) {
         return null;
     }
 
     @Override
-    public List<AccommodationApplicationDto> getByGroupId(Long groupId) {
+    public List<AccommodationApplicationDto> getByGroupId(Long groupId, User user) {
         var applications = applicationAccommodationRepository.findAllByGroupIdOrderByVersionDesc(groupId);
         return List.of(new AccommodationApplicationDto(getGroup(groupId), applications));
     }
