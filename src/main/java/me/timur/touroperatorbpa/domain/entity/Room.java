@@ -24,9 +24,6 @@ public class Room extends BaseEntity {
     @JoinColumn(name = "accommodation_application", nullable = false)
     private ApplicationAccommodation application;
 
-    @Column(name = "group_number", nullable = false)
-    private String groupNumber;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "room_type", nullable = false)
     private RoomType roomType;
@@ -37,19 +34,25 @@ public class Room extends BaseEntity {
     @Column(name = "provided", nullable = false)
     private Integer provided;
 
-    public Room(ApplicationAccommodation application, RoomDto roomDto) {
-        this.application = application;
-        this.groupNumber = application.getGroup().getNumber();
+    public Room(RoomDto roomDto) {
         this.roomType = roomDto.getRoomType();
         this.requested = roomDto.getRequested();
         this.provided = 0;
     }
 
+    public Room(Room room) {
+        this.roomType = room.getRoomType();
+        this.requested = room.getRequested();
+        this.provided = room.getProvided();
+    }
+
     @Override
     public String toString() {
         return "Room{" +
-                "roomType=" + roomType +
+                "application=" + application +
+                ", roomType=" + roomType +
                 ", requested=" + requested +
+                ", provided=" + provided +
                 '}';
     }
 }

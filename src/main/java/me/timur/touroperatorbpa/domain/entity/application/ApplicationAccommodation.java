@@ -43,7 +43,8 @@ public class ApplicationAccommodation extends BaseEntity {
     @Column(name = "check_out", nullable = false)
     private LocalDateTime checkOut;
 
-    @OneToMany(mappedBy = "application", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @OneToMany(mappedBy = "application", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(mappedBy = "application", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     private List<Room> rooms = new ArrayList<>();
 
     @Column(name = "comment")
@@ -79,7 +80,7 @@ public class ApplicationAccommodation extends BaseEntity {
     public ApplicationAccommodation(ApplicationAccommodation application) {
         this.group = application.getGroup();
         this.accommodation = application.getAccommodation();
-        this.rooms = application.getRooms();
+        this.rooms = new ArrayList<>();
         this.checkIn = application.getCheckIn();
         this.checkOut = application.getCheckOut();
         this.comment = application.getComment();

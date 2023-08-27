@@ -52,7 +52,7 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
         for (var item: createDto.getItems()) {
             var application = new ApplicationAccommodation(group, getAccommodation(item.getAccommodationId()), item);
             application.addRooms(
-                    item.getRooms().stream().map(roomDto -> new Room(application, roomDto)).toList()
+                    item.getRooms().stream().map(Room::new).toList()
             );
             applications.add(application);
         }
@@ -87,10 +87,13 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
         latestApplications.stream().filter(application -> application.getStatus() == ApplicationStatus.ACTIVE)
                 .forEach(application -> {
                     application.setStatus(ApplicationStatus.DEPRECATED);
-                    newApplications.add(new ApplicationAccommodation(application));
+                    var newApplication = new ApplicationAccommodation(application);
+                    newApplication.addRooms(application.getRooms().stream().map(Room::new).toList());
+                    newApplications.add(newApplication);
                 });
         
         // save latest applications and new applications
+        newApplications.sort((o1, o2) -> o1.getCheckIn().equals(o2.getCheckIn()) ? 0 : o1.getCheckIn().isBefore(o2.getCheckIn()) ? -1 : 1);
         latestApplications.addAll(newApplications);
         applicationAccommodationRepository.saveAll(latestApplications);
 
@@ -110,6 +113,7 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
     }
 
     private ArrayList<ApplicationAccommodation> updateApplication(AccommodationApplicationDto dto, ArrayList<ApplicationAccommodation> latestApplications, Group group) {
+        //TODO fix bugs: 1) old application's status is not changing. 2) unchanged applications rooms are not being copied
         //start creating new applications based on dto
         var newApplications = new ArrayList<ApplicationAccommodation>();
         // create map of latest applications to easily find them by id
@@ -127,6 +131,7 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
                 // change status to deprecated and create new application based on
                 application.setStatus(ApplicationStatus.DEPRECATED);
                 newApplication = new ApplicationAccommodation(application);
+//                newApplication = applicationAccommodationRepository.save(new ApplicationAccommodation(application));
                 if (item.getCheckIn() != null) {
                     newApplication.setCheckIn(item.getCheckIn());
                 }
@@ -137,10 +142,15 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
                     final Accommodation newAccommodation = getAccommodation(item.getAccommodationId());
                     newApplication.setAccommodation(newAccommodation);
                 }
+
                 if (item.getRooms() != null && !item.getRooms().isEmpty()) {
-                    var rooms = item.getRooms().stream().map(roomDto -> new Room(application, roomDto)).toList();
+                    var rooms = item.getRooms().stream().map(Room::new).toList();
+                    newApplication.addRooms(rooms);
+                } else {
+                    var rooms = application.getRooms().stream().map(Room::new).toList();
                     newApplication.addRooms(rooms);
                 }
+
                 if (item.getStatus() != null) {
                     newApplication.setStatus(item.getStatus());
                 }
@@ -150,10 +160,11 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
             } else {
                 log.info("Attempting to create accommodation application: {}", item);
                 var version = latestApplications.get(0).getVersion();
+//                newApplication = applicationAccommodationRepository.save(new ApplicationAccommodation(group, getAccommodation(item.getAccommodationId()), item, version + 1));
                 newApplication = new ApplicationAccommodation(group, getAccommodation(item.getAccommodationId()), item, version + 1);
                 ApplicationAccommodation finalNewApplication = newApplication;
                 newApplication.addRooms(
-                        item.getRooms().stream().map(roomDto -> new Room(finalNewApplication, roomDto)).toList()
+                        item.getRooms().stream().map(Room::new).toList()
                 );
             }
             newApplications.add(newApplication);

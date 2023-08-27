@@ -93,7 +93,7 @@ public class AccommodationApplicationDto extends AbstractApplication {
         this.items = entities.stream().map(AccommodationItem::new).toList();
         this.groupId = group.getId();
         this.groupNumber = group.getNumber();
-        this.status = this.getOverallStatus(this.items.stream().map(AccommodationItem::getStatus).toList());
+        this.status = this.getOverallStatus(entities.stream().map(ApplicationAccommodation::getStatus).toList());
         this.version = entities.get(0).getVersion();
     }
 
