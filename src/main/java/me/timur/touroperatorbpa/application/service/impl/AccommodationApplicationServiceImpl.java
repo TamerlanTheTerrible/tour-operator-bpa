@@ -114,15 +114,12 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
             // if application id is not null then update application, else create new application
             if (item.getId() != null) {
                 log.info("Updating application: {}", item.getId());
-                // get applications from map. Throw exception if application is not found
                 var application = latestApplicationMap.get(item.getId());
                 if (application == null) {
                     throw new ClientException(ResponseCode.BAD_REQUEST, "Cannot find active application with id: " + item.getId());
                 }
-                // change status to deprecated and create new application based on
                 application.setStatus(ApplicationStatus.DEPRECATED);
                 newApplication = new ApplicationAccommodation(application);
-//                newApplication = applicationAccommodationRepository.save(new ApplicationAccommodation(application));
                 if (item.getCheckIn() != null) {
                     newApplication.setCheckIn(item.getCheckIn());
                 }
@@ -151,9 +148,7 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
             } else {
                 log.info("Attempting to create accommodation application: {}", item);
                 var version = latestApplications.get(0).getVersion();
-//                newApplication = applicationAccommodationRepository.save(new ApplicationAccommodation(group, getAccommodation(item.getAccommodationId()), item, version + 1));
                 newApplication = new ApplicationAccommodation(group, getAccommodation(item.getAccommodationId()), item, version + 1);
-                ApplicationAccommodation finalNewApplication = newApplication;
                 newApplication.addRooms(
                         item.getRooms().stream().map(Room::new).toList()
                 );
