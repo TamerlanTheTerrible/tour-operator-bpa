@@ -2,6 +2,7 @@ package me.timur.touroperatorbpa.application.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.timur.touroperatorbpa.application.model.AbstractApplicationDto;
 import me.timur.touroperatorbpa.domain.entity.Accommodation;
 import me.timur.touroperatorbpa.domain.entity.User;
 import me.timur.touroperatorbpa.domain.entity.application.ApplicationAccommodation;
@@ -98,18 +99,8 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
         applicationAccommodationRepository.saveAll(latestApplications);
 
         // map applications for response
-        var applicationMap = allApplications.stream().collect(Collectors.groupingBy(ApplicationAccommodation::getVersion));
-        applicationMap.put(newApplications.get(0).getVersion(), newApplications);
-        var applicationDtos = new ArrayList<AccommodationApplicationDto>();
-        var currentVersion = newApplications.get(0).getVersion();
-        for (int i = currentVersion; i > 0; i--) {
-            var applications = applicationMap.get(i);
-            if (applications != null) {
-                applicationDtos.add(new AccommodationApplicationDto(group, applications));
-            }
-        }
-
-        return applicationDtos;
+        allApplications.addAll(newApplications);
+        return AbstractApplicationDto.toList(group, allApplications, AccommodationApplicationDto.class);
     }
 
     private ArrayList<ApplicationAccommodation> updateApplication(AccommodationApplicationDto dto, ArrayList<ApplicationAccommodation> latestApplications, Group group) {
@@ -200,7 +191,7 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
     @Override
     public List<AccommodationApplicationDto> getByGroupId(Long groupId, User user) {
         var applications = applicationAccommodationRepository.findAllByGroupIdOrderByVersionDesc(groupId);
-        return List.of(new AccommodationApplicationDto(getGroup(groupId), applications));
+        return AbstractApplicationDto.toList(getGroup(groupId), applications, AccommodationApplicationDto.class);
     }
 
     @Override

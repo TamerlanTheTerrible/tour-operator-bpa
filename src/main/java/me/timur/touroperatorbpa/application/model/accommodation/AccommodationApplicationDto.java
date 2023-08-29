@@ -9,10 +9,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import me.timur.touroperatorbpa.domain.entity.application.ApplicationAccommodation;
+ import me.timur.touroperatorbpa.application.model.AbstractApplicationDto;
 import me.timur.touroperatorbpa.domain.entity.Group;
+import me.timur.touroperatorbpa.domain.entity.application.ApplicationAccommodation;
+import me.timur.touroperatorbpa.domain.entity.application.ApplicationEntity;
 import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
-import me.timur.touroperatorbpa.application.model.AbstractApplication;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 
 import java.time.LocalDateTime;
@@ -26,7 +27,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class AccommodationApplicationDto extends AbstractApplication {
+public class AccommodationApplicationDto extends AbstractApplicationDto {
 
     @JsonProperty("items")
     private List<AccommodationItem> items;
@@ -90,11 +91,8 @@ public class AccommodationApplicationDto extends AbstractApplication {
     }
 
     public AccommodationApplicationDto(Group group, List<ApplicationAccommodation> entities) {
+        super(group, entities);
         this.items = entities.stream().map(AccommodationItem::new).toList();
-        this.groupId = group.getId();
-        this.groupNumber = group.getNumber();
-        this.status = this.getOverallStatus(entities.stream().map(ApplicationAccommodation::getStatus).toList());
-        this.version = entities.get(0).getVersion();
     }
 
     @Override

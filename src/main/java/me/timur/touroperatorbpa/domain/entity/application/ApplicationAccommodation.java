@@ -28,7 +28,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "application_accommodation")
-public class ApplicationAccommodation extends BaseEntity {
+public class ApplicationAccommodation extends BaseEntity implements ApplicationEntity {
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
     private Group group;
@@ -95,5 +95,15 @@ public class ApplicationAccommodation extends BaseEntity {
 
     public void addRooms(List<Room> rooms) {
         rooms.forEach(this::addRoom);
+    }
+
+    @Override
+    public int version() {
+        return this.version;
+    }
+
+    @Override
+    public ApplicationStatus status() {
+        return this.status;
     }
 }

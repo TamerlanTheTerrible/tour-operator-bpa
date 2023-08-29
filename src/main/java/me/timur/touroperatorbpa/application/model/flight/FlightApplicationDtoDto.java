@@ -1,4 +1,4 @@
-package me.timur.touroperatorbpa.application.model.general;
+package me.timur.touroperatorbpa.application.model.flight;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,7 +7,8 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
-import me.timur.touroperatorbpa.application.model.AbstractApplication;
+import me.timur.touroperatorbpa.model.enums.FlightClass;
+import me.timur.touroperatorbpa.application.model.AbstractApplicationDto;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 
 import java.time.LocalDate;
@@ -19,13 +20,13 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class GeneralApplicationDto extends AbstractApplication {
+public class FlightApplicationDtoDto extends AbstractApplicationDto {
 
     @JsonProperty("items")
-    private List<Item> items;
+    private List<FlightItem> items;
 
     @Data
-    public static class Item {
+    public static class FlightItem {
         private Long id;
 
         @JsonProperty("date")
@@ -33,21 +34,41 @@ public class GeneralApplicationDto extends AbstractApplication {
         @JsonDeserialize(using = LocalDateDeserializer.class)
         private LocalDate date;
 
-        @JsonProperty("location")
-        private String location;
+        @JsonProperty("from")
+        private String from;
+
+        @JsonProperty("to")
+        private String to;
+
+        @JsonProperty("ticket_class")
+        private FlightClass ticketClass;
+
+        @JsonProperty("time")
+        private String time;
+
+        @JsonProperty("requested")
+        private Integer requested;
+
+        @JsonProperty("provided")
+        private Integer provided;
 
         @JsonProperty("comment")
         private String comment;
 
         @JsonProperty("status")
-        private ApplicationStatus status;
+        public ApplicationStatus status;
 
         @Override
         public String toString() {
-            return "Item{" +
+            return "FlightItem{" +
                     "id=" + id +
                     ", date=" + date +
-                    ", location='" + location + '\'' +
+                    ", from='" + from + '\'' +
+                    ", to='" + to + '\'' +
+                    ", ticketClass=" + ticketClass +
+                    ", time='" + time + '\'' +
+                    ", requested=" + requested +
+                    ", provided=" + provided +
                     ", comment='" + comment + '\'' +
                     ", status=" + status +
                     '}';
@@ -56,7 +77,7 @@ public class GeneralApplicationDto extends AbstractApplication {
 
     @Override
     public String toString() {
-        return "GeneralApplicationDto{" +
+        return "FlightApplicationDto{" +
                 "items=" + items +
                 ", groupId=" + groupId +
                 ", groupNumber='" + groupNumber + '\'' +

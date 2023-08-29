@@ -1,4 +1,4 @@
-package me.timur.touroperatorbpa.application.model.restaurant;
+package me.timur.touroperatorbpa.application.model.transport;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,8 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
-import me.timur.touroperatorbpa.model.enums.MealType;
-import me.timur.touroperatorbpa.application.model.AbstractApplication;
+import me.timur.touroperatorbpa.application.model.AbstractApplicationDto;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 
 import java.time.LocalDate;
@@ -20,13 +19,13 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class RestaurantApplicationDto extends AbstractApplication {
+public class TransportApplicationDtoDto extends AbstractApplicationDto {
 
     @JsonProperty("items")
-    private List<RestaurantItem> restaurantItems;
+    private List<TransportItem> items;
 
     @Data
-    public static class RestaurantItem {
+    public static class TransportItem {
         private Long id;
 
         @JsonProperty("date")
@@ -34,26 +33,26 @@ public class RestaurantApplicationDto extends AbstractApplication {
         @JsonDeserialize(using = LocalDateDeserializer.class)
         private LocalDate date;
 
-        @JsonProperty("restaurant_id")
-        private Long restaurantId;
+        @JsonProperty("direction")
+        private String direction;
 
-        @JsonProperty("meal_type")
-        private MealType mealType;
+        @JsonProperty("comment")
+        public String comment;
 
-        @JsonProperty("requested")
-        private Integer requested;
+        @JsonProperty("comment")
+        List<DriverDto> drivers;
 
         @JsonProperty("status")
         private ApplicationStatus status;
 
         @Override
         public String toString() {
-            return "RestaurantItem{" +
+            return "TransportItem{" +
                     "id=" + id +
                     ", date=" + date +
-                    ", restaurantId=" + restaurantId +
-                    ", mealType=" + mealType +
-                    ", requested=" + requested +
+                    ", direction='" + direction + '\'' +
+                    ", comment='" + comment + '\'' +
+                    ", drivers=" + drivers +
                     ", status=" + status +
                     '}';
         }
@@ -61,8 +60,8 @@ public class RestaurantApplicationDto extends AbstractApplication {
 
     @Override
     public String toString() {
-        return "RestaurantApplicationDto{" +
-                "restaurantItems=" + restaurantItems +
+        return "TransportApplicationDto{" +
+                "items=" + items +
                 ", groupId=" + groupId +
                 ", groupNumber='" + groupNumber + '\'' +
                 '}';

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
-import me.timur.touroperatorbpa.application.model.AbstractApplication;
+import me.timur.touroperatorbpa.application.model.AbstractApplicationDto;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 
 import java.time.LocalDate;
@@ -19,7 +19,7 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class GuideApplicationDto extends AbstractApplication {
+public class GuideApplicationDtoDto extends AbstractApplicationDto {
 
     @JsonProperty("items")
     private List<GuideItem> items;

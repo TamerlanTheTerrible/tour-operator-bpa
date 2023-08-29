@@ -1,4 +1,4 @@
-package me.timur.touroperatorbpa.application.model.transport;
+package me.timur.touroperatorbpa.application.model.train;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,7 +7,8 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
-import me.timur.touroperatorbpa.application.model.AbstractApplication;
+import me.timur.touroperatorbpa.model.enums.TrainClass;
+import me.timur.touroperatorbpa.application.model.AbstractApplicationDto;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 
 import java.time.LocalDate;
@@ -19,13 +20,13 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class TransportApplicationDto extends AbstractApplication {
+public class TrainApplicationDtoDto extends AbstractApplicationDto {
 
     @JsonProperty("items")
-    private List<TransportItem> items;
+    private List<TrainItem> items;
 
     @Data
-    public static class TransportItem {
+    public static class TrainItem {
         private Long id;
 
         @JsonProperty("date")
@@ -33,26 +34,42 @@ public class TransportApplicationDto extends AbstractApplication {
         @JsonDeserialize(using = LocalDateDeserializer.class)
         private LocalDate date;
 
-        @JsonProperty("direction")
-        private String direction;
+        @JsonProperty("from")
+        private String from;
+
+        @JsonProperty("to")
+        private String to;
+
+        @JsonProperty("ticket_class")
+        private TrainClass ticketClass;
+
+        @JsonProperty("time")
+        private String time;
+
+        @JsonProperty("requested")
+        private Integer requested;
+
+        @JsonProperty("provided")
+        private Integer provided;
 
         @JsonProperty("comment")
-        public String comment;
-
-        @JsonProperty("comment")
-        List<DriverDto> drivers;
+        private String comment;
 
         @JsonProperty("status")
-        private ApplicationStatus status;
+        public ApplicationStatus status;
 
         @Override
         public String toString() {
-            return "TransportItem{" +
+            return "TrainItem{" +
                     "id=" + id +
                     ", date=" + date +
-                    ", direction='" + direction + '\'' +
+                    ", from='" + from + '\'' +
+                    ", to='" + to + '\'' +
+                    ", ticketClass=" + ticketClass +
+                    ", time='" + time + '\'' +
+                    ", requested=" + requested +
+                    ", provided=" + provided +
                     ", comment='" + comment + '\'' +
-                    ", drivers=" + drivers +
                     ", status=" + status +
                     '}';
         }
@@ -60,7 +77,7 @@ public class TransportApplicationDto extends AbstractApplication {
 
     @Override
     public String toString() {
-        return "TransportApplicationDto{" +
+        return "TrainApplicationDto{" +
                 "items=" + items +
                 ", groupId=" + groupId +
                 ", groupNumber='" + groupNumber + '\'' +
