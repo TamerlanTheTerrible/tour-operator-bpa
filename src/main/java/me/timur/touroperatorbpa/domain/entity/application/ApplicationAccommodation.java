@@ -64,7 +64,7 @@ public class ApplicationAccommodation extends BaseEntity implements ApplicationE
         this.checkOut = createDto.getCheckOut();
         this.comment = createDto.getComment();
         this.status = ApplicationStatus.ACTIVE;
-        this.version = 1;
+        this.version = createDto.getVersion() != null ? createDto.getVersion() : 1;
     }
 
     public ApplicationAccommodation(Group group, Accommodation accommodation, AccommodationApplicationDto.AccommodationItem dto, int version) {

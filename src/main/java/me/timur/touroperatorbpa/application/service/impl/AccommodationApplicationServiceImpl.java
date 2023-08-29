@@ -49,6 +49,16 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
             throw new ClientException(ResponseCode.FORBIDDEN_RESOURCE, "User {} is not allowed to create application for this group {}", user.getId(), group.getId());
         }
 
+        final var applications = create(createDto, group);
+
+        applicationAccommodationRepository.saveAll(applications);
+
+        // TODO send notifications
+
+        return new AccommodationApplicationDto(group, applications);
+    }
+
+    private ArrayList<ApplicationAccommodation> create(AccommodationApplicationCreateDto createDto, Group group) {
         var applications = new ArrayList<ApplicationAccommodation>();
         for (var item: createDto.getItems()) {
             var application = new ApplicationAccommodation(group, getAccommodation(item.getAccommodationId()), item);
@@ -57,12 +67,7 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
             );
             applications.add(application);
         }
-
-        applicationAccommodationRepository.saveAll(applications);
-
-        // TODO send notifications
-
-        return new AccommodationApplicationDto(group, applications);
+        return applications;
     }
 
     @Override
@@ -145,15 +150,24 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
                 if (item.getComment() != null) {
                     newApplication.setComment(item.getComment());
                 }
+
+                newApplications.add(newApplication);
             } else {
                 log.info("Attempting to create accommodation application: {}", item);
+                if (item.getCheckIn() == null || item.getCheckOut() == null || item.getAccommodationId() == null) {
+                    throw new ClientException(ResponseCode.BAD_REQUEST, "Check-in, check-out and accommodation id must be provided for new applications");
+                }
                 var version = latestApplications.get(0).getVersion();
-                newApplication = new ApplicationAccommodation(group, getAccommodation(item.getAccommodationId()), item, version + 1);
-                newApplication.addRooms(
-                        item.getRooms().stream().map(Room::new).toList()
+//                newApplication = new ApplicationAccommodation(group, getAccommodation(item.getAccommodationId()), item, version + 1);
+//                newApplication.addRooms(
+//                        item.getRooms().stream().map(Room::new).toList()
+//                );
+                var createDto = new AccommodationApplicationCreateDto(group.getId(), List.of(item), version+1);
+                newApplications.addAll(create(createDto, group)
                 );
+
             }
-            newApplications.add(newApplication);
+
         }
         return newApplications;
     }

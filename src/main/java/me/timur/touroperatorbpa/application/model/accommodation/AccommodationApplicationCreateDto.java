@@ -48,9 +48,20 @@ public class AccommodationApplicationCreateDto extends AbstractApplicationCreate
         @JsonProperty("rooms")
         private List<RoomDto> rooms;
 
+        @JsonProperty("version")
+        private Integer version = 1;
+
         @JsonProperty("comment")
         public String comment;
 
+        public AccommodationItem(AccommodationApplicationDto.AccommodationItem i, int version) {
+            this.accommodationId = i.getAccommodationId();
+            this.checkIn = i.getCheckIn();
+            this.checkOut = i.getCheckOut();
+            this.rooms = i.getRooms().stream().map(RoomDto::new).toList();
+            this.comment = i.getComment();
+            this.version = version;
+        }
 
         @Override
         public String toString() {
@@ -62,6 +73,11 @@ public class AccommodationApplicationCreateDto extends AbstractApplicationCreate
                     ", comment='" + comment + '\'' +
                     '}';
         }
+    }
+
+    public AccommodationApplicationCreateDto(long groupId, List<AccommodationApplicationDto.AccommodationItem> items, int version) {
+        this.groupId = groupId;
+        this.items = items.stream().map(i -> new AccommodationApplicationCreateDto.AccommodationItem(i, version)).toList();
     }
 
     @Override

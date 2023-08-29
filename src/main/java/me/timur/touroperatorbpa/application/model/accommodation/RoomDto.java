@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import me.timur.touroperatorbpa.domain.entity.Room;
 import me.timur.touroperatorbpa.model.enums.RoomType;
 
+import java.math.RoundingMode;
+
 /**
  * Created by Temurbek Ismoilov on 27/07/23.
  */
@@ -37,6 +39,12 @@ public class RoomDto {
         this.roomType = roomType;
         this.requested = requested;
         this.provided = 0;
+    }
+
+    public RoomDto(RoomDto roomDto) {
+        this.roomType = roomDto.getRoomType();
+        this.requested = roomDto.getRequested();
+        this.provided = roomDto.getProvided();
     }
 
     @Override
