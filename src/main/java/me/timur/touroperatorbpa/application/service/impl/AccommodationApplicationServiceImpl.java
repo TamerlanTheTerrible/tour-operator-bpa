@@ -158,10 +158,6 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
                     throw new ClientException(ResponseCode.BAD_REQUEST, "Check-in, check-out and accommodation id must be provided for new applications");
                 }
                 var version = latestApplications.get(0).getVersion();
-//                newApplication = new ApplicationAccommodation(group, getAccommodation(item.getAccommodationId()), item, version + 1);
-//                newApplication.addRooms(
-//                        item.getRooms().stream().map(Room::new).toList()
-//                );
                 var createDto = new AccommodationApplicationCreateDto(group.getId(), List.of(item), version+1);
                 newApplications.addAll(create(createDto, group)
                 );
