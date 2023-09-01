@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import me.timur.touroperatorbpa.model.enums.ApplicationType;
+import me.timur.touroperatorbpa.notification.model.NotificationCreateDto;
 
 /**
  * Created by Temurbek Ismoilov on 14/08/23.
@@ -33,4 +34,12 @@ public class ApplicationChangelog extends BaseEntity {
 
     @Column(name = "is_read", nullable = false)
     private Boolean isRead = false;
+
+    public ApplicationChangelog(NotificationCreateDto createDto, Group group) {
+        this.group = group;
+        this.applicationType = createDto.getApplicationType();
+        this.version = createDto.getVersion();
+        this.change = createDto.getChange();
+        this.isRead = false;
+    }
 }
