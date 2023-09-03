@@ -13,12 +13,16 @@ import me.timur.touroperatorbpa.domain.repository.AccommodationRepository;
 import me.timur.touroperatorbpa.domain.repository.ApplicationAccommodationRepository;
 import me.timur.touroperatorbpa.domain.repository.GroupRepository;
 import me.timur.touroperatorbpa.exception.ClientException;
+import me.timur.touroperatorbpa.model.enums.ApplicationType;
 import me.timur.touroperatorbpa.model.enums.ResponseCode;
 import me.timur.touroperatorbpa.model.PageableFilter;
 import me.timur.touroperatorbpa.model.PageableList;
 import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationCreateDto;
 import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationDto;
 import me.timur.touroperatorbpa.application.service.ApplicationService;
+import me.timur.touroperatorbpa.notification.NotificationTemplate;
+import me.timur.touroperatorbpa.notification.model.NotificationCreateDto;
+import me.timur.touroperatorbpa.notification.service.NotificationService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -39,6 +43,7 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
     private final ApplicationAccommodationRepository applicationAccommodationRepository;
     private final AccommodationRepository accommodationRepository;
     private final GroupRepository groupRepository;
+    private final NotificationService notificationService;
 
     @Override
     public AccommodationApplicationDto create(AccommodationApplicationCreateDto createDto, User user) {
@@ -53,7 +58,14 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
 
         applicationAccommodationRepository.saveAll(applications);
 
-        // TODO send notifications
+        notificationService.create(
+                new NotificationCreateDto(
+                        group.getId(),
+                        ApplicationType.ACCOMMODATION,
+                        1,
+                        NotificationTemplate.APPLICATION_CREATED.message
+                )
+        );
 
         return new AccommodationApplicationDto(group, applications);
     }

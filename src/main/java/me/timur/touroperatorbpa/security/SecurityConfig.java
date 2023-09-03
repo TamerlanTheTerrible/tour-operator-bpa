@@ -37,7 +37,7 @@ public class SecurityConfig {
                 .disable()
                 .addFilterAfter(jwtVerifierFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests()
-                .requestMatchers("/sign-in").permitAll()
+                .requestMatchers("/sign-in", "/api/v1/notification/*").permitAll()
 
                 .requestMatchers(HttpMethod.GET, "/api/v1/accommodation/*").hasAnyAuthority("TOUR_OPERATOR", "ACCOUNTANT")
                 .requestMatchers(HttpMethod.POST, "/api/v1/accommodation/").hasAnyAuthority("TOUR_OPERATOR", "ACCOUNTANT")
