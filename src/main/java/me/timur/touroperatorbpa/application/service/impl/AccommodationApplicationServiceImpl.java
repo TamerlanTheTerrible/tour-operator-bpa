@@ -20,6 +20,7 @@ import me.timur.touroperatorbpa.model.PageableList;
 import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationCreateDto;
 import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationDto;
 import me.timur.touroperatorbpa.application.service.ApplicationService;
+import me.timur.touroperatorbpa.model.enums.RoleName;
 import me.timur.touroperatorbpa.notification.NotificationTemplate;
 import me.timur.touroperatorbpa.notification.model.NotificationCreateDto;
 import me.timur.touroperatorbpa.notification.service.NotificationService;
@@ -64,7 +65,8 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
                         ApplicationType.ACCOMMODATION,
                         1,
                         NotificationTemplate.APPLICATION_CREATED.message
-                )
+                ),
+                RoleName.ACCOMMODATION_MANAGER
         );
 
         return new AccommodationApplicationDto(group, applications);

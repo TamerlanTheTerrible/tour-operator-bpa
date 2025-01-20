@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import me.timur.touroperatorbpa.model.enums.ApplicationType;
+import me.timur.touroperatorbpa.model.enums.RoleName;
 import me.timur.touroperatorbpa.notification.model.NotificationCreateDto;
 
 /**
@@ -15,31 +16,31 @@ import me.timur.touroperatorbpa.notification.model.NotificationCreateDto;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "application_changelog")
-public class ApplicationChangelog extends BaseEntity {
+@Table(name = "notification")
+public class Notification extends BaseEntity {
 
-    @ManyToOne
-    @JoinColumn(name = "group_id", nullable = false)
-    private Group group;
+    @Column(name = "group_id", nullable = false)
+    private Long groupId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "application_type", nullable = false)
     private ApplicationType applicationType;
 
-    @Column(name = "version", nullable = false)
-    private Integer version;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private RoleName roleName;
 
-    @Column(name = "change", nullable = false)
-    private String change;
+    @Column(name = "message", nullable = false)
+    private String message;
 
     @Column(name = "is_read", nullable = false)
     private Boolean isRead = false;
 
-    public ApplicationChangelog(NotificationCreateDto createDto, Group group) {
-        this.group = group;
+    public Notification(NotificationCreateDto createDto, RoleName roleName) {
+        this.groupId = createDto.getGroupId();
         this.applicationType = createDto.getApplicationType();
-        this.version = createDto.getVersion();
-        this.change = createDto.getChange();
+        this.roleName = roleName;
+        this.message = createDto.getChange();
         this.isRead = false;
     }
 }

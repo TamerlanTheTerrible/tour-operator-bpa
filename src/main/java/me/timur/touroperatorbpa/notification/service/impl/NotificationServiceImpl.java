@@ -2,14 +2,15 @@ package me.timur.touroperatorbpa.notification.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.timur.touroperatorbpa.domain.entity.ApplicationChangelog;
+import me.timur.touroperatorbpa.domain.entity.Notification;
 import me.timur.touroperatorbpa.domain.entity.Group;
-import me.timur.touroperatorbpa.domain.repository.ApplicationChangeLogRepository;
+import me.timur.touroperatorbpa.domain.repository.NotificationRespository;
 import me.timur.touroperatorbpa.domain.repository.GroupRepository;
 import me.timur.touroperatorbpa.exception.ClientException;
 import me.timur.touroperatorbpa.exception.InternalException;
 import me.timur.touroperatorbpa.model.enums.ApplicationType;
 import me.timur.touroperatorbpa.model.enums.ResponseCode;
+import me.timur.touroperatorbpa.model.enums.RoleName;
 import me.timur.touroperatorbpa.notification.model.NotificationCreateDto;
 import me.timur.touroperatorbpa.notification.model.NotificationDto;
 import me.timur.touroperatorbpa.notification.service.NotificationService;
@@ -26,23 +27,27 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NotificationServiceImpl implements NotificationService {
 
-    private final ApplicationChangeLogRepository applicationChangeLogRepository;
+    private final NotificationRespository notificationRespository;
     private final GroupRepository groupRepository;
 
     @Override
-    public NotificationDto create(NotificationCreateDto createDto) {
-        var changelog = applicationChangeLogRepository.save(new ApplicationChangelog(
-                createDto,
-                getGroup(createDto.getGroupId())
-        ));
+    public List<NotificationDto> create(NotificationCreateDto createDto, List<RoleName> roleNames) {
+        final List<Notification> notifications = roleNames.stream().map(roleName -> new Notification(createDto, roleName)).toList();
+        notificationRespository.saveAll(notifications);
+        return notifications.stream().map(NotificationDto::new).toList();
+    }
 
-        return new NotificationDto(changelog);
+    @Override
+    public NotificationDto create(NotificationCreateDto createDto, RoleName roleName) {
+        var notification = new Notification(createDto, roleName);
+        notificationRespository.save(notification);
+        return new NotificationDto(notification);
     }
 
     @Override
     public List<NotificationDto> getAllByGroupAndApplicaitonType(Long groupId, ApplicationType type) {
         var group = getGroup(groupId);
-        return applicationChangeLogRepository.findAllByGroupAndAndApplicationTypeOrderByIdDesc(group.getId(), type.name())
+        return notificationRespository.findAllByGroupAndAndApplicationTypeOrderByIdDesc(group.getId(), type.name())
                 .stream()
                 .map(NotificationDto::new)
                 .toList();
@@ -50,10 +55,10 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public void markAsRead(Long id) {
-        var changelog = applicationChangeLogRepository.findById(id)
+        var changelog = notificationRespository.findById(id)
                 .orElseThrow(() -> new ClientException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find notification with id: " + id));
         changelog.setIsRead(true);
-        applicationChangeLogRepository.save(changelog);
+        notificationRespository.save(changelog);
     }
 
     private Group getGroup(Long groupId) {

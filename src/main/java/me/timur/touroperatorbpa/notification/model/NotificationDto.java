@@ -6,8 +6,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.timur.touroperatorbpa.domain.entity.ApplicationChangelog;
+import me.timur.touroperatorbpa.domain.entity.Notification;
 import me.timur.touroperatorbpa.model.enums.ApplicationType;
+import me.timur.touroperatorbpa.model.enums.RoleName;
 
 /**
  * Created by Temurbek Ismoilov on 31/08/23.
@@ -30,23 +31,23 @@ public class NotificationDto {
     private ApplicationType applicationType;
 
     @NotNull
-    @JsonProperty("version")
-    private Integer version;
+    @JsonProperty("role")
+    private RoleName roleName;
 
     @NotNull
-    @JsonProperty("change")
-    private String change;
+    @JsonProperty("message")
+    private String message;
 
     @NotNull
     @JsonProperty("is_read")
     private Boolean isRead = false;
 
-    public NotificationDto(ApplicationChangelog changelog) {
-        this.id = changelog.getId();
-        this.groupId = changelog.getGroup().getId();
-        this.applicationType = changelog.getApplicationType();
-        this.version = changelog.getVersion();
-        this.change = changelog.getChange();
-        this.isRead = changelog.getIsRead();
+    public NotificationDto(Notification notification) {
+        this.id = notification.getId();
+        this.groupId = notification.getGroupId();
+        this.applicationType = notification.getApplicationType();
+        this.roleName = notification.getRoleName();
+        this.message = notification.getMessage();
+        this.isRead = notification.getIsRead();
     }
 }
