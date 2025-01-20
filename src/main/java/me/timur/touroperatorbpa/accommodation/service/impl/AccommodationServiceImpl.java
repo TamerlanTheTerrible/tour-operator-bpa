@@ -7,6 +7,7 @@ import me.timur.touroperatorbpa.accommodation.model.AccommodationDto;
 import me.timur.touroperatorbpa.accommodation.model.AccommodationFilter;
 import me.timur.touroperatorbpa.accommodation.service.AccommodationService;
 import me.timur.touroperatorbpa.domain.entity.Accommodation;
+import me.timur.touroperatorbpa.domain.entity.Company;
 import me.timur.touroperatorbpa.domain.entity.Location;
 import me.timur.touroperatorbpa.accommodation.repository.AccommodationRepository;
 import me.timur.touroperatorbpa.domain.repository.LocationRepository;
@@ -29,12 +30,13 @@ public class AccommodationServiceImpl implements AccommodationService {
     private final LocationRepository locationRepository;
 
     @Override
-    public AccommodationDto create(AccommodationCreateDto createDto) {
+    public AccommodationDto create(AccommodationCreateDto createDto, Company company) {
         log.info("Creating accommodation: {}", createDto);
 
         var accommodation = new Accommodation(
-                createDto.getAccommodationName(),
+                createDto,
                 getLocation(createDto.getLocationName().toUpperCase())
+                ,company.getId()
         );
         accommodationRepository.save(accommodation);
 

@@ -23,7 +23,8 @@ public class AccommodationController {
 
     @PostMapping(value = {"/create"})
     public BaseResponse<AccommodationDto> create(@RequestBody AccommodationCreateDto createDto) {
-        return BaseResponse.ok(accommodationService.create(createDto));
+        //TODO inject company
+        return BaseResponse.ok(accommodationService.create(createDto, null));
     }
 
     @GetMapping("/{id}")

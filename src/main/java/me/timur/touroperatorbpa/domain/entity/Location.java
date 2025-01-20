@@ -1,5 +1,6 @@
 package me.timur.touroperatorbpa.domain.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -21,4 +22,7 @@ import lombok.Setter;
 public class Location {
     @Id
     private String name;
+
+    @Column(name = "company_id")
+    private Long companyId;
 }

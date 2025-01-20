@@ -1,10 +1,11 @@
 package me.timur.touroperatorbpa.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import me.timur.touroperatorbpa.accommodation.model.AccommodationCreateDto;
+import me.timur.touroperatorbpa.model.enums.AccommodationCategory;
 
 /**
  * Created by Temurbek Ismoilov on 25/07/23.
@@ -23,11 +24,24 @@ public class Accommodation extends BaseEntity {
     @JoinColumn(name = "location", nullable = false)
     private Location location;
 
-    @Column(name = "status", nullable = false)
-    private boolean status = true;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "category", nullable = false)
+    private AccommodationCategory category;
 
-    public Accommodation(String name, Location location) {
-        this.name = name;
+    @Column(name = "details")
+    private String details;
+
+    @Column(name = "company_id")
+    private Long companyId;
+
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive = true;
+
+    public Accommodation(AccommodationCreateDto createDto, Location location, Long companyId) {
+        this.name = createDto.getAccommodationName();
         this.location = location;
+        this.category = createDto.getCategory();
+        this.details = createDto.getDetails();
+        this.companyId = companyId;
     }
 }
