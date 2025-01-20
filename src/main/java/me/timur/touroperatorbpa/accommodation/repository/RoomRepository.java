@@ -1,4 +1,4 @@
-package me.timur.touroperatorbpa.domain.repository;
+package me.timur.touroperatorbpa.accommodation.repository;
 
 import me.timur.touroperatorbpa.domain.entity.Room;
 import org.springframework.data.jpa.repository.JpaRepository;

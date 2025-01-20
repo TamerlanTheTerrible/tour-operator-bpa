@@ -8,7 +8,7 @@ import me.timur.touroperatorbpa.accommodation.model.AccommodationFilter;
 import me.timur.touroperatorbpa.accommodation.service.AccommodationService;
 import me.timur.touroperatorbpa.domain.entity.Accommodation;
 import me.timur.touroperatorbpa.domain.entity.Location;
-import me.timur.touroperatorbpa.domain.repository.AccommodationRepository;
+import me.timur.touroperatorbpa.accommodation.repository.AccommodationRepository;
 import me.timur.touroperatorbpa.domain.repository.LocationRepository;
 import me.timur.touroperatorbpa.exception.ClientException;
 import me.timur.touroperatorbpa.model.enums.ResponseCode;

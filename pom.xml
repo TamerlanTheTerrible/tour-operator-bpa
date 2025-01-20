@@ -23,10 +23,10 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-security</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
@@ -86,11 +86,22 @@
         </dependency>
 
         <dependency>
-        <groupId>com.h2database</groupId>
-        <artifactId>h2</artifactId>
-        <scope>runtime</scope>
-    </dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java-util</artifactId>
+            <version>3.21.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.16.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -106,6 +117,28 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <groupId>uz.atmos</groupId>
+                    <artifactId>generated-api-factory</artifactId>
+                    <version>0.0.1-SNAPSHOT</version>
+                    <packaging>jar</packaging>
+                    <file>/Users/tamerlantheterrible/IdeProjects 2.0/pinfl-payment-aloqabank/target/pinfl-payment-aloqabank-0.0.1-SNAPSHOT.jar</file>
+                    <generatePom>true</generatePom>
+                </configuration>
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>install-jar-lib</id>-->
+<!--                        <goals>-->
+<!--                            <goal>install-file</goal>-->
+<!--                        </goals>-->
+<!--                        <phase>validate</phase>-->
+<!--                    </execution>-->
+<!--                </executions>-->
             </plugin>
         </plugins>
     </build>

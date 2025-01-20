@@ -6,8 +6,8 @@ import me.timur.touroperatorbpa.domain.entity.application.ApplicationAccommodati
 import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
 import me.timur.touroperatorbpa.model.enums.RoomType;
-import me.timur.touroperatorbpa.domain.repository.AccommodationRepository;
-import me.timur.touroperatorbpa.domain.repository.ApplicationAccommodationRepository;
+import me.timur.touroperatorbpa.accommodation.repository.AccommodationRepository;
+import me.timur.touroperatorbpa.accommodation.repository.ApplicationAccommodationRepository;
 import me.timur.touroperatorbpa.domain.repository.GroupRepository;
 import me.timur.touroperatorbpa.application.model.accommodation.RoomDto;
 import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationCreateDto;

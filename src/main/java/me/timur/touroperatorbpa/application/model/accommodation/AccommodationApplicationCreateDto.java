@@ -26,6 +26,10 @@ public class AccommodationApplicationCreateDto extends AbstractApplicationCreate
     @JsonProperty("items")
     private List<AccommodationItem> items;
 
+    public AccommodationApplicationCreateDto() {
+
+    }
+
     @Data
     public static class AccommodationItem {
         @NotNull
@@ -61,6 +65,10 @@ public class AccommodationApplicationCreateDto extends AbstractApplicationCreate
             this.rooms = i.getRooms().stream().map(RoomDto::new).toList();
             this.comment = i.getComment();
             this.version = version;
+        }
+
+        public AccommodationItem() {
+
         }
 
         @Override

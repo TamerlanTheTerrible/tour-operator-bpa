@@ -1,4 +1,4 @@
-package me.timur.touroperatorbpa.domain.repository;
+package me.timur.touroperatorbpa.accommodation.repository;
 
 import me.timur.touroperatorbpa.domain.entity.application.ApplicationAccommodation;
 import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
