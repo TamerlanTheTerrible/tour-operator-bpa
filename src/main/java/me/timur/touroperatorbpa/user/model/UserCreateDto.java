@@ -26,8 +26,8 @@ public class UserCreateDto {
     @JsonProperty("last_name")
     private String lastName;
 
-    @JsonProperty("email")
-    private String email;
+    @JsonProperty("username")
+    private String username;
 
     @JsonProperty("phone_number")
     private String phoneNumber;

@@ -7,5 +7,5 @@ import me.timur.touroperatorbpa.security.model.TokenDTO;
  */
 
 public interface AuthenticationService {
-    TokenDTO login(String email, String password);
+    TokenDTO login(String username, String password);
 }

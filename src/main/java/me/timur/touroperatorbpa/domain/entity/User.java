@@ -22,20 +22,22 @@ import java.util.stream.Collectors;
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity {
+
+    @ManyToOne
+    @JoinColumn(name = "user_company_id", nullable = false)
+    private UserCompany userCompanyId;
+
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name= "email", unique = true)
-    private String email;
+    @Column(name= "username", unique = true)
+    private String username;
 
     @Column(name = "password")
     private String password;
-
-    @Column(name = "initial", unique = true)
-    private String initials;
 
     @Column(name= "phone_number")
     private String phoneNumber;
@@ -52,8 +54,7 @@ public class User extends BaseEntity {
     public User(UserCreateDto userCreateDto, String password, List<Role> roles) {
         this.firstName = userCreateDto.getFirstName();
         this.lastName = userCreateDto.getLastName();
-        this.email = userCreateDto.getEmail();
-        this.initials = userCreateDto.getInitials();
+        this.username = userCreateDto.getUsername();
         this.phoneNumber = userCreateDto.getPhoneNumber();
         this.roles = roles;
         this.password = password;

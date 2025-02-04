@@ -81,15 +81,13 @@ public class UserServiceImpl implements UserService {
         if (userDto.getLastName() != null) {
             user.setLastName(userDto.getLastName());
         }
-        if (userDto.getEmail() != null) {
-            user.setEmail(userDto.getEmail());
+        if (userDto.getUsername() != null) {
+            user.setUsername(userDto.getUsername());
         }
         if (userDto.getPhoneNumber() != null) {
             user.setPhoneNumber(userDto.getPhoneNumber());
         }
-        if (userDto.getInitials() != null) {
-            user.setInitials(userDto.getInitials());
-        }
+
         if (userDto.getRoles() != null && !userDto.getRoles().isEmpty()) {
             user.setRoles(roleRepository.findAllByNameIn(userDto.getRoles()));
         }

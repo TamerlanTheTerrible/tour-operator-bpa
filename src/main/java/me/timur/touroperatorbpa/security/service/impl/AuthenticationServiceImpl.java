@@ -25,18 +25,18 @@
 //    private final JwtUtil jwtUtil;
 //
 //    @Override
-//    public TokenDTO login(String email, String password) {
-//        log.info("Logging in user with email: {}", email);
+//    public TokenDTO login(String username, String password) {
+//        log.info("Logging in user with username: {}", username);
 //
 //        Authentication authentication = null;
 //        try {
-//            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+//            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 //        } catch (Exception e) {
 //            throw new AuthenticationException(e.getMessage());
 //        }
 //
-//        String accessToken = jwtUtil.getAccessToken(email, authentication.getAuthorities());
-//        String refreshToken = jwtUtil.getRefreshToken(email);
+//        String accessToken = jwtUtil.getAccessToken(username, authentication.getAuthorities());
+//        String refreshToken = jwtUtil.getRefreshToken(username);
 //        return new TokenDTO(accessToken, refreshToken);
 //    }
 //}

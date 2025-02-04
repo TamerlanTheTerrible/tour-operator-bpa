@@ -2,7 +2,6 @@ package me.timur.touroperatorbpa.domain.converter;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
-import me.timur.touroperatorbpa.domain.entity.Role;
 
 import java.util.List;
 
@@ -10,7 +9,7 @@ import java.util.List;
  * Created by Temurbek Ismoilov on 02/08/23.
  */
 
-@Converter
+@Converter(autoApply = true)
 public class StringToListConverter implements AttributeConverter<List<String>, String> {
 
         @Override

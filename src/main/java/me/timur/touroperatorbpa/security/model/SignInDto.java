@@ -15,7 +15,7 @@ import lombok.NonNull;
 @AllArgsConstructor
 public class SignInDto {
     @NonNull @NotBlank
-    private String email;
+    private String username;
     @NonNull @NotBlank
     private String password;
 }

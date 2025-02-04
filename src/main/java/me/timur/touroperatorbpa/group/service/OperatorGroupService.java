@@ -42,7 +42,8 @@ public class OperatorGroupService implements GroupService {
         log.info("Creating group: {}", createDto);
 
         var company = getCompany(createDto.getCompanyId());
-        createDto.setNumber(groupNumberService.getValidNumber(createDto, user.getInitials()));
+        //TODO: check if user is allowed to create group for this company
+        // createDto.setNumber(groupNumberService.generate(company.getId()));
 
         // save and return group
         Group group = groupRepository.save(new Group(createDto, user, company));

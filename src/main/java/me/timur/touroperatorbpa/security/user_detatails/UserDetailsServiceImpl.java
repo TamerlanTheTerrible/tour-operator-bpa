@@ -20,7 +20,7 @@
 //    @Override
 //    public UserDetails loadUserByUsername(String username) {
 //        var user = userRepository.findByEmail(username)
-//                .orElseThrow(() -> new ClientException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find user with email: " + username));
+//                .orElseThrow(() -> new ClientException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find user with username: " + username));
 //        return UserDetailsImpl.fromEntity(user);
 //    }
 //}
