@@ -1,6 +1,6 @@
 package me.timur.touroperatorbpa.operator.service;
 
-import me.timur.touroperatorbpa.domain.entity.Company;
+import me.timur.touroperatorbpa.domain.entity.PartnerCompany;
 import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.domain.entity.User;
 import me.timur.touroperatorbpa.domain.repository.CompanyRepository;
@@ -61,12 +61,12 @@ public class OperatorGroupServiceTest {
         user.setInitials("AB");
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
-        Company company = new Company();
-        company.setName("China");
-        company.setId(createDto.getCompanyId());
-        when(companyRepository.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.of(company));
+        PartnerCompany partnerCompany = new PartnerCompany();
+        partnerCompany.setName("China");
+        partnerCompany.setId(createDto.getCompanyId());
+        when(companyRepository.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.of(partnerCompany));
 
-        Group group = new Group(createDto, user, company);
+        Group group = new Group(createDto, user, partnerCompany);
         when(groupRepository.save(any(Group.class))).thenReturn(group);
 
         // Call the create method

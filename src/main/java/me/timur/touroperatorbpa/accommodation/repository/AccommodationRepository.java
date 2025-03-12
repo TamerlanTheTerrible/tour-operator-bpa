@@ -2,6 +2,7 @@ package me.timur.touroperatorbpa.accommodation.repository;
 
 import me.timur.touroperatorbpa.domain.entity.Accommodation;
 import me.timur.touroperatorbpa.domain.entity.Location;
+import me.timur.touroperatorbpa.domain.entity.UserCompany;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

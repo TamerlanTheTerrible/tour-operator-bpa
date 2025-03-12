@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.timur.touroperatorbpa.domain.entity.Company;
+import me.timur.touroperatorbpa.domain.entity.PartnerCompany;
 
 /**
  * Created by Temurbek Ismoilov on 03/08/23.
@@ -19,10 +19,10 @@ public class CompanyDto {
     private String name;
     private String country;
 
-    public CompanyDto(Company company) {
-        this.id = company.getId();
-        this.name = company.getName();
-        this.country = company.getCountry();
+    public CompanyDto(PartnerCompany partnerCompany) {
+        this.id = partnerCompany.getId();
+        this.name = partnerCompany.getName();
+        this.country = partnerCompany.getCountry();
     }
 
     @Override

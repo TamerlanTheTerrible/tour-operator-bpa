@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import me.timur.touroperatorbpa.model.enums.Role;
 
 import java.util.List;
 
@@ -35,12 +36,9 @@ public class UserCreateDto {
     @JsonProperty("password")
     private String password;
 
-    @JsonProperty("initials")
-    private String initials;
-
     @NotNull(message = "Roles must not be null") @NotEmpty
     @JsonProperty("roles")
-    private List<String> roles;
+    private List<Role> roles;
 
 
 }

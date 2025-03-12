@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.timur.touroperatorbpa.company.model.CompanyCreateDto;
 import me.timur.touroperatorbpa.company.model.CompanyDto;
 import me.timur.touroperatorbpa.company.service.CompanyService;
-import me.timur.touroperatorbpa.domain.entity.Company;
+import me.timur.touroperatorbpa.domain.entity.PartnerCompany;
 import me.timur.touroperatorbpa.domain.repository.CompanyRepository;
 import me.timur.touroperatorbpa.exception.ClientException;
 import me.timur.touroperatorbpa.model.enums.ResponseCode;
@@ -27,7 +27,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public CompanyDto create(CompanyCreateDto createDto) {
         log.info("Creating company: {}", createDto);
-        var company = new Company(createDto);
+        var company = new PartnerCompany(createDto);
         companyRepository.save(company);
         return new CompanyDto(company);
     }
@@ -60,7 +60,7 @@ public class CompanyServiceImpl implements CompanyService {
                 .toList();
     }
 
-    private Company getCompanyEntity(Long id) {
+    private PartnerCompany getCompanyEntity(Long id) {
         return companyRepository.findById(id)
                 .orElseThrow(() -> new ClientException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find company with id: " + id));
     }

@@ -1,6 +1,6 @@
 package me.timur.touroperatorbpa.model.group;
 
-import me.timur.touroperatorbpa.domain.entity.Company;
+import me.timur.touroperatorbpa.domain.entity.PartnerCompany;
 import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.domain.entity.User;
 import me.timur.touroperatorbpa.group.model.GroupDto;
@@ -23,10 +23,10 @@ public class GroupDtoTest {
         group.setCountry("Country1");
 
         // Create a mock Company object for the Group
-        Company company = new Company();
-        company.setId(1L);
-        company.setName("Company1");
-        group.setCompany(company);
+        PartnerCompany partnerCompany = new PartnerCompany();
+        partnerCompany.setId(1L);
+        partnerCompany.setName("Company1");
+        group.setPartnerCompany(partnerCompany);
 
         group.setSize(20);
         group.setTourLeaderAmount(2);

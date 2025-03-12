@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import me.timur.touroperatorbpa.model.enums.Country;
 
 /**
  * Created by Temurbek Ismoilov on 03/08/23.
@@ -18,7 +19,7 @@ public class CompanyCreateDto {
     private String name;
 
     @NotNull @NotBlank
-    private String country;
+    private Country country;
 
     @Override
     public String toString() {

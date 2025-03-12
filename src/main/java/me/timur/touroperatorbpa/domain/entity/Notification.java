@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import me.timur.touroperatorbpa.model.enums.ApplicationType;
-import me.timur.touroperatorbpa.model.enums.RoleName;
+import me.timur.touroperatorbpa.model.enums.Role;
 import me.timur.touroperatorbpa.notification.model.NotificationCreateDto;
 
 /**
@@ -19,7 +19,7 @@ import me.timur.touroperatorbpa.notification.model.NotificationCreateDto;
 @Table(name = "notification")
 public class Notification extends BaseEntity {
 
-    @Column(name = "group_id", nullable = false)
+    @JoinColumn(name = "group_id", nullable = false)
     private Long groupId;
 
     @Enumerated(EnumType.STRING)
@@ -28,7 +28,7 @@ public class Notification extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
-    private RoleName roleName;
+    private Role role;
 
     @Column(name = "message", nullable = false)
     private String message;
@@ -36,10 +36,10 @@ public class Notification extends BaseEntity {
     @Column(name = "is_read", nullable = false)
     private Boolean isRead = false;
 
-    public Notification(NotificationCreateDto createDto, RoleName roleName) {
+    public Notification(NotificationCreateDto createDto, Role role) {
         this.groupId = createDto.getGroupId();
         this.applicationType = createDto.getApplicationType();
-        this.roleName = roleName;
+        this.role = role;
         this.message = createDto.getChange();
         this.isRead = false;
     }

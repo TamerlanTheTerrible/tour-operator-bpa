@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.timur.touroperatorbpa.domain.entity.Notification;
 import me.timur.touroperatorbpa.model.enums.ApplicationType;
-import me.timur.touroperatorbpa.model.enums.RoleName;
+import me.timur.touroperatorbpa.model.enums.Role;
 
 /**
  * Created by Temurbek Ismoilov on 31/08/23.
@@ -32,7 +32,7 @@ public class NotificationDto {
 
     @NotNull
     @JsonProperty("role")
-    private RoleName roleName;
+    private Role role;
 
     @NotNull
     @JsonProperty("message")
@@ -46,7 +46,7 @@ public class NotificationDto {
         this.id = notification.getId();
         this.groupId = notification.getGroupId();
         this.applicationType = notification.getApplicationType();
-        this.roleName = notification.getRoleName();
+        this.role = notification.getRole();
         this.message = notification.getMessage();
         this.isRead = notification.getIsRead();
     }

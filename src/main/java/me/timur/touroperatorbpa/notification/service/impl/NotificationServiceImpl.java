@@ -10,7 +10,7 @@ import me.timur.touroperatorbpa.exception.ClientException;
 import me.timur.touroperatorbpa.exception.InternalException;
 import me.timur.touroperatorbpa.model.enums.ApplicationType;
 import me.timur.touroperatorbpa.model.enums.ResponseCode;
-import me.timur.touroperatorbpa.model.enums.RoleName;
+import me.timur.touroperatorbpa.model.enums.Role;
 import me.timur.touroperatorbpa.notification.model.NotificationCreateDto;
 import me.timur.touroperatorbpa.notification.model.NotificationDto;
 import me.timur.touroperatorbpa.notification.service.NotificationService;
@@ -31,15 +31,15 @@ public class NotificationServiceImpl implements NotificationService {
     private final GroupRepository groupRepository;
 
     @Override
-    public List<NotificationDto> create(NotificationCreateDto createDto, List<RoleName> roleNames) {
-        final List<Notification> notifications = roleNames.stream().map(roleName -> new Notification(createDto, roleName)).toList();
+    public List<NotificationDto> create(NotificationCreateDto createDto, List<Role> roles) {
+        final List<Notification> notifications = roles.stream().map(roleName -> new Notification(createDto, roleName)).toList();
         notificationRespository.saveAll(notifications);
         return notifications.stream().map(NotificationDto::new).toList();
     }
 
     @Override
-    public NotificationDto create(NotificationCreateDto createDto, RoleName roleName) {
-        var notification = new Notification(createDto, roleName);
+    public NotificationDto create(NotificationCreateDto createDto, Role role) {
+        var notification = new Notification(createDto, role);
         notificationRespository.save(notification);
         return new NotificationDto(notification);
     }

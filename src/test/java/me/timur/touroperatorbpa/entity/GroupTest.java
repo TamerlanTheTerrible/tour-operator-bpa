@@ -1,6 +1,6 @@
 package me.timur.touroperatorbpa.entity;
 
-import me.timur.touroperatorbpa.domain.entity.Company;
+import me.timur.touroperatorbpa.domain.entity.PartnerCompany;
 import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.domain.entity.User;
 import me.timur.touroperatorbpa.group.model.GroupCreateDto;
@@ -19,8 +19,8 @@ public class GroupTest {
     public void testGroupConstructor() {
         // Create a mock User object for tourOperator
         User tourOperator = new User(); // Replace with actual User instantiation
-        Company company = new Company(); // Replace with actual Company instantiation
-        company.setName("Company1");
+        PartnerCompany partnerCompany = new PartnerCompany(); // Replace with actual Company instantiation
+        partnerCompany.setName("Company1");
 
         // Create a GroupCreateDto with test data
         GroupCreateDto dto = new GroupCreateDto();
@@ -33,13 +33,13 @@ public class GroupTest {
         dto.setComment("Test group");
 
         // Create the Group object using the constructor
-        Group group = new Group(dto, tourOperator, company);
+        Group group = new Group(dto, tourOperator, partnerCompany);
 
         // Assert that the Group object is created correctly with the given values
         assertEquals(tourOperator, group.getTourOperator());
         assertEquals("GRP123", group.getNumber());
         assertEquals("Country1", group.getCountry());
-        assertEquals(company.getName(), group.getCompany().getName());
+        assertEquals(partnerCompany.getName(), group.getPartnerCompany().getName());
         assertEquals(20, group.getSize());
         assertEquals(2, group.getTourLeaderAmount());
         assertEquals(LocalDateTime.of(2023, 7, 19, 10, 0), group.getArrival());

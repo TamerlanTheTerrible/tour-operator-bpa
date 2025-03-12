@@ -7,12 +7,13 @@ import me.timur.touroperatorbpa.accommodation.model.AccommodationDto;
 import me.timur.touroperatorbpa.accommodation.model.AccommodationFilter;
 import me.timur.touroperatorbpa.accommodation.service.AccommodationService;
 import me.timur.touroperatorbpa.domain.entity.Accommodation;
-import me.timur.touroperatorbpa.domain.entity.Company;
 import me.timur.touroperatorbpa.domain.entity.Location;
 import me.timur.touroperatorbpa.accommodation.repository.AccommodationRepository;
 import me.timur.touroperatorbpa.domain.repository.LocationRepository;
 import me.timur.touroperatorbpa.exception.ClientException;
 import me.timur.touroperatorbpa.model.enums.ResponseCode;
+import me.timur.touroperatorbpa.security.user_detatails.UserDetailsImpl;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,14 +31,15 @@ public class AccommodationServiceImpl implements AccommodationService {
     private final LocationRepository locationRepository;
 
     @Override
-    public AccommodationDto create(AccommodationCreateDto createDto, Company company) {
+    public AccommodationDto create(AccommodationCreateDto createDto, UserDetailsImpl userDetails) {
         log.info("Creating accommodation: {}", createDto);
 
         var accommodation = new Accommodation(
                 createDto,
-                getLocation(createDto.getLocationName().toUpperCase())
-                ,company.getId()
+                getLocation(createDto.getLocationName().toUpperCase()),
+                userDetails.userCompany()
         );
+
         accommodationRepository.save(accommodation);
 
         return new AccommodationDto(accommodation);
@@ -53,9 +55,11 @@ public class AccommodationServiceImpl implements AccommodationService {
         log.info("Updating accommodation: {}", updateDto);
 
         var accommodation = getAccommodationEntity(updateDto.getAccommodationId());
+
         if (updateDto.getAccommodationName() != null) {
             accommodation.setName(updateDto.getAccommodationName());
         }
+
         if (updateDto.getLocationName() != null) {
             accommodation.setLocation(getLocation(updateDto.getLocationName().toUpperCase()));
         }

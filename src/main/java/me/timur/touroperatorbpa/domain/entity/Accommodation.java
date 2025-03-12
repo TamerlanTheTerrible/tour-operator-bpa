@@ -41,8 +41,9 @@ public class Accommodation extends BaseEntity {
     @Column(name = "is_active", nullable = false)
     private boolean isActive = true;
 
-    @Column(name = "user_company_id", nullable = false)
-    private Long userCompanyId = 0L;
+    @ManyToOne
+    @JoinColumn(name = "user_company_id", nullable = false)
+    private UserCompany userCompany;
 
     @Column(name = "rating")
     private Double rating;
@@ -50,11 +51,11 @@ public class Accommodation extends BaseEntity {
     @Column(name = "rating_count", nullable = false)
     private Long ratingCount;
 
-    public Accommodation(AccommodationCreateDto createDto, Location location, Long userCompanyId) {
+    public Accommodation(AccommodationCreateDto createDto, Location location, UserCompany userCompanyId) {
         this.name = createDto.getAccommodationName();
         this.location = location;
         this.category = createDto.getCategory();
         this.details = createDto.getDetails();
-        this.userCompanyId = userCompanyId;
+        this.userCompany = userCompanyId;
     }
 }

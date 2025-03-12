@@ -2,7 +2,7 @@ package me.timur.touroperatorbpa.group.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.timur.touroperatorbpa.domain.entity.Company;
+import me.timur.touroperatorbpa.domain.entity.PartnerCompany;
 import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.domain.entity.User;
 import me.timur.touroperatorbpa.model.enums.GroupStatus;
@@ -73,7 +73,7 @@ public class OperatorGroupService implements GroupService {
             group.setDeparture(dto.getDeparture());
         }
         if (dto.getCompanyId() != null) {
-            group.setCompany(
+            group.setPartnerCompany(
                getCompany(dto.getCompanyId())
             );
         }
@@ -141,7 +141,7 @@ public class OperatorGroupService implements GroupService {
                 .orElseThrow(() -> new ClientException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find user with id: " + id));
     }
 
-    private Company getCompany(Long id) {
+    private PartnerCompany getCompany(Long id) {
         return companyRepository.findById(id)
                 .orElseThrow(() -> new ClientException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find company with id: " + id));
     }

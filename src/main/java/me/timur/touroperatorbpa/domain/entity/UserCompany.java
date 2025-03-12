@@ -27,4 +27,11 @@ public class UserCompany extends BaseEntity {
     @Column(name = "is_active", nullable = false)
     private boolean isActive = true;
 
+    @Override
+    public String toString() {
+        return "UserCompany{" +
+                "name='" + name + '\'' +
+                ", isActive=" + isActive +
+                '}';
+    }
 }

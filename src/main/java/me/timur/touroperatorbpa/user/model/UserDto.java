@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.timur.touroperatorbpa.domain.entity.Role;
 import me.timur.touroperatorbpa.domain.entity.User;
 
 import java.util.List;

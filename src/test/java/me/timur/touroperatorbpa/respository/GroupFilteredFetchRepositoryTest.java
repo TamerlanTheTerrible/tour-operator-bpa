@@ -1,14 +1,12 @@
 package me.timur.touroperatorbpa.respository;
 
 import me.timur.touroperatorbpa.TestIntegrationConfiguration;
-import me.timur.touroperatorbpa.domain.entity.Company;
+import me.timur.touroperatorbpa.domain.entity.PartnerCompany;
 import me.timur.touroperatorbpa.domain.entity.Group;
-import me.timur.touroperatorbpa.domain.entity.Role;
 import me.timur.touroperatorbpa.domain.entity.User;
 import me.timur.touroperatorbpa.model.enums.GroupStatus;
 import me.timur.touroperatorbpa.domain.repository.CompanyRepository;
 import me.timur.touroperatorbpa.domain.repository.GroupRepository;
-import me.timur.touroperatorbpa.domain.repository.RoleRepository;
 import me.timur.touroperatorbpa.domain.repository.UserRepository;
 import me.timur.touroperatorbpa.domain.repository.impl.GroupFilteredFetchRepository;
 import me.timur.touroperatorbpa.group.model.GroupFilter;
@@ -48,8 +46,8 @@ public class GroupFilteredFetchRepositoryTest {
     private RoleRepository roleRepository;
     
     private User tourOperator;
-    private Company company1;
-    private Company company2;
+    private PartnerCompany partnerCompany1;
+    private PartnerCompany partnerCompany2;
     private Group group1;
     private Group group2;
     @Test
@@ -128,7 +126,7 @@ public class GroupFilteredFetchRepositoryTest {
     public void testByCompany() {
         // GIVEN 1
         GroupFilter filter1 = new GroupFilter();
-        filter1.setCompanyId(group1.getCompany().getId());
+        filter1.setCompanyId(group1.getPartnerCompany().getId());
         // GIVEN 2
         GroupFilter filter2 = new GroupFilter();
         // GIVEN 3
@@ -151,7 +149,7 @@ public class GroupFilteredFetchRepositoryTest {
         // THEN 1
         assertEquals(1, groups1.size());
         assertEquals(Long.valueOf(1), count1);
-        assertEquals(group1.getCompany().getId(), groups1.get(0).getCompany().getId());
+        assertEquals(group1.getPartnerCompany().getId(), groups1.get(0).getPartnerCompany().getId());
         // THEN 2
         assertEquals(2, groups2.size());
         assertEquals(Long.valueOf(2), count2);
@@ -310,13 +308,13 @@ public class GroupFilteredFetchRepositoryTest {
         roleRepository.save(role);
 
         tourOperator = createUser(List.of(role));
-        company1 = createCompany(1L,"Company A");
-        company2 = createCompany(2L,"Company B");
+        partnerCompany1 = createCompany(1L,"Company A");
+        partnerCompany2 = createCompany(2L,"Company B");
 
         LocalDateTime arrival1 = LocalDateTime.now().plusMonths(2);
         LocalDateTime arrival2 = LocalDateTime.now().plusMonths(3);
-        group1 = createGroup(1L,"Group 1", "Country A", company1, tourOperator, arrival1, GroupStatus.ACTIVE);
-        group2 = createGroup(2L,"Group 2", "Country B", company2, tourOperator, arrival2, GroupStatus.CANCELLED);
+        group1 = createGroup(1L,"Group 1", "Country A", partnerCompany1, tourOperator, arrival1, GroupStatus.ACTIVE);
+        group2 = createGroup(2L,"Group 2", "Country B", partnerCompany2, tourOperator, arrival2, GroupStatus.CANCELLED);
 
     }
 
@@ -333,18 +331,18 @@ public class GroupFilteredFetchRepositoryTest {
         return user;
     }
 
-    private Company createCompany(Long id, String name) {
-        Company company = new Company();
-        company.setName(name);
-        company.setDateCreated(LocalDateTime.now());
-        company.setId(id);
+    private PartnerCompany createCompany(Long id, String name) {
+        PartnerCompany partnerCompany = new PartnerCompany();
+        partnerCompany.setName(name);
+        partnerCompany.setDateCreated(LocalDateTime.now());
+        partnerCompany.setId(id);
 
-        companyRepository.save(company);
+        companyRepository.save(partnerCompany);
 
-        return company;
+        return partnerCompany;
     }
 
-    private Group createGroup(Long id, String number, String country, Company company, User tourOperator, LocalDateTime arrival, GroupStatus status) {
+    private Group createGroup(Long id, String number, String country, PartnerCompany partnerCompany, User tourOperator, LocalDateTime arrival, GroupStatus status) {
         Group group = new Group();
         group.setId(id);
         group.setSize(3);
@@ -352,7 +350,7 @@ public class GroupFilteredFetchRepositoryTest {
         group.setStatus(GroupStatus.ACTIVE);
         group.setNumber(number);
         group.setCountry(country);
-        group.setCompany(company);
+        group.setPartnerCompany(partnerCompany);
         group.setTourOperator(tourOperator);
         group.setArrival(arrival);
         group.setDateCreated(LocalDateTime.now());

@@ -3,8 +3,9 @@ package me.timur.touroperatorbpa.user.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.timur.touroperatorbpa.domain.entity.User;
-import me.timur.touroperatorbpa.domain.repository.RoleRepository;
+import me.timur.touroperatorbpa.domain.entity.UserRole;
 import me.timur.touroperatorbpa.domain.repository.UserRepository;
+import me.timur.touroperatorbpa.domain.repository.UserRoleRepository;
 import me.timur.touroperatorbpa.exception.ClientException;
 import me.timur.touroperatorbpa.model.enums.ResponseCode;
 import me.timur.touroperatorbpa.user.model.UserCreateDto;
@@ -24,21 +25,19 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
+    private final UserRoleRepository userRoleRepository;
 //    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public UserDto create(UserCreateDto createDto) {
         log.info("Creating user: {}", createDto);
 
-        User user = new User(
-                createDto,
-//                passwordEncoder.encode(createDto.getPassword()),
-                createDto.getPassword(),
-                roleRepository.findAllByNameIn(createDto.getRoles())
-        );
-        userRepository.save(user);
+        var user = userRepository.save(new User(createDto, createDto.getPassword()));
+        var list = createDto.getRoles().stream().map(role -> new UserRole(user.getId(), role)).toList();
+        userRoleRepository.saveAll(list);
 
+        log.info("User created: {}", user);
+        user.setRoles(list);
         return new UserDto(user);
     }
 
@@ -78,21 +77,24 @@ public class UserServiceImpl implements UserService {
         if (userDto.getFirstName() != null) {
             user.setFirstName(userDto.getFirstName());
         }
+
         if (userDto.getLastName() != null) {
             user.setLastName(userDto.getLastName());
         }
+
         if (userDto.getUsername() != null) {
             user.setUsername(userDto.getUsername());
         }
+
         if (userDto.getPhoneNumber() != null) {
             user.setPhoneNumber(userDto.getPhoneNumber());
         }
 
         if (userDto.getRoles() != null && !userDto.getRoles().isEmpty()) {
-            user.setRoles(roleRepository.findAllByNameIn(userDto.getRoles()));
+            user.setRoles(userRoleRepository.findAllByNameIn(userDto.getRoles()));
         }
-        userRepository.save(user);
 
+        userRepository.save(user);
         return new UserDto(user);
     }
 

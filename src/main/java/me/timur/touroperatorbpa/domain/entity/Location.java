@@ -1,9 +1,6 @@
 package me.timur.touroperatorbpa.domain.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +21,7 @@ public class Location extends BaseEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "user_company_id", nullable = false)
-    private Long userCompanyId = 0L;
+    @ManyToOne
+    @JoinColumn(name = "user_company_id", nullable = false)
+    private UserCompany userCompany;
 }

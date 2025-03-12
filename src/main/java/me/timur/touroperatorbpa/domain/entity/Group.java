@@ -33,7 +33,7 @@ public class Group extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "company_id", nullable = false)
-    private Company company;
+    private PartnerCompany partnerCompany;
 
     @Column(name = "size", nullable = false)
     private Integer size;
@@ -54,9 +54,9 @@ public class Group extends BaseEntity {
     @Column(name = "status", nullable = false)
     private GroupStatus status;
 
-    public Group(GroupCreateDto dto, User tourOperator, Company company) {
+    public Group(GroupCreateDto dto, User tourOperator, PartnerCompany partnerCompany) {
         this.tourOperator = tourOperator;
-        this.company = company;
+        this.partnerCompany = partnerCompany;
         this.number = dto.getNumber();
         this.country = dto.getCountry();
         this.size = dto.getSize();

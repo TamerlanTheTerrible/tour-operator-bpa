@@ -1,13 +1,12 @@
 package me.timur.touroperatorbpa.domain.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import me.timur.touroperatorbpa.company.model.CompanyCreateDto;
+import me.timur.touroperatorbpa.model.enums.Country;
 
 /**
  * Created by Temurbek Ismoilov on 25/07/23.
@@ -18,16 +17,17 @@ import me.timur.touroperatorbpa.company.model.CompanyCreateDto;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "company")
-public class Company extends BaseEntity {
+@Table(name = "partner_company")
+public class PartnerCompany extends BaseEntity {
 
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "country", nullable = false)
-    private String country;
+    private Country country;
 
-    public Company(CompanyCreateDto createDto) {
+    public PartnerCompany(CompanyCreateDto createDto) {
         this.name = createDto.getName();
         this.country = createDto.getCountry();
     }

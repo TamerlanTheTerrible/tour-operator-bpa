@@ -63,8 +63,8 @@ public class GroupDto {
         this.id = group.getId();
         this.number = group.getNumber();
         this.country = group.getCountry();
-        this.companyId = group.getCompany().getId();
-        this.companyName = group.getCompany().getName();
+        this.companyId = group.getPartnerCompany().getId();
+        this.companyName = group.getPartnerCompany().getName();
         this.size = group.getSize();
         this.tourLeaderAmount = group.getTourLeaderAmount();
         this.arrival = group.getArrival();
