@@ -21,7 +21,7 @@ import me.timur.touroperatorbpa.company.model.CompanyCreateDto;
 @Table(name = "user_company")
 public class UserCompany extends BaseEntity {
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @Column(name = "is_active", nullable = false)

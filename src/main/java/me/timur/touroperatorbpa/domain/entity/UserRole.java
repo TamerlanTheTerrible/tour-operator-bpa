@@ -16,10 +16,13 @@ import me.timur.touroperatorbpa.model.enums.Role;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user_role")
+@Table(
+        name = "user_role",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "role"})
+)
 public class UserRole extends BaseEntity {
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -54,7 +57,8 @@ public class UserRole extends BaseEntity {
     @Override
     public String toString() {
         return "UserRole{" +
-                "userId=" + user +
+                "user=" + user.getUsername() +
+                ", userId=" + user.getId() +
                 ", role=" + role +
                 ", isActive=" + isActive +
                 '}';
