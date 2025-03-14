@@ -31,13 +31,13 @@ public class AccommodationServiceImpl implements AccommodationService {
     private final LocationRepository locationRepository;
 
     @Override
-    public AccommodationDto create(AccommodationCreateDto createDto, UserDetailsImpl userDetails) {
+    public AccommodationDto create(AccommodationCreateDto createDto) {
         log.info("Creating accommodation: {}", createDto);
 
         var accommodation = new Accommodation(
                 createDto,
                 getLocation(createDto.getLocationName().toUpperCase()),
-                userDetails.userCompany()
+                null
         );
 
         accommodationRepository.save(accommodation);

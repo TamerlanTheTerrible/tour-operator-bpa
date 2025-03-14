@@ -30,15 +30,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto create(UserCreateDto createDto) {
-        log.info("Creating user: {}", createDto);
-
-        var user = userRepository.save(new User(createDto, createDto.getPassword()));
-        var list = createDto.getRoles().stream().map(role -> new UserRole(user.getId(), role)).toList();
-        userRoleRepository.saveAll(list);
-
-        log.info("User created: {}", user);
-        user.setRoles(list);
-        return new UserDto(user);
+//        log.info("Creating user: {}", createDto);
+//
+//        var user = userRepository.save(new User(createDto, createDto.getPassword()));
+//        var list = createDto.getRoles().stream().map(role -> new UserRole(user.getId(), role)).toList();
+//        userRoleRepository.saveAll(list);
+//
+//        log.info("User created: {}", user);
+//        user.setRoles(list);
+//        return new UserDto(user);
+        return null;
     }
 
     @Override
@@ -90,9 +91,9 @@ public class UserServiceImpl implements UserService {
             user.setPhoneNumber(userDto.getPhoneNumber());
         }
 
-        if (userDto.getRoles() != null && !userDto.getRoles().isEmpty()) {
-            user.setRoles(userRoleRepository.findAllByNameIn(userDto.getRoles()));
-        }
+//        if (userDto.getRoles() != null && !userDto.getRoles().isEmpty()) {
+//            user.setRoles(userRoleRepository.findAllByNameIn(userDto.getRoles()));
+//        }
 
         userRepository.save(user);
         return new UserDto(user);

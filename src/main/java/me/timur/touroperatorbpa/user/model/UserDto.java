@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.timur.touroperatorbpa.domain.entity.User;
+import me.timur.touroperatorbpa.domain.entity.UserRole;
+import me.timur.touroperatorbpa.model.enums.Role;
 
 import java.util.List;
 
@@ -35,7 +37,7 @@ public class UserDto {
     private String phoneNumber;
 
     @JsonProperty("roles")
-    private List<String> roles;
+    private List<Role> roles;
 
     @JsonProperty("is_active")
     private Boolean isActive;
@@ -45,7 +47,7 @@ public class UserDto {
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
         this.username = user.getUsername();
-        this.roles = user.getRoles().stream().map(Role::getName).toList();
+        this.roles = user.getRoles().stream().map(UserRole::getRole).toList();
         this.isActive = user.getIsActive();
         this.phoneNumber = user.getPhoneNumber();
     }

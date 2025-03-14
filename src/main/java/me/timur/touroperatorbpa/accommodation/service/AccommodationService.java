@@ -13,8 +13,8 @@ import java.util.List;
  */
 
 public interface AccommodationService {
-    AccommodationDto create(AccommodationCreateDto createDto, UserDetailsImpl userDetails);
-    AccommodationDto get(Long id, UserDetailsImpl userDetails);
-    AccommodationDto update(AccommodationDto updateDto, UserDetailsImpl userDetails);
-    List<AccommodationDto> getAll(AccommodationFilter filter, UserDetailsImpl userDetails);
+    AccommodationDto create(AccommodationCreateDto createDto);
+    AccommodationDto get(Long id);
+    AccommodationDto update(AccommodationDto updateDto);
+    List<AccommodationDto> getAll(AccommodationFilter filter);
 }

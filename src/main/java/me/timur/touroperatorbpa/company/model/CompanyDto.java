@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.timur.touroperatorbpa.domain.entity.PartnerCompany;
+import me.timur.touroperatorbpa.model.enums.Country;
 
 /**
  * Created by Temurbek Ismoilov on 03/08/23.
@@ -17,7 +18,7 @@ public class CompanyDto {
     @NotNull
     private Long id;
     private String name;
-    private String country;
+    private Country country;
 
     public CompanyDto(PartnerCompany partnerCompany) {
         this.id = partnerCompany.getId();

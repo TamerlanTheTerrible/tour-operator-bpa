@@ -31,25 +31,25 @@ public class AccommodationController {
 //    @PreAuthorize("hasAnyAuthority(" +
 //            "T(me.timur.touroperatorbpa.model.enums.Role).ACCOMMODATION_MANAGER.name(), " +
 //            "T(me.timur.touroperatorbpa.model.enums.Role).TOUR_MANAGER.name())")
-    public BaseResponse<AccommodationDto> create(@RequestBody @Valid AccommodationCreateDto createDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return BaseResponse.ok(accommodationService.create(createDto, userDetails));
+    public BaseResponse<AccommodationDto> create(@RequestBody @Valid AccommodationCreateDto createDto) {
+        return BaseResponse.ok(accommodationService.create(createDto));
     }
 
     @GetMapping("/{id}")
-    public BaseResponse<AccommodationDto> get(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return BaseResponse.ok(accommodationService.get(id, userDetails));
+    public BaseResponse<AccommodationDto> get(@PathVariable Long id) {
+        return BaseResponse.ok(accommodationService.get(id));
     }
 
     @PutMapping(value = {"", "/"})
 //    @PreAuthorize("hasAnyAuthority(" +
 //            "T(me.timur.touroperatorbpa.model.enums.Role).ACCOMMODATION_MANAGER.name(), " +
 //            "T(me.timur.touroperatorbpa.model.enums.Role).TOUR_MANAGER.name())")
-    public BaseResponse<AccommodationDto> update(@RequestBody AccommodationDto updateDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return BaseResponse.ok(accommodationService.update(updateDto, userDetails));
+    public BaseResponse<AccommodationDto> update(@RequestBody AccommodationDto updateDto) {
+        return BaseResponse.ok(accommodationService.update(updateDto));
     }
 
-    @PostMapping(value = {"", "/"})
-    public BaseResponse<List<AccommodationDto>> getAll(@RequestBody @Valid AccommodationFilter filter, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return BaseResponse.ok(accommodationService.getAll(filter, userDetails));
+    @GetMapping(value = {"", "/"})
+    public BaseResponse<List<AccommodationDto>> getAll() {
+        return BaseResponse.ok(accommodationService.getAll(null));
     }
 }
