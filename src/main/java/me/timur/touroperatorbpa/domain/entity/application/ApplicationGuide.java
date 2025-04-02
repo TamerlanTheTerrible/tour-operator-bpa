@@ -34,10 +34,6 @@ public class ApplicationGuide extends BaseEntity {
     @Column(name = "toDate", nullable = false)
     private LocalDate to;
 
-    @ManyToOne
-    @JoinColumn(name = "guide", nullable = false)
-    private Guide guide;
-
     @Column(name = "comment")
     private String comment;
 
@@ -45,7 +41,9 @@ public class ApplicationGuide extends BaseEntity {
     @Column(name = "status", nullable = false)
     private ApplicationStatus status;
 
-    @Column(name = "version")
-    private Integer version = 1;
+    @Column(name = "rating")
+    private Double rating;
 
+    @Column(name = "rating_count", nullable = false)
+    private Long ratingCount;
 }

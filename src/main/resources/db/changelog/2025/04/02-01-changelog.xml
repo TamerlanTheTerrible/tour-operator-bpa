@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.30.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1743605763967-1" author="tamerlantheterrible">
+        <createTable tableName="group">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_group"/>
+            </column>
+            <column name="date_created" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_updated" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="number" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tour_operator_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="partner_company_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="size" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tour_leader_count" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="arrival_time" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="departure_time" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comment" type="VARCHAR(255)"/>
+            <column name="status" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1743605763967-2" author="tamerlantheterrible">
+        <createIndex indexName="idx_group_arrival_time" tableName="group">
+            <column name="arrival_time"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="1743605763967-3" author="tamerlantheterrible">
+        <createIndex indexName="idx_group_country" tableName="group">
+            <column name="country"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="1743605763967-5" author="tamerlantheterrible">
+        <createIndex indexName="idx_group_status" tableName="group">
+            <column name="status"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="1743605763967-7" author="tamerlantheterrible">
+        <addForeignKeyConstraint baseColumnNames="partner_company_id" baseTableName="group"
+                                 constraintName="FK_GROUP_ON_PARTNER_COMPANY" referencedColumnNames="id"
+                                 referencedTableName="partner_company"/>
+
+        <createIndex indexName="idx_group_partner_company_id" tableName="group">
+            <column name="partner_company_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="1743605763967-8" author="tamerlantheterrible">
+        <addForeignKeyConstraint baseColumnNames="tour_operator_id" baseTableName="group"
+                                 constraintName="FK_GROUP_ON_TOUR_OPERATOR" referencedColumnNames="id"
+                                 referencedTableName="users"/>
+
+        <createIndex indexName="idx_group_tour_operator_id" tableName="group">
+            <column name="tour_operator_id"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

@@ -18,10 +18,12 @@ import me.timur.touroperatorbpa.application.model.accommodation.RoomDto;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "room")
+@Table(name = "room",
+        indexes = @Index(columnList = "accommodation_application_id")
+)
 public class Room extends BaseEntity {
     @ManyToOne
-    @JoinColumn(name = "accommodation_application", nullable = false)
+    @JoinColumn(name = "accommodation_application_id", nullable = false)
     private ApplicationAccommodation application;
 
     @Enumerated(EnumType.STRING)

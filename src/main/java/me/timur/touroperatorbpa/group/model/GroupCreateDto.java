@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import lombok.Data;
-import me.timur.touroperatorbpa.domain.entity.User;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 
 import java.time.LocalDateTime;
@@ -28,8 +27,8 @@ public class GroupCreateDto {
     @JsonProperty("size")
     private Integer size;
 
-    @JsonProperty("tour_leader_amount")
-    private Integer tourLeaderAmount;
+    @JsonProperty("tour_leader_count")
+    private Integer tourLeaderCount;
 
     @JsonProperty("arrival")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = LocalDateTimeUtil.DATE_TIME_PATTERN)

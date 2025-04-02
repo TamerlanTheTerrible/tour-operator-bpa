@@ -27,7 +27,7 @@ public class GroupTest {
         dto.setNumber("GRP123");
         dto.setCountry("Country1");
         dto.setSize(20);
-        dto.setTourLeaderAmount(2);
+        dto.setTourLeaderCount(2);
         dto.setArrival(LocalDateTime.of(2023, 7, 19, 10, 0));
         dto.setDeparture(LocalDateTime.of(2023, 7, 25, 12, 0));
         dto.setComment("Test group");
@@ -42,8 +42,8 @@ public class GroupTest {
         assertEquals(partnerCompany.getName(), group.getPartnerCompany().getName());
         assertEquals(20, group.getSize());
         assertEquals(2, group.getTourLeaderAmount());
-        assertEquals(LocalDateTime.of(2023, 7, 19, 10, 0), group.getArrival());
-        assertEquals(LocalDateTime.of(2023, 7, 25, 12, 0), group.getDeparture());
+        assertEquals(LocalDateTime.of(2023, 7, 19, 10, 0), group.getArrivalTime());
+        assertEquals(LocalDateTime.of(2023, 7, 25, 12, 0), group.getDepartureTime());
         assertEquals("Test group", group.getComment());
     }
 }

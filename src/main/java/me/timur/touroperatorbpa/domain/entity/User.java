@@ -23,7 +23,8 @@ import java.util.stream.Collectors;
 @Entity
 @Table(
         name = "users",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"user_company_id", "username"})
+        uniqueConstraints = @UniqueConstraint(columnNames = {"user_company_id", "username"}),
+        indexes = @Index(columnList = "user_company_id")
 )
 public class User extends BaseEntity {
 

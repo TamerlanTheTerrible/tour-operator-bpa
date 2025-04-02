@@ -16,19 +16,22 @@ import me.timur.touroperatorbpa.notification.model.NotificationCreateDto;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "notification")
+@Table(name = "notification",
+        indexes = {@Index(name = "idx_notification_user_id", columnList = "user_id")}
+)
 public class Notification extends BaseEntity {
 
+    @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
-    private Long groupId;
+    private Group group;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "application_type", nullable = false)
     private ApplicationType applicationType;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false)
-    private Role role;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Column(name = "message", nullable = false)
     private String message;
@@ -36,10 +39,10 @@ public class Notification extends BaseEntity {
     @Column(name = "is_read", nullable = false)
     private Boolean isRead = false;
 
-    public Notification(NotificationCreateDto createDto, Role role) {
-        this.groupId = createDto.getGroupId();
+    public Notification(NotificationCreateDto createDto, Group group, User user) {
+        this.group = group;
         this.applicationType = createDto.getApplicationType();
-        this.role = role;
+        this.user = user;
         this.message = createDto.getChange();
         this.isRead = false;
     }

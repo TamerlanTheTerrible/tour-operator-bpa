@@ -15,13 +15,30 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "location")
+@Table(
+        name = "location",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"name", "user_company_id"}),
+        indexes = @Index(columnList = "user_company_id")
+)
 public class Location extends BaseEntity {
+    @ManyToOne
+    @JoinColumn(name = "user_company_id", nullable = false)
+    private UserCompany userCompany;
 
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "user_company_id", nullable = false)
-    private UserCompany userCompany;
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive = true;
+
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "name='" + name + '\'' +
+                ", userCompany=" + userCompany.getName() +
+                ", userCompanyId=" + userCompany.getId() +
+                ", isActive=" + isActive +
+                '}';
+    }
 }

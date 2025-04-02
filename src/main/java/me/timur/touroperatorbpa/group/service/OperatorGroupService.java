@@ -63,14 +63,14 @@ public class OperatorGroupService implements GroupService {
         if (dto.getSize() != null) {
             group.setSize(dto.getSize());
         }
-        if (dto.getTourLeaderAmount() != null) {
-            group.setTourLeaderAmount(dto.getTourLeaderAmount());
+        if (dto.getTourLeaderCount() != null) {
+            group.setTourLeaderAmount(dto.getTourLeaderCount());
         }
         if (dto.getArrival() != null) {
-            group.setArrival(dto.getArrival());
+            group.setArrivalTime(dto.getArrival());
         }
         if (dto.getDeparture() != null) {
-            group.setDeparture(dto.getDeparture());
+            group.setDepartureTime(dto.getDeparture());
         }
         if (dto.getCompanyId() != null) {
             group.setPartnerCompany(

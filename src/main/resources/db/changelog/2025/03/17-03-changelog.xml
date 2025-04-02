@@ -5,10 +5,10 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.30.xsd"
         objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
-    <changeSet id="1741954407957-1" author="tamerlantheterrible">
-        <createTable tableName="user_role">
+    <changeSet id="1742208554742-1" author="tamerlantheterrible">
+        <createTable tableName="room">
             <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_user_role"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_room"/>
             </column>
             <column name="date_created" type="DATETIME" defaultValueComputed="now()">
                 <constraints nullable="false"/>
@@ -16,25 +16,28 @@
             <column name="date_updated" type="DATETIME" defaultValueComputed="now()">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_id" type="BIGINT">
+            <column name="accommodation_application_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="role" type="VARCHAR(255)">
+            <column name="room_type" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="is_active" type="BOOLEAN" defaultValueBoolean="true">
+            <column name="requested" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="provided" type="INT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet id="1741954407957-2" author="tamerlantheterrible">
-        <addUniqueConstraint columnNames="user_id, role" constraintName="uc_5483131cda3da2b924b22560f"
-                             tableName="user_role"/>
-    </changeSet>
-    <changeSet id="1741954407957-3" author="tamerlantheterrible">
-        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_role"
-                                 constraintName="FK_USER_ROLE_ON_USER" referencedColumnNames="id"
-                                 referencedTableName="users"/>
+    <changeSet id="1742208554742-3" author="tamerlantheterrible">
+        <addForeignKeyConstraint baseColumnNames="accommodation_application_id" baseTableName="room"
+                                 constraintName="FK_ROOM_ON_ACCOMMODATION_APPLICATION" referencedColumnNames="id"
+                                 referencedTableName="application_accommodation"/>
+
+        <createIndex indexName="idx_a432156d557b4b3308420de31" tableName="room">
+            <column name="accommodation_application_id"/>
+        </createIndex>
     </changeSet>
 
 </databaseChangeLog>

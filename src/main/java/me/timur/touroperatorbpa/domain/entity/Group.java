@@ -19,7 +19,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "groups")
+@Table(name = "group",
+    indexes = {@Index(name = "idx_group_tour_operator_id", columnList = "tour_operator_id"),
+            @Index(name = "idx_group_country", columnList = "country"),
+            @Index(name = "idx_group_partner_company_id", columnList = "partner_company_id"),
+            @Index(name = "idx_group_arrival_time", columnList = "arrival_time"),
+            @Index(name = "idx_group_status", columnList = "status")
+    }
+)
 public class Group extends BaseEntity {
     @Column(name = "number", nullable = false)
     private String number;
@@ -32,27 +39,27 @@ public class Group extends BaseEntity {
     private String country;
 
     @ManyToOne
-    @JoinColumn(name = "company_id", nullable = false)
+    @JoinColumn(name = "partner_company_id", nullable = false)
     private PartnerCompany partnerCompany;
 
     @Column(name = "size", nullable = false)
     private Integer size;
 
-    @Column(name = "tour_leader_amount", nullable = false)
+    @Column(name = "tour_leader_count", nullable = false)
     private Integer tourLeaderAmount;
 
-    @Column(name = "arrival", nullable = false)
-    private LocalDateTime arrival;
+    @Column(name = "arrival_time", nullable = false)
+    private LocalDateTime arrivalTime;
 
-    @Column(name = "departure")
-    private LocalDateTime departure;
+    @Column(name = "departure_time", nullable = false)
+    private LocalDateTime departureTime;
 
     @Column(name = "comment")
     private String comment;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private GroupStatus status;
+    private GroupStatus status = GroupStatus.ACTIVE;
 
     public Group(GroupCreateDto dto, User tourOperator, PartnerCompany partnerCompany) {
         this.tourOperator = tourOperator;
@@ -60,10 +67,9 @@ public class Group extends BaseEntity {
         this.number = dto.getNumber();
         this.country = dto.getCountry();
         this.size = dto.getSize();
-        this.tourLeaderAmount = dto.getTourLeaderAmount();
-        this.arrival = dto.getArrival();
-        this.departure = dto.getDeparture();
+        this.tourLeaderAmount = dto.getTourLeaderCount();
+        this.arrivalTime = dto.getArrival();
+        this.departureTime = dto.getDeparture();
         this.comment = dto.getComment();
-        this.status = GroupStatus.ACTIVE;
     }
 }

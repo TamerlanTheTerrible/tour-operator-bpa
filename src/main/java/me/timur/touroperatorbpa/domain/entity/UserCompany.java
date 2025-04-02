@@ -3,6 +3,7 @@ package me.timur.touroperatorbpa.domain.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,9 @@ import me.timur.touroperatorbpa.company.model.CompanyCreateDto;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user_company")
+@Table(name = "user_company",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"name"})
+)
 public class UserCompany extends BaseEntity {
 
     @Column(name = "name", nullable = false, unique = true)

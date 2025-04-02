@@ -30,8 +30,8 @@ public class GroupDtoTest {
 
         group.setSize(20);
         group.setTourLeaderAmount(2);
-        group.setArrival(LocalDateTime.of(2023, 7, 19, 10, 0));
-        group.setDeparture(LocalDateTime.of(2023, 7, 25, 12, 0));
+        group.setArrivalTime(LocalDateTime.of(2023, 7, 19, 10, 0));
+        group.setDepartureTime(LocalDateTime.of(2023, 7, 25, 12, 0));
         group.setComment("Test group");
 
         // Create a mock User object for the tourOperator
@@ -48,7 +48,7 @@ public class GroupDtoTest {
         assertEquals(1L, groupDto.getCompanyId());
         assertEquals("Company1", groupDto.getCompanyName());
         assertEquals(20, groupDto.getSize());
-        assertEquals(2, groupDto.getTourLeaderAmount());
+        assertEquals(2, groupDto.getTourLeaderCount());
         assertEquals(LocalDateTime.of(2023, 7, 19, 10, 0), groupDto.getArrival());
         assertEquals(LocalDateTime.of(2023, 7, 25, 12, 0), groupDto.getDeparture());
         assertEquals("Test group", groupDto.getComment());

@@ -40,8 +40,8 @@ public class GroupDto {
     @JsonProperty("size")
     private Integer size;
 
-    @JsonProperty("tour_leader_amount")
-    private Integer tourLeaderAmount;
+    @JsonProperty("tour_leader_count")
+    private Integer tourLeaderCount;
 
     @JsonProperty("arrival")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = LocalDateTimeUtil.DATE_TIME_PATTERN)
@@ -66,9 +66,9 @@ public class GroupDto {
         this.companyId = group.getPartnerCompany().getId();
         this.companyName = group.getPartnerCompany().getName();
         this.size = group.getSize();
-        this.tourLeaderAmount = group.getTourLeaderAmount();
-        this.arrival = group.getArrival();
-        this.departure = group.getDeparture();
+        this.tourLeaderCount = group.getTourLeaderAmount();
+        this.arrival = group.getArrivalTime();
+        this.departure = group.getDepartureTime();
         this.comment = group.getComment();
         this.tourOperatorId = group.getTourOperator().getId();
     }
