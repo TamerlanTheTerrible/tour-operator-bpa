@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 
@@ -25,19 +26,21 @@ public class GroupCreateDto {
     @JsonProperty("company_id")
     private Long companyId;
 
-    @NotNull(message = "Size is required")
+    @Size(min = 1, message = "Size must be greater than 0")
     @JsonProperty(value = "size", required = true)
     private Integer size;
 
     @JsonProperty("tour_leader_count")
-    private Integer tourLeaderCount;
+    private Integer tourLeaderCount = 0;
 
-    @JsonProperty("arrival")
+    @NotNull(message = "Arrival time cannot be null")
+    @JsonProperty(value = "arrival", required = true)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = LocalDateTimeUtil.DATE_TIME_PATTERN)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime arrival;
 
-    @JsonProperty("departure")
+    @NotNull(message = "Departure time cannot be null")
+    @JsonProperty(value = "departure", required = true)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = LocalDateTimeUtil.DATE_TIME_PATTERN)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime departure;

@@ -1,23 +1,23 @@
 package me.timur.touroperatorbpa.group.service.impl;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.timur.touroperatorbpa.domain.entity.PartnerCompany;
 import me.timur.touroperatorbpa.domain.entity.Group;
+import me.timur.touroperatorbpa.domain.entity.PartnerCompany;
 import me.timur.touroperatorbpa.domain.entity.User;
-import me.timur.touroperatorbpa.group.service.GroupService;
-import me.timur.touroperatorbpa.model.enums.GroupStatus;
 import me.timur.touroperatorbpa.domain.repository.CompanyRepository;
 import me.timur.touroperatorbpa.domain.repository.GroupRepository;
 import me.timur.touroperatorbpa.domain.repository.UserRepository;
 import me.timur.touroperatorbpa.domain.repository.impl.GroupFilteredFetchRepository;
 import me.timur.touroperatorbpa.exception.ClientException;
-import me.timur.touroperatorbpa.model.enums.ResponseCode;
-import me.timur.touroperatorbpa.model.PageableList;
 import me.timur.touroperatorbpa.group.model.GroupCreateDto;
 import me.timur.touroperatorbpa.group.model.GroupDto;
 import me.timur.touroperatorbpa.group.model.GroupFilter;
-import me.timur.touroperatorbpa.model.enums.Role;
+import me.timur.touroperatorbpa.group.service.GroupService;
+import me.timur.touroperatorbpa.model.PageableList;
+import me.timur.touroperatorbpa.model.enums.GroupStatus;
+import me.timur.touroperatorbpa.model.enums.ResponseCode;
 import me.timur.touroperatorbpa.notification.model.NotificationCreateDto;
 import me.timur.touroperatorbpa.notification.service.NotificationService;
 import me.timur.touroperatorbpa.security.UserContext;
@@ -43,32 +43,40 @@ public class OperatorGroupService implements GroupService {
     private final NotificationService notificationService;
 
     @Override
-    public GroupDto create(GroupCreateDto createDto) {
+    public GroupDto create(@Valid GroupCreateDto createDto) {
         log.info("Creating group: {}", createDto);
-
-        // prepare entities
+        // Prepare entities k
         var company = createDto.getCompanyId() != null ? getCompany(createDto.getCompanyId()) : null;
-        var user = UserContext.getUser();
+        var currentUser = UserContext.getUser();
 
-        // check if group number is unique
-        if (createDto.getNumber() != null && groupRepository.existsByNumberAndTourOperator_UserCompany(
-                createDto.getNumber(),
-                user.getUserCompany()
-        )) {
-            throw new ClientException(ResponseCode.BAD_REQUEST, "Group number is not unique: " + createDto.getNumber());
-        }
+        // Check if group number is unique
+        validateGroupNumber(createDto.getNumber(), currentUser);
 
-        // save and return group
-        Group group = groupRepository.save(new Group(createDto, user, company));
+        // Save and return group
+        Group group = saveGroup(createDto, currentUser, company);
         log.info("Created group with id: {} and number: {}", group.getId(), group.getNumber());
 
-        // send notification
-        notificationService.create(NotificationCreateDto.builder()
-            .groupId(group.getId())
-                .message(String.format("Created group with id: %s and number: %s", group.getId(), group.getNumber()))
-                .build());
+        // Send notification
+        sendNotification(group);
 
         return new GroupDto(group);
+    }
+
+    private void validateGroupNumber(String number, User currentUser) {
+        if (number != null && groupRepository.existsByNumberAndTourOperator_UserCompany(number, currentUser.getUserCompany())) {
+            throw new ClientException(ResponseCode.BAD_REQUEST, "Group number is not unique: " + number);
+        }
+    }
+
+    private Group saveGroup(GroupCreateDto createDto, User currentUser, PartnerCompany company) {
+        return groupRepository.save(new Group(createDto, currentUser, company));
+    }
+
+    private void sendNotification(Group group) {
+        notificationService.create(NotificationCreateDto.builder()
+            .groupId(group.getId())
+            .message(String.format("Created group with id: %s and number: %s", group.getId(), group.getNumber()))
+            .build());
     }
 
     @Override
@@ -133,8 +141,8 @@ public class OperatorGroupService implements GroupService {
 
     @Override
     public PageableList<GroupDto> getAllByFiltered(GroupFilter filter) {
-        if (filter.getTourOperatorId() == null && user.getRoleNames().contains("TOUR_OPERATOR")) {
-            filter.setTourOperatorId(user.getId());
+        if (filter.getTourOperatorId() == null && UserContext.getUser().getRoleNames().contains("TOUR_OPERATOR")) {
+            filter.setTourOperatorId(UserContext.getUser().getId());
         }
 
         final Pair<List<Group>, Long> result = groupCustomRepository.findAllFiltered(filter);
@@ -149,8 +157,8 @@ public class OperatorGroupService implements GroupService {
         var group = groupRepository.findById(id)
                 .orElseThrow(() -> new ClientException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find group with id: " + id));
 
-        if (!Objects.equals(group.getTourOperator().getId().getId())) {
-            throw new ClientException(ResponseCode.FORBIDDEN_RESOURCE, "User %s is not allowed to access group %s".getId(), id);
+        if (!Objects.equals(group.getTourOperator().getId(), UserContext.getUser().getId())) {
+            throw new ClientException(ResponseCode.FORBIDDEN_RESOURCE, String.format("User %s is not allowed to access group %s", UserContext.getUser().getId(), id));
         }
 
         return group;
