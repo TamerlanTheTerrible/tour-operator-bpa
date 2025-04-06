@@ -1,7 +1,6 @@
 package me.timur.touroperatorbpa.notification.service;
 
 import me.timur.touroperatorbpa.model.enums.ApplicationType;
-import me.timur.touroperatorbpa.model.enums.Role;
 import me.timur.touroperatorbpa.notification.model.NotificationCreateDto;
 import me.timur.touroperatorbpa.notification.model.NotificationDto;
 
@@ -14,6 +13,6 @@ import java.util.List;
 public interface NotificationService {
 //    List<NotificationDto> create(NotificationCreateDto createDto, List<Role> roles);
     NotificationDto create(NotificationCreateDto createDto);
-//    List<NotificationDto> getAllByGroupAndApplicaitonType(Long groupId, ApplicationType type);
+    List<NotificationDto> getAllByGroupAndApplicaitonType(Long groupId, ApplicationType type);
     void markAsRead(Long id);
 }

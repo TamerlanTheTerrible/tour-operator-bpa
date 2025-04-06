@@ -44,9 +44,9 @@ public class NotificationDto {
 
     public NotificationDto(Notification notification) {
         this.id = notification.getId();
-        this.groupId = notification.getGroupId();
+        this.groupId = notification.getGroup().getId();
         this.applicationType = notification.getApplicationType();
-        this.role = notification.getRole();
+        // TODO this.role = notification.getRole();
         this.message = notification.getMessage();
         this.isRead = notification.getIsRead();
     }

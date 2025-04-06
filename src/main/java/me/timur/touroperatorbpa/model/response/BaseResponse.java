@@ -14,7 +14,7 @@ import me.timur.touroperatorbpa.model.enums.ResponseCode;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BaseResponse<T> {
-    private T payload = null;
+    private T payload;
     private Integer code;
     private String message;
 

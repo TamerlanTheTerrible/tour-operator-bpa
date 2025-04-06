@@ -2,26 +2,23 @@ package me.timur.touroperatorbpa.application.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.timur.touroperatorbpa.application.model.AbstractApplicationDto;
-import me.timur.touroperatorbpa.domain.entity.Accommodation;
-import me.timur.touroperatorbpa.domain.entity.User;
-import me.timur.touroperatorbpa.domain.entity.application.ApplicationAccommodation;
-import me.timur.touroperatorbpa.domain.entity.Group;
-import me.timur.touroperatorbpa.domain.entity.application.ApplicationAccommodationRoom;
-import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
 import me.timur.touroperatorbpa.accommodation.repository.AccommodationRepository;
 import me.timur.touroperatorbpa.accommodation.repository.ApplicationAccommodationRepository;
-import me.timur.touroperatorbpa.domain.repository.GroupRepository;
-import me.timur.touroperatorbpa.exception.ClientException;
-import me.timur.touroperatorbpa.model.enums.ApplicationType;
-import me.timur.touroperatorbpa.model.enums.ResponseCode;
-import me.timur.touroperatorbpa.model.PageableFilter;
-import me.timur.touroperatorbpa.model.PageableList;
+import me.timur.touroperatorbpa.application.model.AbstractApplicationDto;
 import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationCreateDto;
 import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationDto;
 import me.timur.touroperatorbpa.application.service.ApplicationService;
-import me.timur.touroperatorbpa.model.enums.Role;
-import me.timur.touroperatorbpa.notification.NotificationTemplate;
+import me.timur.touroperatorbpa.domain.entity.Accommodation;
+import me.timur.touroperatorbpa.domain.entity.Group;
+import me.timur.touroperatorbpa.domain.entity.User;
+import me.timur.touroperatorbpa.domain.entity.application.ApplicationAccommodation;
+import me.timur.touroperatorbpa.domain.entity.application.ApplicationAccommodationRoom;
+import me.timur.touroperatorbpa.domain.repository.GroupRepository;
+import me.timur.touroperatorbpa.exception.ClientException;
+import me.timur.touroperatorbpa.model.PageableFilter;
+import me.timur.touroperatorbpa.model.PageableList;
+import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
+import me.timur.touroperatorbpa.model.enums.ResponseCode;
 import me.timur.touroperatorbpa.notification.model.NotificationCreateDto;
 import me.timur.touroperatorbpa.notification.service.NotificationService;
 import org.springframework.stereotype.Service;
@@ -61,12 +58,11 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
 
         notificationService.create(
                 new NotificationCreateDto(
-                        group.getId(),
-                        ApplicationType.ACCOMMODATION,
-                        1,
-                        NotificationTemplate.APPLICATION_CREATED.message
-                ),
-                Role.ACCOMMODATION_MANAGER
+//                        group.getId(),
+//                        ApplicationType.ACCOMMODATION,
+//                        1,
+//                        NotificationTemplate.APPLICATION_CREATED.message
+                )
         );
 
         return new AccommodationApplicationDto(group, applications);
@@ -129,7 +125,7 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
         // create map of latest applications to easily find them by id
         var latestApplicationMap = latestApplications.stream().collect(Collectors.toMap(ApplicationAccommodation::getId, Function.identity()));
         for (var item: dto.getItems()) {
-            ApplicationAccommodation newApplication = null;
+            ApplicationAccommodation newApplication;
             // if application id is not null then update application, else create new application
             if (item.getId() != null) {
                 log.info("Updating application: {}", item.getId());

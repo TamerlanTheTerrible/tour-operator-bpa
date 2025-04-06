@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import me.timur.touroperatorbpa.model.enums.ApplicationType;
-import me.timur.touroperatorbpa.model.enums.Role;
 import me.timur.touroperatorbpa.notification.model.NotificationCreateDto;
 
 /**
@@ -40,10 +39,11 @@ public class Notification extends BaseEntity {
     private Boolean isRead = false;
 
     public Notification(NotificationCreateDto createDto, Group group, User user) {
-        this.group = group;
-        this.applicationType = createDto.getApplicationType();
-        this.user = user;
-        this.message = createDto.getChange();
-        this.isRead = false;
+        // TODO
+//        this.group = group;
+//        this.applicationType = createDto.getA();
+//        this.user = user;
+//        this.message = createDto.getChange();
+//        this.isRead = false;
     }
 }
