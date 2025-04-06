@@ -1,19 +1,19 @@
 package me.timur.touroperatorbpa.security;
 
-import org.springframework.security.core.userdetails.UserDetails;
+import me.timur.touroperatorbpa.domain.entity.User;
 
 /**
  * Created by Temurbek Ismoilov on 12/03/25.
  */
 
 public class UserContext {
-    private static final ThreadLocal<UserDetails> userHolder = new ThreadLocal<>();
+    private static final ThreadLocal<User> userHolder = new ThreadLocal<>();
 
-    public static void setUser(UserDetails userDetails) {
-        userHolder.set(userDetails);
+    public static void setUser(User user) {
+        userHolder.set(user);
     }
 
-    public static UserDetails getUser() {
+    public static User getUser() {
         return userHolder.get();
     }
 

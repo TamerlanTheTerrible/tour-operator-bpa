@@ -31,15 +31,7 @@ public class NotificationServiceImpl implements NotificationService {
     private final GroupRepository groupRepository;
 
     @Override
-    public List<NotificationDto> create(NotificationCreateDto createDto, List<Role> roles) {
-        //TODO fix null
-        final List<Notification> notifications = roles.stream().map(roleName -> new Notification(createDto, null, null)).toList();
-        notificationRespository.saveAll(notifications);
-        return notifications.stream().map(NotificationDto::new).toList();
-    }
-
-    @Override
-    public NotificationDto create(NotificationCreateDto createDto, Role role) {
+    public NotificationDto create(NotificationCreateDto createDto) {
         //TODO fix null
         var notification = new Notification(createDto, null, null);
         notificationRespository.save(notification);

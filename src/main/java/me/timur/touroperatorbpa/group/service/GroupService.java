@@ -12,15 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
  */
 
 public interface GroupService {
-    GroupDto create(GroupCreateDto groupCreateDto, User user);
+    GroupDto create(GroupCreateDto groupCreateDto);
 
     @Transactional
-    GroupDto update(GroupDto groupDto, User user);
+    GroupDto update(GroupDto groupDto);
 
     @Transactional
-    void cancel(Long id, User user);
+    void cancel(Long id);
 
-    GroupDto get(Long id, User user);
+    GroupDto get(Long id);
 
-    PageableList<GroupDto> getAllByFiltered(GroupFilter filter, User user);
+    PageableList<GroupDto> getAllByFiltered(GroupFilter filter);
 }

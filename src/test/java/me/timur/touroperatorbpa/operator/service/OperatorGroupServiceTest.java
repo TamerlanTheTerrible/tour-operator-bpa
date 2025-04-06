@@ -8,7 +8,7 @@
 //import me.timur.touroperatorbpa.domain.repository.UserRepository;
 //import me.timur.touroperatorbpa.group.model.GroupCreateDto;
 //import me.timur.touroperatorbpa.group.model.GroupDto;
-//import me.timur.touroperatorbpa.group.service.OperatorGroupService;
+//import me.timur.touroperatorbpa.group.service.impl.OperatorGroupService;
 //import me.timur.touroperatorbpa.group.service.GroupNumberService;
 //import org.junit.jupiter.api.Test;
 //import org.junit.jupiter.api.extension.ExtendWith;

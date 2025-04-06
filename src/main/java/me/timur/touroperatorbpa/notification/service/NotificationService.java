@@ -12,8 +12,8 @@ import java.util.List;
  */
 
 public interface NotificationService {
-    List<NotificationDto> create(NotificationCreateDto createDto, List<Role> roles);
-    NotificationDto create(NotificationCreateDto createDto, Role role);
-    List<NotificationDto> getAllByGroupAndApplicaitonType(Long groupId, ApplicationType type);
+//    List<NotificationDto> create(NotificationCreateDto createDto, List<Role> roles);
+    NotificationDto create(NotificationCreateDto createDto);
+//    List<NotificationDto> getAllByGroupAndApplicaitonType(Long groupId, ApplicationType type);
     void markAsRead(Long id);
 }

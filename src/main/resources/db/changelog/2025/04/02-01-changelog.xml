@@ -16,9 +16,7 @@
             <column name="date_updated" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
-            <column name="number" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="number" type="VARCHAR(255)"/>
             <column name="tour_operator_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>

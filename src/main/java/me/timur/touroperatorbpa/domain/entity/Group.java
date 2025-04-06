@@ -24,11 +24,10 @@ import java.time.LocalDateTime;
             @Index(name = "idx_group_country", columnList = "country"),
             @Index(name = "idx_group_partner_company_id", columnList = "partner_company_id"),
             @Index(name = "idx_group_arrival_time", columnList = "arrival_time"),
-            @Index(name = "idx_group_status", columnList = "status")
-    }
+            @Index(name = "idx_group_status", columnList = "status")}
 )
 public class Group extends BaseEntity {
-    @Column(name = "number", nullable = false)
+    @Column(name = "number")
     private String number;
 
     @ManyToOne

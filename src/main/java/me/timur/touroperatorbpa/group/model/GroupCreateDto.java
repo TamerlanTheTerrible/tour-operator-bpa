@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 
@@ -24,7 +25,8 @@ public class GroupCreateDto {
     @JsonProperty("company_id")
     private Long companyId;
 
-    @JsonProperty("size")
+    @NotNull(message = "Size is required")
+    @JsonProperty(value = "size", required = true)
     private Integer size;
 
     @JsonProperty("tour_leader_count")
@@ -42,9 +44,4 @@ public class GroupCreateDto {
 
     @JsonProperty("comment")
     private String comment;
-
-    @JsonProperty("tour_operator_id")
-    private Long tourOperatorId;
-
-
 }

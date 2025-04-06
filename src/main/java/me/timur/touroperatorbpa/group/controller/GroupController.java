@@ -25,28 +25,28 @@ public class GroupController {
     private final GroupService groupService;
 
     @PostMapping(value = {"/create"})
-    public BaseResponse<GroupDto> create(@Valid @RequestBody GroupCreateDto groupCreateDto, @AuthorizedUser User user) {
-        return BaseResponse.ok(groupService.create(groupCreateDto, user));
+    public BaseResponse<GroupDto> create(@Valid @RequestBody GroupCreateDto groupCreateDto) {
+        return BaseResponse.ok(groupService.create(groupCreateDto));
     }
 
     @GetMapping("/{id}")
-    public BaseResponse<GroupDto> get(@PathVariable Long id, @AuthorizedUser User user) {
-        return BaseResponse.ok(groupService.get(id, user));
+    public BaseResponse<GroupDto> get(@PathVariable Long id) {
+        return BaseResponse.ok(groupService.get(id));
     }
 
     @PutMapping(value = {"/update"})
-    public BaseResponse<GroupDto> update(@Valid @RequestBody GroupDto groupDto, @AuthorizedUser User user) {
-        return BaseResponse.ok(groupService.update(groupDto, user));
+    public BaseResponse<GroupDto> update(@Valid @RequestBody GroupDto groupDto) {
+        return BaseResponse.ok(groupService.update(groupDto));
     }
 
     @DeleteMapping("/{id}")
-    public BaseResponse<NoopDTO> cancel(@PathVariable Long id, @AuthorizedUser User user) {
-        groupService.cancel(id, user);
+    public BaseResponse<NoopDTO> cancel(@PathVariable Long id) {
+        groupService.cancel(id);
         return BaseResponse.ok();
     }
 
     @PostMapping("/filter")
-    public BaseResponse<PageableList<GroupDto>> getAllByFiltered(@RequestBody GroupFilter groupFilter, @AuthorizedUser User user) {
-        return BaseResponse.ok(groupService.getAllByFiltered(groupFilter, user));
+    public BaseResponse<PageableList<GroupDto>> getAllByFiltered(@RequestBody GroupFilter groupFilter) {
+        return BaseResponse.ok(groupService.getAllByFiltered(groupFilter));
     }
 }
