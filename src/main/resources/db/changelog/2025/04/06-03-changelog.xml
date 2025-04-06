@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.30.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1743925601112-1" author="tamerlantheterrible">
+        <createTable tableName="application_accommpaniment">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_application_accommpaniment"/>
+            </column>
+            <column name="date_created" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_updated" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="group_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="location_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="from_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="to_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comment" type="VARCHAR(255)"/>
+            <column name="status" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1743925601112-3" author="tamerlantheterrible">
+        <addForeignKeyConstraint baseColumnNames="group_id" baseTableName="application_accommpaniment"
+                                 constraintName="FK_APPLICATION_ACCOMMPANIMENT_ON_GROUP" referencedColumnNames="id"
+                                 referencedTableName="group"/>
+
+        <createIndex indexName="idx_7dc70953ab4c5c3d14af686b0" tableName="application_accommpaniment">
+            <column name="group_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="1743925601112-4" author="tamerlantheterrible">
+        <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="application_accommpaniment"
+                                 constraintName="FK_APPLICATION_ACCOMMPANIMENT_ON_LOCATION" referencedColumnNames="id"
+                                 referencedTableName="location"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,14 +1,12 @@
-package me.timur.touroperatorbpa.domain.entity;
+package me.timur.touroperatorbpa.domain.entity.application;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import me.timur.touroperatorbpa.domain.entity.application.ApplicationGuide;
-import me.timur.touroperatorbpa.domain.entity.application.ApplicationTransport;
-
-import java.time.LocalDate;
+import me.timur.touroperatorbpa.domain.entity.BaseEntity;
+import me.timur.touroperatorbpa.domain.entity.UserCompanyGuide;
 
 /**
  * Created by Temurbek Ismoilov on 27/07/23.
@@ -19,15 +17,14 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "group_guide",
-    indexes = {@Index(name = "idx_group_guide_guide_application_id", columnList = "guide_application_id"),
-            @Index(name = "idx_group_guide_user_company_guide_id", columnList = "user_company_guide_id")}
+@Table(name = "application_accompaniment_guide",
+    indexes = {@Index(columnList = "application_accompaniment_id"), @Index(columnList = "user_company_guide_id")}
 )
-public class GroupGuide extends BaseEntity {
+public class ApplicationAccompanimentGuide extends BaseEntity {
 
     @ManyToOne
-    @JoinColumn(name = "guide_application_id", nullable = false)
-    private ApplicationGuide application;
+    @JoinColumn(name = "application_accompaniment_id", nullable = false)
+    private ApplicationAccompaniment application;
 
     @ManyToOne
     @JoinColumn(name = "user_company_guide_id", nullable = false)

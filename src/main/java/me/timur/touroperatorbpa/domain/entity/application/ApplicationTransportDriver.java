@@ -1,13 +1,12 @@
-package me.timur.touroperatorbpa.domain.entity;
+package me.timur.touroperatorbpa.domain.entity.application;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import me.timur.touroperatorbpa.domain.entity.application.ApplicationTransport;
-
-import java.time.LocalDate;
+import me.timur.touroperatorbpa.domain.entity.BaseEntity;
+import me.timur.touroperatorbpa.domain.entity.UserCompanyDriver;
 
 /**
  * Created by Temurbek Ismoilov on 27/07/23.
@@ -18,11 +17,11 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "group_driver",
+@Table(name = "application_transport_driver",
     indexes = {@Index(name = "group_driver_transport_application_id", columnList = "transport_application_id"),
             @Index(name = "group_driver_driver_id", columnList = "user_driver_id")}
 )
-public class GroupDriver extends BaseEntity {
+public class ApplicationTransportDriver extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "transport_application_id", nullable = false)

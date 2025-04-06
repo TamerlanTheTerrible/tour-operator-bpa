@@ -22,7 +22,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "application_flight")
+@Table(name = "application_flight", indexes = {@Index(columnList = "group_id")})
 public class ApplicationFlight extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
@@ -32,10 +32,10 @@ public class ApplicationFlight extends BaseEntity {
     private LocalDate date;
 
     @Column(name = "from_location", nullable = false)
-    private String from;
+    private String fromLocation;
 
     @Column(name = "to_location", nullable = false)
-    private String to;
+    private String toLocation;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "ticket_class")
@@ -56,7 +56,4 @@ public class ApplicationFlight extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private ApplicationStatus status;
-
-    @Column(name = "version")
-    private Integer version = 1;
 }

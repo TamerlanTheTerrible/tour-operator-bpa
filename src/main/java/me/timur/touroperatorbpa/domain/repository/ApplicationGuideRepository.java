@@ -1,6 +1,6 @@
 package me.timur.touroperatorbpa.domain.repository;
 
-import me.timur.touroperatorbpa.domain.entity.application.ApplicationGuide;
+import me.timur.touroperatorbpa.domain.entity.application.ApplicationAccompaniment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface ApplicationGuideRepository extends JpaRepository<ApplicationGuide, Long> {
+public interface ApplicationGuideRepository extends JpaRepository<ApplicationAccompaniment, Long> {
 }

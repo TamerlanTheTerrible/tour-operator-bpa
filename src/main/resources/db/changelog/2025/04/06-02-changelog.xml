@@ -5,15 +5,15 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.30.xsd"
         objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
-    <changeSet id="1742208554742-1" author="tamerlantheterrible">
-        <createTable tableName="room">
+    <changeSet id="1743916637480-1" author="tamerlantheterrible">
+        <createTable tableName="application_accommodation_room">
             <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_room"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_application_accommodation_room"/>
             </column>
-            <column name="date_created" type="DATETIME" defaultValueComputed="now()">
+            <column name="date_created" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
-            <column name="date_updated" type="DATETIME" defaultValueComputed="now()">
+            <column name="date_updated" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="accommodation_application_id" type="BIGINT">
@@ -30,12 +30,13 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet id="1742208554742-3" author="tamerlantheterrible">
-        <addForeignKeyConstraint baseColumnNames="accommodation_application_id" baseTableName="room"
-                                 constraintName="FK_ROOM_ON_ACCOMMODATION_APPLICATION" referencedColumnNames="id"
-                                 referencedTableName="application_accommodation"/>
+    <changeSet id="1743916637480-3" author="tamerlantheterrible">
+        <addForeignKeyConstraint baseColumnNames="accommodation_application_id"
+                                 baseTableName="application_accommodation_room"
+                                 constraintName="FK_APPLICATION_ACCOMMODATION_ROOM_ON_ACCOMMODATION_APPLICATION"
+                                 referencedColumnNames="id" referencedTableName="application_accommodation"/>
 
-        <createIndex indexName="idx_a432156d557b4b3308420de31" tableName="room">
+        <createIndex indexName="idx_a119c41d433b9a06636609e46" tableName="application_accommodation_room">
             <column name="accommodation_application_id"/>
         </createIndex>
     </changeSet>

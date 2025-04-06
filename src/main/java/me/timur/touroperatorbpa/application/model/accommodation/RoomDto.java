@@ -5,10 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.timur.touroperatorbpa.domain.entity.Room;
+import me.timur.touroperatorbpa.domain.entity.application.ApplicationAccommodationRoom;
 import me.timur.touroperatorbpa.model.enums.RoomType;
-
-import java.math.RoundingMode;
 
 /**
  * Created by Temurbek Ismoilov on 27/07/23.
@@ -29,10 +27,10 @@ public class RoomDto {
     @JsonProperty("provided")
     private Integer provided;
 
-    public RoomDto(Room room) {
-        this.roomType = room.getRoomType();
-        this.requested = room.getRequested();
-        this.provided = room.getProvided();
+    public RoomDto(ApplicationAccommodationRoom applicationAccommodationRoom) {
+        this.roomType = applicationAccommodationRoom.getRoomType();
+        this.requested = applicationAccommodationRoom.getRequested();
+        this.provided = applicationAccommodationRoom.getProvided();
     }
 
     public RoomDto(RoomType roomType, int requested) {

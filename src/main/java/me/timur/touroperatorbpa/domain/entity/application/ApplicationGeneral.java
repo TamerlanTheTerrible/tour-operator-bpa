@@ -41,8 +41,4 @@ public class ApplicationGeneral extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private ApplicationStatus status;
-
-    @Column(name = "version")
-    private Integer version = 1;
-
 }

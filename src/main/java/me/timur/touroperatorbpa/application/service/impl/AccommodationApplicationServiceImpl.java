@@ -7,7 +7,7 @@ import me.timur.touroperatorbpa.domain.entity.Accommodation;
 import me.timur.touroperatorbpa.domain.entity.User;
 import me.timur.touroperatorbpa.domain.entity.application.ApplicationAccommodation;
 import me.timur.touroperatorbpa.domain.entity.Group;
-import me.timur.touroperatorbpa.domain.entity.Room;
+import me.timur.touroperatorbpa.domain.entity.application.ApplicationAccommodationRoom;
 import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
 import me.timur.touroperatorbpa.accommodation.repository.AccommodationRepository;
 import me.timur.touroperatorbpa.accommodation.repository.ApplicationAccommodationRepository;
@@ -77,7 +77,7 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
         for (var item: createDto.getItems()) {
             var application = new ApplicationAccommodation(group, getAccommodation(item.getAccommodationId()), item);
             application.addRooms(
-                    item.getRooms().stream().map(Room::new).toList()
+                    item.getRooms().stream().map(ApplicationAccommodationRoom::new).toList()
             );
             applications.add(application);
         }
@@ -108,7 +108,7 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
                 .forEach(application -> {
                     application.setStatus(ApplicationStatus.DEPRECATED);
                     var newApplication = new ApplicationAccommodation(application);
-                    newApplication.addRooms(application.getRooms().stream().map(Room::new).toList());
+                    newApplication.addRooms(application.getApplicationAccommodationRooms().stream().map(ApplicationAccommodationRoom::new).toList());
                     newApplications.add(newApplication);
                 });
         
@@ -151,10 +151,10 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
                 }
 
                 if (item.getRooms() != null && !item.getRooms().isEmpty()) {
-                    var rooms = item.getRooms().stream().map(Room::new).toList();
+                    var rooms = item.getRooms().stream().map(ApplicationAccommodationRoom::new).toList();
                     newApplication.addRooms(rooms);
                 } else {
-                    var rooms = application.getRooms().stream().map(Room::new).toList();
+                    var rooms = application.getApplicationAccommodationRooms().stream().map(ApplicationAccommodationRoom::new).toList();
                     newApplication.addRooms(rooms);
                 }
 

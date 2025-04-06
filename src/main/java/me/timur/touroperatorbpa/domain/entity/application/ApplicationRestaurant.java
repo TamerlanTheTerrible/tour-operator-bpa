@@ -23,7 +23,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "application_restaurant")
+@Table(name = "application_restaurant", indexes = {@Index(columnList = "group_id"), @Index(columnList = "restaurant_id")})
 public class ApplicationRestaurant extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
@@ -33,7 +33,7 @@ public class ApplicationRestaurant extends BaseEntity {
     private LocalDate date;
 
     @ManyToOne
-    @JoinColumn(name = "restaurant", nullable = false)
+    @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
     @Enumerated(EnumType.STRING)
@@ -50,7 +50,9 @@ public class ApplicationRestaurant extends BaseEntity {
     @Column(name = "status", nullable = false)
     private ApplicationStatus status;
 
-    @Column(name = "version")
-    private Integer version = 1;
+    @Column(name = "rating")
+    private Double rating;
 
+    @Column(name = "rating_count", nullable = false)
+    private Long ratingCount;
 }

@@ -6,5 +6,6 @@ package me.timur.touroperatorbpa.model.enums;
 
 public enum FlightClass {
     ECONOMY,
-    BUSINESS
+    BUSINESS,
+    OTHER
 }

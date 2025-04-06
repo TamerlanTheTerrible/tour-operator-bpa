@@ -8,7 +8,6 @@ import lombok.Setter;
 import me.timur.touroperatorbpa.domain.entity.Accommodation;
 import me.timur.touroperatorbpa.domain.entity.BaseEntity;
 import me.timur.touroperatorbpa.domain.entity.Group;
-import me.timur.touroperatorbpa.domain.entity.Room;
 import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
 import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationCreateDto;
 import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationDto;
@@ -27,7 +26,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "application_accommodation")
+@Table(name = "application_accommodation",
+    indexes = {@Index(columnList = "group_id,"),
+               @Index(columnList = "accommodation"),
+               @Index(columnList = "check_in")}
+)
 public class ApplicationAccommodation extends BaseEntity implements ApplicationEntity {
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
@@ -45,10 +48,13 @@ public class ApplicationAccommodation extends BaseEntity implements ApplicationE
 
 //    @OneToMany(mappedBy = "application", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @OneToMany(mappedBy = "application", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-    private List<Room> rooms = new ArrayList<>();
+    private List<ApplicationAccommodationRoom> applicationAccommodationRooms = new ArrayList<>();
 
     @Column(name = "comment")
     private String comment;
+
+    @Column(name = "change_log")
+    private String changeLog;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
@@ -56,6 +62,12 @@ public class ApplicationAccommodation extends BaseEntity implements ApplicationE
 
     @Column(name = "version")
     private Integer version = 1;
+
+    @Column(name = "rating")
+    private Double rating;
+
+    @Column(name = "rating_count", nullable = false)
+    private Long ratingCount;
 
     public ApplicationAccommodation(Group group, Accommodation accommodation, AccommodationApplicationCreateDto.AccommodationItem createDto) {
         this.group = group;
@@ -80,7 +92,7 @@ public class ApplicationAccommodation extends BaseEntity implements ApplicationE
     public ApplicationAccommodation(ApplicationAccommodation application) {
         this.group = application.getGroup();
         this.accommodation = application.getAccommodation();
-        this.rooms = new ArrayList<>();
+        this.applicationAccommodationRooms = new ArrayList<>();
         this.checkIn = application.getCheckIn();
         this.checkOut = application.getCheckOut();
         this.comment = application.getComment();
@@ -88,13 +100,13 @@ public class ApplicationAccommodation extends BaseEntity implements ApplicationE
         this.version = application.getVersion() + 1;
     }
 
-    public void addRoom(Room room) {
-        room.setApplication(this);
-        rooms.add(room);
+    public void addRoom(ApplicationAccommodationRoom applicationAccommodationRoom) {
+        applicationAccommodationRoom.setApplication(this);
+        applicationAccommodationRooms.add(applicationAccommodationRoom);
     }
 
-    public void addRooms(List<Room> rooms) {
-        rooms.forEach(this::addRoom);
+    public void addRooms(List<ApplicationAccommodationRoom> applicationAccommodationRooms) {
+        applicationAccommodationRooms.forEach(this::addRoom);
     }
 
     @Override

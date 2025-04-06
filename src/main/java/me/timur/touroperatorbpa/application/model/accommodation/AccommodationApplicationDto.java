@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
  import me.timur.touroperatorbpa.application.model.AbstractApplicationDto;
 import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.domain.entity.application.ApplicationAccommodation;
-import me.timur.touroperatorbpa.domain.entity.application.ApplicationEntity;
 import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 
@@ -70,7 +69,7 @@ public class AccommodationApplicationDto extends AbstractApplicationDto {
             this.accommodationName = entity.getAccommodation().getName();
             this.checkIn = entity.getCheckIn();
             this.checkOut = entity.getCheckOut();
-            this.rooms = entity.getRooms().stream().map(RoomDto::new).toList();
+            this.rooms = entity.getApplicationAccommodationRooms().stream().map(RoomDto::new).toList();
             this.comment = entity.getComment();
 
         }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.30.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1743923723739-1" author="tamerlantheterrible">
+        <createTable tableName="application_flight">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_application_flight"/>
+            </column>
+            <column name="date_created" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_updated" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="group_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="from_location" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="to_location" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ticket_class" type="VARCHAR(255)"/>
+            <column name="time" type="VARCHAR(255)"/>
+            <column name="requested" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="provided" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comment" type="VARCHAR(255)"/>
+            <column name="status" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1743923723739-3" author="tamerlantheterrible">
+        <addForeignKeyConstraint baseColumnNames="group_id" baseTableName="application_flight"
+                                 constraintName="FK_APPLICATION_FLIGHT_ON_GROUP" referencedColumnNames="id"
+                                 referencedTableName="group"/>
+
+        <createIndex indexName="idx_4d40e0a0eff1d6dd979e9bc94" tableName="application_flight">
+            <column name="group_id"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

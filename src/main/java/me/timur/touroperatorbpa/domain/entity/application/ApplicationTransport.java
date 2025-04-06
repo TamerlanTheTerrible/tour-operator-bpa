@@ -21,7 +21,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "application_transport")
+@Table(name = "application_transport", indexes = @Index(columnList = "group_id"))
 public class ApplicationTransport extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
@@ -39,8 +39,4 @@ public class ApplicationTransport extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private ApplicationStatus status;
-
-    @Column(name = "version")
-    private Integer version = 1;
-
 }

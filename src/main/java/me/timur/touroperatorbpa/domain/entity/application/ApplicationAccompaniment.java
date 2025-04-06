@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import me.timur.touroperatorbpa.domain.entity.BaseEntity;
 import me.timur.touroperatorbpa.domain.entity.Group;
-import me.timur.touroperatorbpa.domain.entity.Guide;
+import me.timur.touroperatorbpa.domain.entity.Location;
 import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
 
 import java.time.LocalDate;
@@ -22,11 +22,15 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "application_guide")
-public class ApplicationGuide extends BaseEntity {
+@Table(name = "application_accommpaniment", indexes = @Index(columnList = "group_id"))
+public class ApplicationAccompaniment extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
     private Group group;
+
+    @ManyToOne
+    @JoinColumn(name = "location_id", nullable = false)
+    private Location location;
 
     @Column(name = "fromDate", nullable = false)
     private LocalDate from;
@@ -40,10 +44,4 @@ public class ApplicationGuide extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private ApplicationStatus status;
-
-    @Column(name = "rating")
-    private Double rating;
-
-    @Column(name = "rating_count", nullable = false)
-    private Long ratingCount;
 }

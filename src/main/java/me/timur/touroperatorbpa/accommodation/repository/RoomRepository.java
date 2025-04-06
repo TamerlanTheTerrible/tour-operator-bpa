@@ -1,6 +1,6 @@
 package me.timur.touroperatorbpa.accommodation.repository;
 
-import me.timur.touroperatorbpa.domain.entity.Room;
+import me.timur.touroperatorbpa.domain.entity.application.ApplicationAccommodationRoom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface RoomRepository extends JpaRepository<Room, Long> {
+public interface RoomRepository extends JpaRepository<ApplicationAccommodationRoom, Long> {
 }

@@ -22,7 +22,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "application_train")
+@Table(name = "application_train", indexes = {@Index(columnList = "group_id")})
 public class ApplicationTrain extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
@@ -31,11 +31,11 @@ public class ApplicationTrain extends BaseEntity {
     @Column(name = "date", nullable = false)
     private LocalDate date;
 
-    @Column(name = "fromLocation", nullable = false)
-    private String from;
+    @Column(name = "from_location", nullable = false)
+    private String fromLocation;
 
-    @Column(name = "toLocation", nullable = false)
-    private String to;
+    @Column(name = "to_location", nullable = false)
+    private String toLocation;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "ticket_class")
@@ -56,8 +56,4 @@ public class ApplicationTrain extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private ApplicationStatus status;
-
-    @Column(name = "version")
-    private Integer version = 1;
-
 }
