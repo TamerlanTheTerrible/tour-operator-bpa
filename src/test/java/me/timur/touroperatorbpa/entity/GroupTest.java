@@ -42,7 +42,7 @@ public class GroupTest {
         assertEquals(Country.ALGERIA, group.getCountry());
         assertEquals(partnerCompany.getName(), group.getPartnerCompany().getName());
         assertEquals(20, group.getSize());
-        assertEquals(2, group.getTourLeaderAmount());
+        assertEquals(2, group.getTourLeaderCount());
         assertEquals(LocalDateTime.of(2023, 7, 19, 10, 0), group.getArrivalTime());
         assertEquals(LocalDateTime.of(2023, 7, 25, 12, 0), group.getDepartureTime());
         assertEquals("Test group", group.getComment());

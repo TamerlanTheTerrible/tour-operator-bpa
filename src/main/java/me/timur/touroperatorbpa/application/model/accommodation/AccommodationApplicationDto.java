@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
  import me.timur.touroperatorbpa.application.model.AbstractApplicationDto;
+import me.timur.touroperatorbpa.application.model.ApplicationDto;
 import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.domain.entity.application.ApplicationAccommodation;
 import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
@@ -26,7 +27,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class AccommodationApplicationDto extends AbstractApplicationDto {
+public class AccommodationApplicationDto extends AbstractApplicationDto implements ApplicationDto {
 
     @JsonProperty("items")
     private List<AccommodationItem> items;

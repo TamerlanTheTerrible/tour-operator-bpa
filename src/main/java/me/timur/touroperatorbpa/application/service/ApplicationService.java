@@ -6,6 +6,7 @@ import me.timur.touroperatorbpa.model.PageableList;
 import me.timur.touroperatorbpa.application.model.ApplicationDto;
 import me.timur.touroperatorbpa.application.model.ApplicationCreate;
 import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationDto;
+import me.timur.touroperatorbpa.model.enums.ApplicationType;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -27,7 +28,9 @@ public interface ApplicationService<T extends ApplicationCreate, R extends Appli
 
     R get(Long id, User user);
 
-    List<R> getByGroupId(Long groupId, User user);
+    R getByGroupId(Long groupId, User user);
+
+    ApplicationType getType();
 
     PageableList<AccommodationApplicationDto.AccommodationItem> getAllFiltered(PageableFilter filter);
 }

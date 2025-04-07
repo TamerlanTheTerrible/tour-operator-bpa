@@ -30,7 +30,7 @@ public class GroupDtoTest {
         group.setPartnerCompany(partnerCompany);
 
         group.setSize(20);
-        group.setTourLeaderAmount(2);
+        group.setTourLeaderCount(2);
         group.setArrivalTime(LocalDateTime.of(2023, 7, 19, 10, 0));
         group.setDepartureTime(LocalDateTime.of(2023, 7, 25, 12, 0));
         group.setComment("Test group");

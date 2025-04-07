@@ -9,16 +9,17 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import me.timur.touroperatorbpa.application.model.ApplicationDto;
 import me.timur.touroperatorbpa.domain.entity.Group;
-import me.timur.touroperatorbpa.domain.entity.application.ApplicationEntity;
+import me.timur.touroperatorbpa.model.enums.ApplicationType;
 import me.timur.touroperatorbpa.model.enums.Country;
 import me.timur.touroperatorbpa.model.enums.GroupStatus;
+import me.timur.touroperatorbpa.util.CommentUtil;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Temurbek Ismoilov on 27/07/23.
@@ -74,7 +75,7 @@ public class GroupDto {
     private Long tourOperatorId;
 
     @JsonProperty("applications")
-    List<GroupApplicationDto> applications = new ArrayList<>();
+    Map<ApplicationType, ApplicationDto> applications = new HashMap<>();
 
     public GroupDto(Group group) {
         this.id = group.getId();
@@ -83,18 +84,16 @@ public class GroupDto {
         this.companyId = group.getPartnerCompany().getId();
         this.companyName = group.getPartnerCompany().getName();
         this.size = group.getSize();
-        this.tourLeaderCount = group.getTourLeaderAmount();
+        this.tourLeaderCount = group.getTourLeaderCount();
         this.arrival = group.getArrivalTime();
         this.departure = group.getDepartureTime();
-        this.comment = group.getComment();
+        this.comment = group.getComment() != null ? CommentUtil.createComment(comment, group.getTourOperator().getUsername()) : null;
         this.tourOperatorId = group.getTourOperator().getId();
         this.registrationDate = group.getDateCreated();
     }
 
-    public GroupDto(Group group, List<ApplicationEntity> applications) {
+    public GroupDto(Group group, Map<ApplicationType, ApplicationDto> applications) {
         this(group);
-        this.applications = applications.stream()
-                .map(GroupApplicationDto::new)
-                .toList();
+        this.applications = applications;
     }
 }

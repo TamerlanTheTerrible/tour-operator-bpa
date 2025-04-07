@@ -3,6 +3,9 @@ package me.timur.touroperatorbpa.group.service.impl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.timur.touroperatorbpa.application.model.ApplicationDto;
+import me.timur.touroperatorbpa.application.service.ApplicationService;
+import me.timur.touroperatorbpa.application.service.ApplicationServiceFactory;
 import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.domain.entity.PartnerCompany;
 import me.timur.touroperatorbpa.domain.entity.User;
@@ -16,16 +19,17 @@ import me.timur.touroperatorbpa.group.model.GroupDto;
 import me.timur.touroperatorbpa.group.model.GroupFilter;
 import me.timur.touroperatorbpa.group.service.GroupService;
 import me.timur.touroperatorbpa.model.PageableList;
+import me.timur.touroperatorbpa.model.enums.ApplicationType;
 import me.timur.touroperatorbpa.model.enums.GroupStatus;
 import me.timur.touroperatorbpa.model.enums.ResponseCode;
 import me.timur.touroperatorbpa.notification.model.NotificationCreateDto;
 import me.timur.touroperatorbpa.notification.service.NotificationService;
 import me.timur.touroperatorbpa.security.UserContext;
+import me.timur.touroperatorbpa.util.CommentUtil;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Created by Temurbek Ismoilov on 28/07/23.
@@ -41,6 +45,7 @@ public class OperatorGroupService implements GroupService {
     private final UserRepository userRepository;
     private final CompanyRepository companyRepository;
     private final NotificationService notificationService;
+    private final ApplicationServiceFactory applicationServiceFactory;
 
     @Override
     public GroupDto create(@Valid GroupCreateDto createDto) {
@@ -84,15 +89,28 @@ public class OperatorGroupService implements GroupService {
         log.info("Updating group: {}", dto);
 
         //update group
-        var group = getGroupOfOperator(dto.getId());
+        var group = getGroup(dto.getId());
+        if (dto.getNumber() != null) {
+            group.setNumber(dto.getNumber());
+        }
+        if (dto.getTourOperatorId() != null) {
+            group.setTourOperator(
+                    getUser(dto.getTourOperatorId())
+            );
+        }
         if (dto.getCountry() != null) {
             group.setCountry(dto.getCountry());
+        }
+        if (dto.getCompanyId() != null) {
+            group.setPartnerCompany(
+                    getCompany(dto.getCompanyId())
+            );
         }
         if (dto.getSize() != null) {
             group.setSize(dto.getSize());
         }
         if (dto.getTourLeaderCount() != null) {
-            group.setTourLeaderAmount(dto.getTourLeaderCount());
+            group.setTourLeaderCount(dto.getTourLeaderCount());
         }
         if (dto.getArrival() != null) {
             group.setArrivalTime(dto.getArrival());
@@ -100,33 +118,36 @@ public class OperatorGroupService implements GroupService {
         if (dto.getDeparture() != null) {
             group.setDepartureTime(dto.getDeparture());
         }
-        if (dto.getCompanyId() != null) {
-            group.setPartnerCompany(
-               getCompany(dto.getCompanyId())
-            );
-        }
-        if (dto.getTourOperatorId() != null) {
-            group.setTourOperator(
-                getUser(dto.getTourOperatorId())
-            );
-        }
+
         if (dto.getComment() != null) {
-            group.setComment(dto.getComment());
+            group.setComment(CommentUtil.appendComment(group.getComment(), dto.getComment(), UserContext.getUser().getUsername()));
         }
 
         groupRepository.save(group);
 
-        log.info("Updating applications of group with id: {}", group.getId());
-        //TODO: update applications
+        return new GroupDto(group, getApplicationMap(group));
+    }
 
-        return new GroupDto(group);
+    private Map<ApplicationType, ApplicationDto> getApplicationMap(Group group) {
+        HashMap<ApplicationType, ApplicationDto> applicationDtoMap = new HashMap<>();
+        User user = UserContext.getUser();
+        Arrays.stream(ApplicationType.values()).forEach(applicationType -> {
+            var applicationService = applicationServiceFactory.getByType(applicationType);
+            if(applicationService != null) {
+                var application = applicationService.getByGroupId(group.getId(), user);
+                if (application != null) {
+                    applicationDtoMap.put(applicationType, application);
+                }
+            }
+        });
+        return applicationDtoMap;
     }
 
     @Override
     public void cancel(Long id) {
         log.info("Cancelling group with id: {}", id);
 
-        var group = getGroupOfOperator(id);
+        var group = getGroup(id);
         group.setStatus(GroupStatus.CANCELLED);
         groupRepository.save(group);
 
@@ -136,7 +157,7 @@ public class OperatorGroupService implements GroupService {
 
     @Override
     public GroupDto get(Long id) {
-        return new GroupDto(getGroupOfOperator(id));
+        return new GroupDto(getGroup(id));
     }
 
     @Override
@@ -153,7 +174,7 @@ public class OperatorGroupService implements GroupService {
         );
     }
 
-    private Group getGroupOfOperator(Long id) {
+    private Group getGroup(Long id) {
         var group = groupRepository.findById(id)
                 .orElseThrow(() -> new ClientException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find group with id: " + id));
 

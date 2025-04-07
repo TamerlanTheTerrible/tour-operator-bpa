@@ -47,7 +47,7 @@ public class Group extends BaseEntity {
     private Integer size;
 
     @Column(name = "tour_leader_count", nullable = false)
-    private Integer tourLeaderAmount;
+    private Integer tourLeaderCount;
 
     @Column(name = "arrival_time", nullable = false)
     private LocalDateTime arrivalTime;
@@ -68,7 +68,7 @@ public class Group extends BaseEntity {
         this.number = dto.getNumber();
         this.country = dto.getCountry();
         this.size = dto.getSize();
-        this.tourLeaderAmount = dto.getTourLeaderCount();
+        this.tourLeaderCount = dto.getTourLeaderCount();
         this.arrivalTime = dto.getArrival();
         this.departureTime = dto.getDeparture();
         this.comment = dto.getComment();

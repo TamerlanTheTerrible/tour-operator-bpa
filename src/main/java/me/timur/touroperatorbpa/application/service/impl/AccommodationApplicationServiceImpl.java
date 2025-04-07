@@ -18,6 +18,7 @@ import me.timur.touroperatorbpa.exception.ClientException;
 import me.timur.touroperatorbpa.model.PageableFilter;
 import me.timur.touroperatorbpa.model.PageableList;
 import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
+import me.timur.touroperatorbpa.model.enums.ApplicationType;
 import me.timur.touroperatorbpa.model.enums.ResponseCode;
 import me.timur.touroperatorbpa.notification.model.NotificationCreateDto;
 import me.timur.touroperatorbpa.notification.service.NotificationService;
@@ -204,9 +205,14 @@ public class AccommodationApplicationServiceImpl implements ApplicationService<A
     }
 
     @Override
-    public List<AccommodationApplicationDto> getByGroupId(Long groupId, User user) {
-        var applications = applicationAccommodationRepository.findAllByGroupIdOrderByVersionDesc(groupId);
-        return AbstractApplicationDto.toList(getGroup(groupId), applications, AccommodationApplicationDto.class);
+    public AccommodationApplicationDto getByGroupId(Long groupId, User user) {
+//        var applications = applicationAccommodationRepository.findAllByGroupIdOrderByVersionDesc(groupId);
+        return null;
+    }
+
+    @Override
+    public ApplicationType getType() {
+        return ApplicationType.ACCOMMODATION;
     }
 
     @Override
