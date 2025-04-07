@@ -28,9 +28,9 @@
         </createTable>
     </changeSet>
     <changeSet id="1742302254151-3" author="tamerlantheterrible">
-        <sql>
-            CREATE INDEX idx_guide_language_language ON guide_language USING GIN (language);
-        </sql>
+        <createIndex indexName="idx_guide_language_language" tableName="guide_language">
+            <column name="language"/>
+        </createIndex>
     </changeSet>
     <changeSet id="1742302254151-4" author="tamerlantheterrible">
         <addForeignKeyConstraint baseColumnNames="guide_id" baseTableName="guide_language"
