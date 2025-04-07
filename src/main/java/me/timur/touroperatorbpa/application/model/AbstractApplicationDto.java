@@ -40,23 +40,23 @@ public class AbstractApplicationDto implements ApplicationDto {
     }
 
     public static <T extends AbstractApplicationDto, E extends ApplicationEntity> List<T> toList(Group group, List<E> entities, Class<T> dtoClass) {
-        var applicationMap = entities.stream().collect(Collectors.groupingBy(ApplicationEntity::version));
-        var applicationDtos = new ArrayList<T>();
-        int currentVersion = applicationMap.keySet().stream().max(Integer::compareTo).orElse(0);
-        for (int i = currentVersion; i > 0; i--) {
-            var applications = applicationMap.get(i);
-            if (applications != null) {
-                try {
-                    Constructor<T> constructor = dtoClass.getConstructor(Group.class, List.class);
-                    applicationDtos.add(constructor.newInstance(group, applications));
-                } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
-                    e.printStackTrace();
-                    // Handle exception appropriately
-                }
-            }
-        }
+//        var applicationMap = entities.stream().collect(Collectors.groupingBy(ApplicationEntity::version));
+//        var applicationDtos = new ArrayList<T>();
+//        int currentVersion = applicationMap.keySet().stream().max(Integer::compareTo).orElse(0);
+//        for (int i = currentVersion; i > 0; i--) {
+//            var applications = applicationMap.get(i);
+//            if (applications != null) {
+//                try {
+//                    Constructor<T> constructor = dtoClass.getConstructor(Group.class, List.class);
+//                    applicationDtos.add(constructor.newInstance(group, applications));
+//                } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+//                    e.printStackTrace();
+//                    // Handle exception appropriately
+//                }
+//            }
+//        }
 
-        return applicationDtos;
+        return null;
     }
 
     protected AbstractApplicationDto() {
@@ -66,6 +66,5 @@ public class AbstractApplicationDto implements ApplicationDto {
         this.groupId = group.getId();
         this.groupNumber = group.getNumber();
         this.status = getOverallStatus(entities.stream().map(ApplicationEntity::status).collect(Collectors.toList()));
-        this.version = entities.get(0).version();
     }
 }

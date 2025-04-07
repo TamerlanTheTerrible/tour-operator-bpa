@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import me.timur.touroperatorbpa.model.enums.Country;
 import me.timur.touroperatorbpa.model.enums.GroupStatus;
 import me.timur.touroperatorbpa.group.model.GroupCreateDto;
 
@@ -34,8 +35,9 @@ public class Group extends BaseEntity {
     @JoinColumn(name = "tour_operator_id", nullable = false)
     private User tourOperator;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "country", nullable = false)
-    private String country;
+    private Country country;
 
     @ManyToOne
     @JoinColumn(name = "partner_company_id", nullable = false)

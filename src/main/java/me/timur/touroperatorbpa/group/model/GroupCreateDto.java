@@ -7,6 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import me.timur.touroperatorbpa.model.enums.Country;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 
 import java.time.LocalDateTime;
@@ -21,7 +22,7 @@ public class GroupCreateDto {
     private String number;
 
     @JsonProperty("country")
-    private String country;
+    private Country country;
 
     @JsonProperty("company_id")
     private Long companyId;

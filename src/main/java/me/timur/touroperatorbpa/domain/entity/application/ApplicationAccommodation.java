@@ -11,6 +11,7 @@ import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
 import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationCreateDto;
 import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationDto;
+import me.timur.touroperatorbpa.model.enums.ApplicationType;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -110,8 +111,13 @@ public class ApplicationAccommodation extends BaseEntity implements ApplicationE
     }
 
     @Override
-    public int version() {
-        return this.version;
+    public long id() {
+        return this.getId();
+    }
+
+    @Override
+    public ApplicationType type() {
+        return ApplicationType.ACCOMMODATION;
     }
 
     @Override

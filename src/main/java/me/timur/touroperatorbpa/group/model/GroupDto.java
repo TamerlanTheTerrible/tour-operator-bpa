@@ -10,9 +10,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.timur.touroperatorbpa.domain.entity.Group;
+import me.timur.touroperatorbpa.domain.entity.application.ApplicationEntity;
+import me.timur.touroperatorbpa.model.enums.Country;
+import me.timur.touroperatorbpa.model.enums.GroupStatus;
 import me.timur.touroperatorbpa.util.LocalDateTimeUtil;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Temurbek Ismoilov on 27/07/23.
@@ -29,7 +35,7 @@ public class GroupDto {
     private String number;
 
     @JsonProperty("country")
-    private String country;
+    private Country country;
 
     @JsonProperty("company_id")
     private Long companyId;
@@ -56,8 +62,19 @@ public class GroupDto {
     @JsonProperty("comment")
     private String comment;
 
+    @JsonProperty("registration_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = LocalDateTimeUtil.DATE_TIME_PATTERN)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class) @JsonSerialize(using = LocalDateTimeSerializer.class)
+    private LocalDateTime registrationDate;
+
+    @JsonProperty("status")
+    private GroupStatus status;
+
     @JsonProperty("tour_operator_id")
     private Long tourOperatorId;
+
+    @JsonProperty("applications")
+    List<GroupApplicationDto> applications = new ArrayList<>();
 
     public GroupDto(Group group) {
         this.id = group.getId();
@@ -71,5 +88,13 @@ public class GroupDto {
         this.departure = group.getDepartureTime();
         this.comment = group.getComment();
         this.tourOperatorId = group.getTourOperator().getId();
+        this.registrationDate = group.getDateCreated();
+    }
+
+    public GroupDto(Group group, List<ApplicationEntity> applications) {
+        this(group);
+        this.applications = applications.stream()
+                .map(GroupApplicationDto::new)
+                .toList();
     }
 }

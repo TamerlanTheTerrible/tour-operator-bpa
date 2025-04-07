@@ -9,6 +9,7 @@ import me.timur.touroperatorbpa.domain.entity.BaseEntity;
 import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.domain.entity.Location;
 import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
+import me.timur.touroperatorbpa.model.enums.ApplicationType;
 
 import java.time.LocalDate;
 
@@ -23,7 +24,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 @Table(name = "application_accommpaniment", indexes = @Index(columnList = "group_id"))
-public class ApplicationAccompaniment extends BaseEntity {
+public class ApplicationAccompaniment extends BaseEntity implements ApplicationEntity  {
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
     private Group group;
@@ -44,4 +45,19 @@ public class ApplicationAccompaniment extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private ApplicationStatus status;
+
+    @Override
+    public long id() {
+        return getId();
+    }
+
+    @Override
+    public ApplicationType type() {
+        return ApplicationType.GUIDE;
+    }
+
+    @Override
+    public ApplicationStatus status() {
+        return getStatus();
+    }
 }

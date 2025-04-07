@@ -4,6 +4,7 @@ import me.timur.touroperatorbpa.domain.entity.PartnerCompany;
 import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.domain.entity.User;
 import me.timur.touroperatorbpa.group.model.GroupCreateDto;
+import me.timur.touroperatorbpa.model.enums.Country;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -25,7 +26,7 @@ public class GroupTest {
         // Create a GroupCreateDto with test data
         GroupCreateDto dto = new GroupCreateDto();
         dto.setNumber("GRP123");
-        dto.setCountry("Country1");
+        dto.setCountry(Country.ALGERIA);
         dto.setSize(20);
         dto.setTourLeaderCount(2);
         dto.setArrival(LocalDateTime.of(2023, 7, 19, 10, 0));
@@ -38,7 +39,7 @@ public class GroupTest {
         // Assert that the Group object is created correctly with the given values
         assertEquals(tourOperator, group.getTourOperator());
         assertEquals("GRP123", group.getNumber());
-        assertEquals("Country1", group.getCountry());
+        assertEquals(Country.ALGERIA, group.getCountry());
         assertEquals(partnerCompany.getName(), group.getPartnerCompany().getName());
         assertEquals(20, group.getSize());
         assertEquals(2, group.getTourLeaderAmount());

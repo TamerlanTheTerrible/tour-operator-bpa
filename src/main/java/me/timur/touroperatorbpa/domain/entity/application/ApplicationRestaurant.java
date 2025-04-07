@@ -9,6 +9,7 @@ import me.timur.touroperatorbpa.domain.entity.BaseEntity;
 import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.domain.entity.Restaurant;
 import me.timur.touroperatorbpa.model.enums.ApplicationStatus;
+import me.timur.touroperatorbpa.model.enums.ApplicationType;
 import me.timur.touroperatorbpa.model.enums.MealType;
 
 import java.time.LocalDate;
@@ -24,7 +25,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 @Table(name = "application_restaurant", indexes = {@Index(columnList = "group_id"), @Index(columnList = "restaurant_id")})
-public class ApplicationRestaurant extends BaseEntity {
+public class ApplicationRestaurant extends BaseEntity implements ApplicationEntity {
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
     private Group group;
@@ -55,4 +56,19 @@ public class ApplicationRestaurant extends BaseEntity {
 
     @Column(name = "rating_count", nullable = false)
     private Long ratingCount;
+
+    @Override
+    public long id() {
+        return getId();
+    }
+
+    @Override
+    public ApplicationType type() {
+        return ApplicationType.RESTAURANT;
+    }
+
+    @Override
+    public ApplicationStatus status() {
+        return getStatus();
+    }
 }

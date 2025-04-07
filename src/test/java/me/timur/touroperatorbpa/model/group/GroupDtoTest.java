@@ -4,6 +4,7 @@ import me.timur.touroperatorbpa.domain.entity.PartnerCompany;
 import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.domain.entity.User;
 import me.timur.touroperatorbpa.group.model.GroupDto;
+import me.timur.touroperatorbpa.model.enums.Country;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -20,7 +21,7 @@ public class GroupDtoTest {
         // Create a mock Group object with test data
         Group group = new Group();
         group.setNumber("GRP123");
-        group.setCountry("Country1");
+        group.setCountry(Country.ALGERIA);
 
         // Create a mock Company object for the Group
         PartnerCompany partnerCompany = new PartnerCompany();
@@ -44,7 +45,7 @@ public class GroupDtoTest {
 
         // Assert that the GroupDto object is created correctly with the given values
         assertEquals("GRP123", groupDto.getNumber());
-        assertEquals("Country1", groupDto.getCountry());
+        assertEquals(Country.ALGERIA, groupDto.getCountry());
         assertEquals(1L, groupDto.getCompanyId());
         assertEquals("Company1", groupDto.getCompanyName());
         assertEquals(20, groupDto.getSize());
