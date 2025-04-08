@@ -19,7 +19,7 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class TransportApplicationDtoDto extends AbstractApplicationDto {
+public class TransportApplicationDto extends AbstractApplicationDto {
 
     @JsonProperty("items")
     private List<TransportItem> items;
