@@ -6,11 +6,12 @@ import me.timur.touroperatorbpa.application.model.ApplicationDto;
 import me.timur.touroperatorbpa.application.model.ApplicationCreate;
 import me.timur.touroperatorbpa.application.model.accommodation.AccommodationApplicationDto;
 import me.timur.touroperatorbpa.application.model.transport.TransportApplicationCreateDto;
-import me.timur.touroperatorbpa.application.model.transport.TransportApplicationDtoDto;
+import me.timur.touroperatorbpa.application.model.transport.TransportApplicationDto;
 import me.timur.touroperatorbpa.application.service.ApplicationService;
 import me.timur.touroperatorbpa.domain.entity.User;
 import me.timur.touroperatorbpa.model.PageableFilter;
 import me.timur.touroperatorbpa.model.PageableList;
+import me.timur.touroperatorbpa.model.enums.ApplicationType;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,14 +23,14 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class TransportApplicationService<T extends ApplicationCreate, R extends ApplicationDto> implements ApplicationService<TransportApplicationCreateDto, TransportApplicationDtoDto> {
+public class TransportApplicationService<T extends ApplicationCreate, R extends ApplicationDto> implements ApplicationService<TransportApplicationCreateDto, TransportApplicationDto> {
     @Override
-    public TransportApplicationDtoDto create(TransportApplicationCreateDto transportApplicationCreateDto, User user) {
+    public TransportApplicationDto create(TransportApplicationCreateDto transportApplicationCreateDto, User user) {
         return null;
     }
 
     @Override
-    public List<TransportApplicationDtoDto> update(TransportApplicationDtoDto transportApplicationDto, User user) {
+    public List<TransportApplicationDto> update(TransportApplicationDto transportApplicationDto, User user) {
         return null;
     }
 
@@ -44,13 +45,18 @@ public class TransportApplicationService<T extends ApplicationCreate, R extends 
     }
 
     @Override
-    public TransportApplicationDtoDto get(Long id, User user) {
+    public TransportApplicationDto get(Long id, User user) {
         return null;
     }
 
     @Override
-    public List<TransportApplicationDtoDto> getByGroupId(Long groupId, User user) {
+    public TransportApplicationDto getByGroupId(Long groupId, User user) {
         return null;
+    }
+
+    @Override
+    public ApplicationType getType() {
+        return ApplicationType.TRANSPORT;
     }
 
     @Override

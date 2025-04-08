@@ -108,47 +108,45 @@ public class OperatorGroupService implements GroupService {
             group.setComment(CommentUtil.appendComment(group.getComment(), dto.getComment(), UserContext.getUser().getUsername()));
         }
 
-        saveAndNotify(group, "Updated group");
+        saveAndNotify(group, "Group updated");
 
         return new GroupDto(group, getApplicationMap(group));
-    }
-
-    private Map<ApplicationType, ApplicationDto> getApplicationMap(Group group) {
-        HashMap<ApplicationType, ApplicationDto> applicationDtoMap = new HashMap<>();
-        User user = UserContext.getUser();
-        Arrays.stream(ApplicationType.values()).forEach(applicationType -> {
-            var applicationService = applicationServiceFactory.getByType(applicationType);
-            if(applicationService != null) {
-                var application = applicationService.getByGroupId(group.getId(), user);
-                if (application != null) {
-                    applicationDtoMap.put(applicationType, application);
-                }
-            }
-        });
-        return applicationDtoMap;
     }
 
     @Override
     public void cancel(Long id) {
         log.info("Cancelling group with id: {}", id);
-
         var group = getGroup(id);
-        group.setStatus(GroupStatus.CANCELLED);
-        groupRepository.save(group);
-
-        log.info("Cancelling applications of group with id: {}", group.getId());
-        //TODO: cancel applications
+        try {
+            Arrays.stream(ApplicationType.values()).forEach(applicationType -> {
+                var applicationService = applicationServiceFactory.getByType(applicationType);
+                if (applicationService != null) {
+                    applicationService.cancelByGroupId(group.getId());
+                }
+            });
+            group.setStatus(GroupStatus.CANCELLED);
+            saveAndNotify(group, "Group cancelled");
+        } catch (Exception e) {
+            log.error("Error while cancelling group with id: {}", id, e);
+            sendNotification(group, "Error while cancelling group");
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public GroupDto get(Long id) {
-        return new GroupDto(getGroup(id));
+        return new GroupDto(getGroup(id), getApplicationMap(getGroup(id)));
     }
 
     @Override
     public PageableList<GroupDto> getAllByFiltered(GroupFilter filter) {
-        if (filter.getTourOperatorId() == null && UserContext.getUser().getRoleNames().contains("TOUR_OPERATOR")) {
-            filter.setTourOperatorId(UserContext.getUser().getId());
+        if (filter.getTourOperatorId() == null) {
+            final User user = UserContext.getUser();
+            if(user.getRoleNames().contains("TOUR_OPERATOR")) {
+                filter.setTourOperatorId(user.getId());
+            } else {
+                filter.setCompanyId(user.getUserCompany().getId());
+            }
         }
 
         final Pair<List<Group>, Long> result = groupCustomRepository.findAllFiltered(filter);
@@ -190,10 +188,26 @@ public class OperatorGroupService implements GroupService {
         try {
             notificationService.create(NotificationCreateDto.builder()
                     .groupId(group.getId())
-                    .message(String.format(message + "%s. Id: %s, number: %s", message, group.getId(), group.getNumber()))
+                    .message(String.format(message + "%s.\nId: %s, number: %s", message, group.getId(), group.getNumber()))
                     .build());
         } catch (Exception e) {
             log.error("Error while sending notification", e);
         }
     }
+
+    private Map<ApplicationType, ApplicationDto> getApplicationMap(Group group) {
+        HashMap<ApplicationType, ApplicationDto> applicationDtoMap = new HashMap<>();
+        User user = UserContext.getUser();
+        Arrays.stream(ApplicationType.values()).forEach(applicationType -> {
+            var applicationService = applicationServiceFactory.getByType(applicationType);
+            if(applicationService != null) {
+                var application = applicationService.getByGroupId(group.getId(), user);
+                if (application != null) {
+                    applicationDtoMap.put(applicationType, application);
+                }
+            }
+        });
+        return applicationDtoMap;
+    }
+
 }
