@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.timur.touroperatorbpa.application.model.ApplicationDto;
-import me.timur.touroperatorbpa.application.service.ApplicationService;
 import me.timur.touroperatorbpa.application.service.ApplicationServiceFactory;
 import me.timur.touroperatorbpa.domain.entity.Group;
 import me.timur.touroperatorbpa.domain.entity.PartnerCompany;
@@ -58,11 +57,8 @@ public class OperatorGroupService implements GroupService {
         validateGroupNumber(createDto.getNumber(), currentUser);
 
         // Save and return group
-        Group group = saveGroup(createDto, currentUser, company);
+        Group group = saveAndNotify(new Group(createDto, currentUser, company), "Created group");
         log.info("Created group with id: {} and number: {}", group.getId(), group.getNumber());
-
-        // Send notification
-        sendNotification(group);
 
         return new GroupDto(group);
     }
@@ -71,17 +67,6 @@ public class OperatorGroupService implements GroupService {
         if (number != null && groupRepository.existsByNumberAndTourOperator_UserCompany(number, currentUser.getUserCompany())) {
             throw new ClientException(ResponseCode.BAD_REQUEST, "Group number is not unique: " + number);
         }
-    }
-
-    private Group saveGroup(GroupCreateDto createDto, User currentUser, PartnerCompany company) {
-        return groupRepository.save(new Group(createDto, currentUser, company));
-    }
-
-    private void sendNotification(Group group) {
-        notificationService.create(NotificationCreateDto.builder()
-            .groupId(group.getId())
-            .message(String.format("Created group with id: %s and number: %s", group.getId(), group.getNumber()))
-            .build());
     }
 
     @Override
@@ -123,7 +108,7 @@ public class OperatorGroupService implements GroupService {
             group.setComment(CommentUtil.appendComment(group.getComment(), dto.getComment(), UserContext.getUser().getUsername()));
         }
 
-        groupRepository.save(group);
+        saveAndNotify(group, "Updated group");
 
         return new GroupDto(group, getApplicationMap(group));
     }
@@ -193,5 +178,22 @@ public class OperatorGroupService implements GroupService {
     private PartnerCompany getCompany(Long id) {
         return companyRepository.findById(id)
                 .orElseThrow(() -> new ClientException(ResponseCode.RESOURCE_NOT_FOUND, "Could not find company with id: " + id));
+    }
+
+
+    private Group saveAndNotify(Group entity, String message) {
+        sendNotification(entity, message);
+        return groupRepository.save(entity);
+    }
+
+    private void sendNotification(Group group, String message) {
+        try {
+            notificationService.create(NotificationCreateDto.builder()
+                    .groupId(group.getId())
+                    .message(String.format(message + "%s. Id: %s, number: %s", message, group.getId(), group.getNumber()))
+                    .build());
+        } catch (Exception e) {
+            log.error("Error while sending notification", e);
+        }
     }
 }
