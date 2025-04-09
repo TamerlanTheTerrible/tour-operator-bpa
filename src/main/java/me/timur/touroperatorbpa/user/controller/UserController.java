@@ -3,7 +3,7 @@ package me.timur.touroperatorbpa.user.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import me.timur.touroperatorbpa.model.response.BaseResponse;
-import me.timur.touroperatorbpa.user.model.PasswordDto;
+import me.timur.touroperatorbpa.user.model.PasswordChangeDTO;
 import me.timur.touroperatorbpa.user.model.UserCreateDto;
 import me.timur.touroperatorbpa.user.model.UserDto;
 import me.timur.touroperatorbpa.user.service.UserService;
@@ -37,9 +37,9 @@ public class UserController {
         return BaseResponse.ok(userService.changeStatus(id, isActive));
     }
 
-    @PutMapping("/{id}/change-password")
-    public BaseResponse<UserDto> changePassword(@PathVariable Long id, @Valid @RequestBody PasswordDto dto) {
-        return BaseResponse.ok(userService.changePassword(id, dto.getPassword()));
+    @PutMapping("/change-password")
+    public BaseResponse<UserDto> changePassword(@Valid @RequestBody PasswordChangeDTO dto) {
+        return BaseResponse.ok(userService.changePassword(dto));
     }
 
     @GetMapping(value ={"", "/all"})

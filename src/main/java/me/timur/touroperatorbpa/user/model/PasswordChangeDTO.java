@@ -14,8 +14,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PasswordDto {
+public class PasswordChangeDTO {
     @NotNull(message = "Password must not be null") @NotBlank
     @JsonProperty(value = "password")
     private String password;
+
+    @NotNull(message = "Repeated password must not be null") @NotBlank
+    @JsonProperty(value = "repeat_password")
+    private String repeatPassword;
 }

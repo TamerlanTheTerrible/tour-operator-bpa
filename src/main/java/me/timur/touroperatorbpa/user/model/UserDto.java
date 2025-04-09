@@ -10,6 +10,8 @@ import me.timur.touroperatorbpa.domain.entity.UserRole;
 import me.timur.touroperatorbpa.model.enums.Role;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by Temurbek Ismoilov on 02/08/23.
@@ -37,7 +39,7 @@ public class UserDto {
     private String phoneNumber;
 
     @JsonProperty("roles")
-    private List<Role> roles;
+    private Set<Role> roles;
 
     @JsonProperty("is_active")
     private Boolean isActive;
@@ -47,7 +49,7 @@ public class UserDto {
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
         this.username = user.getUsername();
-        this.roles = user.getRoles().stream().map(UserRole::getRole).toList();
+        this.roles = user.getRoles().stream().map(UserRole::getRole).collect(Collectors.toSet());
         this.isActive = user.getIsActive();
         this.phoneNumber = user.getPhoneNumber();
     }

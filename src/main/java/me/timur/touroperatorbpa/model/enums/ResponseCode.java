@@ -4,10 +4,13 @@ public enum ResponseCode {
     OK(0),
     // unexpected internal errors
     INTERNAL_SERVER_ERROR(-100),
+
     // client request errors
     RESOURCE_NOT_FOUND(-201),
     BAD_REQUEST(-202),
     FORBIDDEN_RESOURCE(-203),
+    PASSWORD_NOT_MATCH(-204),
+
     // authentication errors
     AUTHENTICATION_ERROR(-301),
     ;
