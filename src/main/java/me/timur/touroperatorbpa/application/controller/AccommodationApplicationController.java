@@ -33,7 +33,7 @@ public class AccommodationApplicationController {
     }
 
     @GetMapping("/group/{groupId}")
-    public BaseResponse<List<AccommodationApplicationDto>> getByGroupId(@PathVariable Long groupId, @AuthorizedUser User user) {
+    public BaseResponse<AccommodationApplicationDto> getByGroupId(@PathVariable Long groupId, @AuthorizedUser User user) {
         return BaseResponse.ok(applicationService.getByGroupId(groupId, user));
     }
 }

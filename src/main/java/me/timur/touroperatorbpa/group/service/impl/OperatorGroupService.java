@@ -21,6 +21,7 @@ import me.timur.touroperatorbpa.model.PageableList;
 import me.timur.touroperatorbpa.model.enums.ApplicationType;
 import me.timur.touroperatorbpa.model.enums.GroupStatus;
 import me.timur.touroperatorbpa.model.enums.ResponseCode;
+import me.timur.touroperatorbpa.model.enums.Role;
 import me.timur.touroperatorbpa.notification.model.NotificationCreateDto;
 import me.timur.touroperatorbpa.notification.service.NotificationService;
 import me.timur.touroperatorbpa.security.UserContext;
@@ -38,6 +39,11 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class OperatorGroupService implements GroupService {
+
+    /**
+     * This service is responsible for managing groups for tour operators.
+     * It provides methods to create, update, cancel and fetch groups.
+     */
 
     private final GroupRepository groupRepository;
     private final GroupFilteredFetchRepository groupCustomRepository;
@@ -142,7 +148,7 @@ public class OperatorGroupService implements GroupService {
     public PageableList<GroupDto> getAllByFiltered(GroupFilter filter) {
         if (filter.getTourOperatorId() == null) {
             final User user = UserContext.getUser();
-            if(user.getRoleNames().contains("TOUR_OPERATOR")) {
+            if(user.getRoleNames().contains(Role.TOUR_MANAGER)) {
                 filter.setTourOperatorId(user.getId());
             } else {
                 filter.setCompanyId(user.getUserCompany().getId());
